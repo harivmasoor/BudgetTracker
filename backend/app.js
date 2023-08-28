@@ -1,4 +1,7 @@
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 // module.exports = app;
 const express = require("express");
 const cookieParser = require('cookie-parser');
@@ -6,6 +9,7 @@ const logger = require('morgan');
 const debug = require('debug');
 const cors = require('cors');
 const csurf = require('csurf');
+
 /* --- Need to import these to load the models into mongoose --- */
 require('./models/User');
 
