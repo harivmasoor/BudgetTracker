@@ -70,10 +70,10 @@ BudgetBuddy leverages the MERN stack, consisting of MongoDB, Express.js, React, 
 
 ## Group Members & Work Breakdown
 
-**Hari Masoor**,
-**Elilta Abrham**,
-**Farivar Amiri**,
-**Dominic Chan**
+**Hari Masoor**, Flex
+**Elilta Abrham**, Flex
+**Farivar Amiri**, Front-End
+**Dominic Chan**, Backend
 
 ### Day 1
 - Set up the basic MERN stack project structure - **Elilta** and **Dominic**.
