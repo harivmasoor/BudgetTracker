@@ -9,13 +9,13 @@ const Expense = mongoose.model('Expense');
 // Create a new expense
 router.post('/', restoreUser, async (req, res, next) => {
   try {
-    const { fixedExpenses, variableExpenses, CategoryId, UserId, Notes, Category } = req.body;
+    const { fixedExpenses, variableExpenses, user, notes, category } = req.body;
     const newExpense = new Expense({
       fixedExpenses,
       variableExpenses,
-      UserId,
-      Notes,
-      Category
+      user,
+      notes,
+      category
     });
     const savedExpense = await newExpense.save();
     res.json(savedExpense);
@@ -28,7 +28,7 @@ router.post('/', restoreUser, async (req, res, next) => {
 router.get('/', restoreUser, async (req, res, next) => {
   try {
     if (!req.user) return res.status(401).json({ error: "Not logged in" });
-    const expenses = await Expense.find({ UserId: req.user._id });
+    const expenses = await Expense.find({ user: req.user._id });
     res.json(expenses);
   } catch (err) {
     next(err);
@@ -44,10 +44,9 @@ router.put('/:id', restoreUser, async (req, res, next) => {
     // Update the properties you want to be editable, for example:
     expense.fixedExpenses = req.body.fixedExpenses || expense.fixedExpenses;
     expense.variableExpenses = req.body.variableExpenses || expense.variableExpenses;
-    expense.CategoryId = req.body.CategoryId || expense.CategoryId;
-    expense.UserId = req.body.UserId || expense.UserId;
-    expense.Notes = req.body.Notes || expense.Notes;
-    expense.Category = req.body.Category || expense.Category;
+    expense.user = req.body.user || expense.user;
+    expense.notes = req.body.notes || expense.notes;
+    expense.category = req.body.category || expense.category;
 
     
     const updatedExpense = await expense.save();

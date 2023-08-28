@@ -8,13 +8,14 @@ const expenseSchema = new Schema({
   variableExpenses: {
     type: Number
   },
-  UserId: {
-    type: Number
-  }
-  Notes: {
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  notes: {
     type: String
-  }
-  Category: {
+  },
+  category: {
     type: Number
   }
 }, {
