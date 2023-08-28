@@ -1,0 +1,26 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const expenseSchema = new Schema({
+  fixedExpenses: {
+    type: Number
+  },
+  variableExpenses: {
+    type: Number
+  },
+  UserId: {
+    type: Number
+  }
+  Notes: {
+    type: String
+  }
+  Category: {
+    type: Number
+  }
+}, {
+  // tells mongoose to add and maintain `createdAt` and `updatedAt` fields with
+  // datetime timestamps
+  timestamps: true
+});
+
+module.exports = mongoose.model('Expense', expenseSchema);
