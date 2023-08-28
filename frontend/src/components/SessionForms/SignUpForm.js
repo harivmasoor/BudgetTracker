@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './SessionForm.css';
 import { signup, clearSessionErrors } from '../../store/session';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
 function SignupForm () {
   const [email, setEmail] = useState('');
@@ -51,15 +51,15 @@ function SignupForm () {
 
     dispatch(signup(user)); 
   }
-  const handleSignup = async (e) => {
-    e.preventDefault();
-    // Assuming dispatching the signup action returns a promise
-    const result = await dispatch(signup(/* signup data */));
-    if (result.success) {
-        // Redirect the user to the questionnaire page
-        history.push('/questionnaire');
-    }
-  }
+  // const handleSignup = async (e) => {
+  //   e.preventDefault();
+  //   // Assuming dispatching the signup action returns a promise
+  //   const result = await dispatch(signup(/* signup data */));
+  //   if (result.success) {
+  //       // Redirect the user to the questionnaire page
+  //       history.push('/questionnaire');
+  //   }
+  // }
 
   return (
     <form className="session-form" onSubmit={handleSubmit}>
