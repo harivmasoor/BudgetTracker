@@ -7,8 +7,6 @@ const categorySchema = new Schema({
     required: true
   }
 }, {
-  // tells mongoose to add and maintain `createdAt` and `updatedAt` fields with
-  // datetime timestamps
   timestamps: true
 });
 
