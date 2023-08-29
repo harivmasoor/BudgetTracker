@@ -1,27 +1,26 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const expenseSchema = new Schema({
-  fixedExpenses: {
-    type: Number
-  },
-  variableExpenses: {
-    type: Number
-  },
+const incomeSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  notes: {
-    type: String
+  incomesource: {
+    type: String,
+    required: true
   },
-  category: { type: Schema.Types.ObjectId,
+  incomeamount: {
+    type: Number,
+    required: true
+  },
+  category: { type: mongoose.Schema.Types.ObjectId,
     ref: 'Category'
-  },
+},
 }, {
   // tells mongoose to add and maintain `createdAt` and `updatedAt` fields with
   // datetime timestamps
   timestamps: true
 });
 
-module.exports = mongoose.model('Expense', expenseSchema);
+module.exports = mongoose.model('Income', incomeSchema);
