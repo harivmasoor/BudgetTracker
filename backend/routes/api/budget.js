@@ -20,7 +20,7 @@ router.post('/', restoreUser, async (req, res, next) => {
       date
     });
     const savedBudget = await newBudget.save();
-    res.json(await savedBudget.populate("category"));
+    res.json(savedBudget);
   } catch (err) {
     next(err);
   }
