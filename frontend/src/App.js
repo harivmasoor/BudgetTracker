@@ -14,6 +14,7 @@ import ExpenseList from './components/Expenses/expenseList';
 import ExpensePieChart from './components/Expenses/expensePieChart';
 import ExpensesPage from './components/Expenses/expensesPage';
 
+
 import { getCurrentUser } from './store/session';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
   useEffect(() => {
     dispatch(getCurrentUser()).then(() => setLoaded(true));
   }, [dispatch]);
+
 
   return loaded && (
     <>
