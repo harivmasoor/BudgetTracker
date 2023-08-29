@@ -1,35 +1,64 @@
-// import { PieChart, Pie, Cell } from 'recharts';
-// import { useSelector } from 'react-redux';
+import React, { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import Chart from 'chart.js/auto';
 
-// function ExpensePieChart() {
-//   const expenses = useSelector(state => state.expenses);
+function ExpensePieChart() {
+  const canvasRef = useRef(null);
+  const chartRef = useRef(null);
+  const expenses = useSelector(state => state.expenses);
 
-//   // Process data for pie chart
-//   const data = [
-//     // Example: { name: 'Fixed Expenses', value: 400 }
-//     // Populate data array based on your expenses data
-//   ];
+  // Object to hold category totals
+  const categoryTotals = {};
 
-//   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+  expenses.forEach(expense => {
+    const categoryName = expense.category ? expense.category.name : 'Uncategorized';
+    if (expense.variableExpenses) {
+      if (!categoryTotals[categoryName]) {
+        categoryTotals[categoryName] = 0;
+      }
+      categoryTotals[categoryName] += expense.variableExpenses;
+    }
+  });
 
-//   return (
-//     <PieChart width={400} height={400}>
-//       <Pie
-//         data={data}
-//         cx={200}
-//         cy={200}
-//         labelLine={false}
-//         outerRadius={80}
-//         fill="#8884d8"
-//         dataKey="value"
-//       >
-//         {
-//           data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
-//         }
-//       </Pie>
-//     </PieChart>
-//   );
-// }
+  const categoryNames = Object.keys(categoryTotals);
+  const categoryValues = Object.values(categoryTotals);
+
+  useEffect(() => {
+    // Destroy the existing chart if there is one
+    if (chartRef.current) {
+      chartRef.current.destroy();
+    }
+
+    const ctx = canvasRef.current.getContext('2d');
+    const newChartInstance = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: categoryNames,  // Categories
+        datasets: [
+          {
+            data: categoryValues,  // Expense totals for each category
+            backgroundColor: ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'],
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+      },
+    });
+
+    // Store the new chart instance to this variable for later use in the useEffect
+    chartRef.current = newChartInstance;
+
+  }, [categoryNames, categoryValues]);
+
+  return (
+    <div>
+      <canvas ref={canvasRef} width="400" height="400"></canvas>
+    </div>
+  );
+}
+
+export default ExpensePieChart;
 
 
-// export default ExpensePieChart;
