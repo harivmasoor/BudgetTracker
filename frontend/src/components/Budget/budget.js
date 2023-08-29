@@ -15,8 +15,8 @@ function Budget() {
     budgetAmount: '',
     budgetPlan: '',
     notes: '',
-    category:'',
-    // date:'',
+    category: categories.length > 0 ? categories[0]._id : '',
+    // date: '',
     user: currentUser._id
   });
 
@@ -53,7 +53,9 @@ function Budget() {
           <li key={budget._id}>
             <div>Budget Amount: {budget.budgetAmount}</div>
             <div>Budget Plan: {budget.budgetPlan}</div>
+            <div>Budget Category: {budget.category ? budget.category.name : 'N/A'}</div>
             <div>Notes: {budget.notes}</div>
+            <div>Date: {budget.date}</div>
             {/* Other properties */}
             <button onClick={() => handleDeleteBudget(budget._id)}>Delete</button>
           </li>

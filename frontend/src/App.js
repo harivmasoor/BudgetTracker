@@ -16,6 +16,7 @@ import ExpensesPage from './components/Expenses/expensesPage';
 
 
 import { getCurrentUser } from './store/session';
+import Budget from './components/Budget/budget';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -34,6 +35,7 @@ function App() {
         <AuthRoute exact path="/signup" component={SignupForm} />
         <ProtectedRoute exact path="/profile" component={Profile} />
         <ProtectedRoute exact path="/expenses" component={ExpensesPage} />
+        <ProtectedRoute exact path="/budget" component={Budget} />
       </Switch>
     </>
   );
