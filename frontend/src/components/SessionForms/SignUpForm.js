@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom'; // <-- Add this import
 import './SessionForm.css';
 import { signup, clearSessionErrors } from '../../store/session';
-// import { useHistory } from 'react-router-dom';
 
 function SignupForm () {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
+  const [shouldRedirect, setShouldRedirect] = useState(false); // <-- Add this line
   const errors = useSelector(state => state.errors.session);
   const dispatch = useDispatch();
 
@@ -41,25 +42,22 @@ function SignupForm () {
     return e => setState(e.currentTarget.value);
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const user = {
       email,
       username,
       password
     };
+    const success = await dispatch(signup(user)); // Assume that this returns a boolean or something that evaluates to true on success
+    if (success) {
+      setShouldRedirect(true); // Redirect to main page
+    }
+  };
 
-    dispatch(signup(user)); 
+  if (shouldRedirect) { // <-- Add this block
+    return <Redirect to="/" />;
   }
-  // const handleSignup = async (e) => {
-  //   e.preventDefault();
-  //   // Assuming dispatching the signup action returns a promise
-  //   const result = await dispatch(signup(/* signup data */));
-  //   if (result.success) {
-  //       // Redirect the user to the questionnaire page
-  //       history.push('/questionnaire');
-  //   }
-  // }
 
   return (
     <form className="session-form" onSubmit={handleSubmit}>
