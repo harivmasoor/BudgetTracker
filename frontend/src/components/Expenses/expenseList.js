@@ -3,20 +3,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchExpenses } from '../../store/expenses';
 
 function ExpenseList() {
+  const categories = useSelector(state => state.categories);
   const dispatch = useDispatch();
   const expenses = useSelector(state => state.expenses);
 
   useEffect(() => {
     dispatch(fetchExpenses());
   }, [dispatch]);
-
+  if (!categories) return null;
   return (
     <div>
       {expenses.map(expense => (
         <div key={expense._id}>
           <p><strong>Variable Expense:</strong> ${expense.variableExpenses}</p>
           <p><strong>Notes:</strong> {expense.notes}</p>
-          <p><strong>Category:</strong> {expense.category ? expense.category.name : 'N/A'}</p>
+          <div>Category: {categories.filter(category => category._id === expense.category).map(filteredCategory => filteredCategory.name)}</div>
           <hr />
         </div>
       ))}
