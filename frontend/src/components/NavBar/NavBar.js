@@ -18,17 +18,10 @@ function NavBar () {
     if (loggedIn) {
       return (
         <div className="links-nav">
-          <Link to={'/profile'}>Profile</Link>
-          <button onClick={logoutUser}>Logout</button>
-        </div>
-      );
-    } else {
-      return (
-        <div className="links-auth">
           <Link to={'/'}>Home</Link>
           <Link to={'/mainform'}>MainForm</Link>
-          <Link to={'/signup'}>Signup</Link>
-          <Link to={'/login'}>Login</Link>
+          <Link to={'/profile'}>Profile</Link>
+          <button onClick={logoutUser}>Logout</button>
         </div>
       );
     }
@@ -36,7 +29,6 @@ function NavBar () {
 
   return (
     <>
-      <h1>BudgetBuddy</h1>
       { getLinks() }
     </>
   );

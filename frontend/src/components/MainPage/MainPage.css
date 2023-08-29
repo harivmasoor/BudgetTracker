@@ -1,0 +1,42 @@
+
+.background-video {
+    /* position: fixed; */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height:max-content;
+    z-index: -1;
+    object-fit: cover;
+  }
+  
+
+  .top-image {
+    /* position: fixed; */
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
+
+  body{
+    background-color: rgb(45, 45, 45);
+  }
+  
+  .top-image-container {
+    position: relative;
+  }
+  
+  .open-modal-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(45, 45, 45, 0.7);
+    color: white;
+    padding: 50px 50px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+  }
+  

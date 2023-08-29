@@ -11,6 +11,7 @@ import SignupForm from './components/SessionForms/SignupForm';
 import Profile from './components/Profile/Profile';
 import UserMainForm from './components/UserFinanceForm/UserMainForm';
 import { getCurrentUser } from './store/session';
+import './App.css';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -21,14 +22,16 @@ function App() {
 
   return loaded && (
     <>
+    
       <NavBar />
       <Switch>
         <AuthRoute exact path="/" component={MainPage} />
-        <AuthRoute exact path="/login" component={LoginForm} />
-        <AuthRoute exact path="/signup" component={SignupForm} />
         <ProtectedRoute exact path='/profile' component={Profile}/>
         <ProtectedRoute exact path="/mainform" component={UserMainForm} />
       </Switch>
+      <footer id="footer">
+    <p>© 2023 by BudgetBuddy. All rights reserved.</p>
+  </footer>
     </>
   );
 }
