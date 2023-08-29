@@ -54,13 +54,16 @@ app.use(
 
 const usersRouter = require('./routes/api/users');
 const csrfRouter = require('./routes/api/csrf');
-const expensesRouter = require('./routes/api/expenses');
+
 const incomesRouter = require('./routes/api/incomes');
-const exp = require('constants');
+const budgetRouter = require('./routes/api/budget');
+const expensesRouter = require('./routes/api/expenses');
 app.use('/api/users', usersRouter);
 app.use('/api/csrf', csrfRouter);
+app.use('/api/budget', budgetRouter);
 app.use('/api/expenses', expensesRouter);
 app.use('/api/incomes', incomesRouter);
+const exp = require('constants');
 
 if (!isProduction) {
   app.use(cors())

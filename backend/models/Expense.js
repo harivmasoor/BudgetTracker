@@ -18,6 +18,7 @@ const expenseSchema = new Schema({
   category: {
     type: Number
   }
+
 }, {
   // tells mongoose to add and maintain `createdAt` and `updatedAt` fields with
   // datetime timestamps
