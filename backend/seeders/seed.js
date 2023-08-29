@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Category = require('../models/Category'); // Update this path to point to your actual Category model file
+const IncomeCategory = require('../models/IncomeCategory');
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://admin:tfPoFeVmBbKLLWff@budgetbuddy.zqn6bvq.mongodb.net/?retryWrites=true&w=majority', {
@@ -35,12 +36,44 @@ const categories = [
   { name: 'Debt Payment' },
 ];
 
+const incomeCategories = [
+  { name: 'Salary/Wages' },
+  { name: 'Bonuses' },
+  { name: 'Investment Income' },
+  { name: 'Rental Income' },
+  { name: 'Business Revenue' },
+  { name: 'Freelance Work' },
+  { name: 'Pensions' },
+  { name: 'Social Security' },
+  { name: 'Scholarships/Grants' },
+  { name: 'Alimony' },
+  { name: 'Child Support' },
+  { name: 'Unemployment Benefits' },
+  { name: 'Disability Benefits' },
+  { name: 'Gifts' },
+  { name: 'Selling Goods' },
+  { name: 'Royalties' },
+  { name: 'Sponsorships' },
+  { name: 'Crowdfunding' },
+  { name: 'Lottery/Gambling Winnings' },
+  { name: 'Other' }
+];
+
 // Seed the categories into the database
-Category.insertMany(categories)
+// Category.insertMany(categories)
+//   .then(() => {
+//     console.log('Categories seeded successfully!');
+//     mongoose.connection.close(); // Close the connection
+//   })
+//   .catch(err => {
+//     console.log('Error seeding categories:', err);
+//   });
+// Seed the incomeCategories into the database
+IncomeCategory.insertMany(incomeCategories)
   .then(() => {
-    console.log('Categories seeded successfully!');
+    console.log('incomeCategories seeded successfully!');
     mongoose.connection.close(); // Close the connection
   })
   .catch(err => {
-    console.log('Error seeding categories:', err);
+    console.log('Error seeding incomeCategories:', err);
   });
