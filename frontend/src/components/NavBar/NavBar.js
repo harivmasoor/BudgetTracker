@@ -25,6 +25,8 @@ function NavBar () {
     } else {
       return (
         <div className="links-auth">
+          <Link to={'/'}>Home</Link>
+          <Link to={'/mainform'}>MainForm</Link>
           <Link to={'/signup'}>Signup</Link>
           <Link to={'/login'}>Login</Link>
         </div>
