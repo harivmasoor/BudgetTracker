@@ -14,6 +14,9 @@ const incomeSchema = new Schema({
     type: Number,
     required: true
   },
+  category: { type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category'
+},
 }, {
   // tells mongoose to add and maintain `createdAt` and `updatedAt` fields with
   // datetime timestamps
