@@ -4,21 +4,24 @@ import Chart from 'chart.js/auto';
 
 function ExpensePieChart() {
   const canvasRef = useRef(null);
-  const chartRef = useRef(null);  // Add this line to keep a reference to the chart
+  const chartRef = useRef(null);
   const expenses = useSelector(state => state.expenses);
 
-  let totalFixedExpenses = 0;
-  let totalVariableExpenses = 0;
+  // Object to hold category totals
+  const categoryTotals = {};
 
   expenses.forEach(expense => {
-    if (expense.fixedExpenses) {
-      totalFixedExpenses += expense.fixedExpenses;
-    }
-
+    const categoryName = expense.category ? expense.category.name : 'Uncategorized';
     if (expense.variableExpenses) {
-      totalVariableExpenses += expense.variableExpenses;
+      if (!categoryTotals[categoryName]) {
+        categoryTotals[categoryName] = 0;
+      }
+      categoryTotals[categoryName] += expense.variableExpenses;
     }
   });
+
+  const categoryNames = Object.keys(categoryTotals);
+  const categoryValues = Object.values(categoryTotals);
 
   useEffect(() => {
     // Destroy the existing chart if there is one
@@ -30,11 +33,11 @@ function ExpensePieChart() {
     const newChartInstance = new Chart(ctx, {
       type: 'pie',
       data: {
-        labels: ['Fixed Expenses', 'Variable Expenses'],
+        labels: categoryNames,  // Categories
         datasets: [
           {
-            data: [totalFixedExpenses, totalVariableExpenses],
-            backgroundColor: ['#0088FE', '#00C49F'],
+            data: categoryValues,  // Expense totals for each category
+            backgroundColor: ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'],
           },
         ],
       },
@@ -47,7 +50,7 @@ function ExpensePieChart() {
     // Store the new chart instance to this variable for later use in the useEffect
     chartRef.current = newChartInstance;
 
-  }, [totalFixedExpenses, totalVariableExpenses]);
+  }, [categoryNames, categoryValues]);
 
   return (
     <div>
@@ -57,6 +60,7 @@ function ExpensePieChart() {
 }
 
 export default ExpensePieChart;
+
 
 
 
