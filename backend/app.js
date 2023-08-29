@@ -57,10 +57,10 @@ const csrfRouter = require('./routes/api/csrf');
 
 app.use('/api/users', usersRouter);
 app.use('/api/csrf', csrfRouter);
-app.use('/api/budget', budgetRouter);
-app.use('/api/expenses', expensesRouter);
 const budgetRouter = require('./routes/api/budget');
 const expensesRouter = require('./routes/api/expenses');
+app.use('/api/budget', budgetRouter);
+app.use('/api/expenses', expensesRouter);
 const exp = require('constants');
 
 
