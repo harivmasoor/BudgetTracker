@@ -17,10 +17,10 @@ const budgetSchema = new Schema({
     type: String,
     required: true
   },
-  // category: { type: mongoose.Schema.Types.ObjectId,
-  //               ref: 'Category',
-  //               //  required: true 
-  //           },
+  category: { type: mongoose.Schema.Types.ObjectId,
+                ref: 'Category',
+                //  required: true 
+            },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User'
