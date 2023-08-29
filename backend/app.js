@@ -13,7 +13,7 @@ const csurf = require('csurf');
 require('./models/User');
 require('./models/Expense');
 require('./models/Category');
-
+require('./models/Income');
 /* ------------------------------------------------------------- */
 require('./config/passport'); // Need to import to configure passport module
 const passport = require('passport');
@@ -56,18 +56,18 @@ app.use(
 const usersRouter = require('./routes/api/users');
 const csrfRouter = require('./routes/api/csrf');
 
-app.use('/api/users', usersRouter);
-app.use('/api/csrf', csrfRouter);
+const incomesRouter = require('./routes/api/incomes');
 const budgetRouter = require('./routes/api/budget');
 const expensesRouter = require('./routes/api/expenses');
 const categoriesRouter = require('./routes/api/categories');
+
+app.use('/api/users', usersRouter);
+app.use('/api/csrf', csrfRouter);
 app.use('/api/budget', budgetRouter);
 app.use('/api/expenses', expensesRouter);
+app.use('/api/incomes', incomesRouter);
 app.use('/api/categories', categoriesRouter);
-
 const exp = require('constants');
-
-
 
 if (!isProduction) {
   app.use(cors())
