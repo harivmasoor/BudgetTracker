@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import Chart from 'chart.js/auto';
 
 function ExpensePieChart() {
+  const categories = useSelector(state => state.categories);
   const canvasRef = useRef(null);
   const chartRef = useRef(null);
   const expenses = useSelector(state => state.expenses);
@@ -11,7 +12,9 @@ function ExpensePieChart() {
   const categoryTotals = {};
 
   expenses.forEach(expense => {
-    const categoryName = expense.category ? expense.category.name : 'Uncategorized';
+    // Extract the category name from the categories array
+    const categoryName = categories.filter(category => category._id === expense.category).map(filteredCategory => filteredCategory.name)[0] || 'Uncategorized';
+
     if (expense.variableExpenses) {
       if (!categoryTotals[categoryName]) {
         categoryTotals[categoryName] = 0;
@@ -60,5 +63,6 @@ function ExpensePieChart() {
 }
 
 export default ExpensePieChart;
+
 
 

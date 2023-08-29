@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addExpense } from '../../store/expenses';
 import { fetchCategories } from '../../store/categories';
+import ExpenseList from './expenseList';
 
 function ExpenseInput() {
   const categories = useSelector(state => state.categories);
