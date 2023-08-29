@@ -1,35 +1,62 @@
-import { PieChart, Pie, Cell } from 'recharts';
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import Chart from 'chart.js/auto';
 
 function ExpensePieChart() {
+  const canvasRef = useRef(null);
+  const chartRef = useRef(null);  // Add this line to keep a reference to the chart
   const expenses = useSelector(state => state.expenses);
 
-  // Process data for pie chart
-  const data = [
-    // Example: { name: 'Fixed Expenses', value: 400 }
-    // Populate data array based on your expenses data
-  ];
+  let totalFixedExpenses = 0;
+  let totalVariableExpenses = 0;
 
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+  expenses.forEach(expense => {
+    if (expense.fixedExpenses) {
+      totalFixedExpenses += expense.fixedExpenses;
+    }
+
+    if (expense.variableExpenses) {
+      totalVariableExpenses += expense.variableExpenses;
+    }
+  });
+
+  useEffect(() => {
+    // Destroy the existing chart if there is one
+    if (chartRef.current) {
+      chartRef.current.destroy();
+    }
+
+    const ctx = canvasRef.current.getContext('2d');
+    const newChartInstance = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Fixed Expenses', 'Variable Expenses'],
+        datasets: [
+          {
+            data: [totalFixedExpenses, totalVariableExpenses],
+            backgroundColor: ['#0088FE', '#00C49F'],
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+      },
+    });
+
+    // Store the new chart instance to this variable for later use in the useEffect
+    chartRef.current = newChartInstance;
+
+  }, [totalFixedExpenses, totalVariableExpenses]);
 
   return (
-    <PieChart width={400} height={400}>
-      <Pie
-        data={data}
-        cx={200}
-        cy={200}
-        labelLine={false}
-        outerRadius={80}
-        fill="#8884d8"
-        dataKey="value"
-      >
-        {
-          data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
-        }
-      </Pie>
-    </PieChart>
+    <div>
+      <canvas ref={canvasRef} width="400" height="400"></canvas>
+    </div>
   );
 }
 
-
 export default ExpensePieChart;
+
+
+
