@@ -54,8 +54,10 @@ app.use(
 
 const usersRouter = require('./routes/api/users');
 const csrfRouter = require('./routes/api/csrf');
+const budgetRouter = require('./routes/api/budget');
 app.use('/api/users', usersRouter);
 app.use('/api/csrf', csrfRouter);
+app.use('/api/budget', budgetRouter);
 
 if (!isProduction) {
   app.use(cors())
