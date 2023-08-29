@@ -7,13 +7,10 @@ function ExpenseInput() {
   const categories = useSelector(state => state.categories);
   const dispatch = useDispatch();
   const [expenseData, setExpenseData] = useState({
-    fixedExpenses: '',
-    variableExpenses: '',
-    user: '', 
-    notes: '',
-    category: ''
+    variableExpenses: '',  // Field for variable expenses
+    notes: '',  // Field for notes
+    category: '' // Field for category
   });
-  // const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -33,6 +30,25 @@ function ExpenseInput() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="variableExpenses">Variable Expense ($):</label>
+        <input 
+          type="number" 
+          id="variableExpenses" 
+          name="variableExpenses" 
+          value={expenseData.variableExpenses} 
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="notes">Notes:</label>
+        <textarea 
+          id="notes" 
+          name="notes" 
+          value={expenseData.notes} 
+          onChange={handleChange}
+        ></textarea>
+      </div>
       <div>
         <label htmlFor="category">Category:</label>
         <select 
@@ -54,3 +70,4 @@ function ExpenseInput() {
 }
 
 export default ExpenseInput;
+

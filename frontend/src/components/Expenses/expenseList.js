@@ -14,7 +14,10 @@ function ExpenseList() {
     <div>
       {expenses.map(expense => (
         <div key={expense._id}>
-          {/* Display expense details */}
+          <p><strong>Variable Expense:</strong> ${expense.variableExpenses}</p>
+          <p><strong>Notes:</strong> {expense.notes}</p>
+          <p><strong>Category:</strong> {expense.category ? expense.category.name : 'N/A'}</p>
+          <hr />
         </div>
       ))}
     </div>

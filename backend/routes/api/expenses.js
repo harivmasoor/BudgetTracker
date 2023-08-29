@@ -18,7 +18,7 @@ router.post('/', restoreUser, async (req, res, next) => {
       category
     });
     const savedExpense = await newExpense.save();
-    res.json(savedExpense);
+    res.json(await savedExpense.populate("category"));
   } catch (err) {
     next(err);
   }
