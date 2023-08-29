@@ -27,8 +27,6 @@ function UpdateBudget({budget}){
         dispatch(updateBudget(updatedData));
     };
 
-    const handleDeleteBudget = (budgetId) => {
-        dispatch(deleteBudget(budgetId));
-    };
+    
 }
 export default UpdateBudget;

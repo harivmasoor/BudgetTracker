@@ -16,13 +16,24 @@ function Budget() {
     budgetPlan: '',
     notes: '',
     category: categories.length > 0 ? categories[0]._id : '',
-    // date: '',
+    date: '',
     user: currentUser._id
   });
 
-  const handleFetchBudgets = () => {
-    dispatch(fetchBudgets());
-  };
+    //   const objectById = {};
+    // for (const item of array) {
+    //   objectById[item.id] = item;
+    // }
+    // console.log(objectById);
+
+    // const objectById = array.reduce((acc, item) => {
+    //   acc[item.id] = item;
+    //   return acc;
+    // }, {});
+    // console.log(objectById);
+      const handleFetchBudgets = () => {
+        dispatch(fetchBudgets());
+      };
 
   const handleCreateBudget = () => {
     dispatch(createBudget(newBudget));
@@ -30,7 +41,7 @@ function Budget() {
       budgetAmount: 0,
       budgetPlan: '',
       notes: '',
-      // date:'2023-08-23',
+      date:'',
       category:'',
       user: currentUser._id
       // Other properties
@@ -46,6 +57,7 @@ function Budget() {
       dispatch(deleteBudget(budgetId));
   };
 
+    
   return (
     <div>
         <ul>
@@ -53,7 +65,7 @@ function Budget() {
           <li key={budget._id}>
             <div>Budget Amount: {budget.budgetAmount}</div>
             <div>Budget Plan: {budget.budgetPlan}</div>
-            <div>Budget Category: {budget.category ? budget.category.name : 'N/A'}</div>
+            <div>Budget Category: {categories.filter(category => category._id === budget.category).map(filteredCategory => filteredCategory.name)}</div>
             <div>Notes: {budget.notes}</div>
             <div>Date: {budget.date}</div>
             {/* Other properties */}
@@ -89,7 +101,7 @@ function Budget() {
             type="date"
             value={newBudget.date}
             onChange={(e) =>
-              setNewBudget({ ...newBudget, budgetDate: e.target.value })
+              setNewBudget({ ...newBudget, date: e.target.value })
             }
           />
         </label>
