@@ -12,7 +12,7 @@ const csurf = require('csurf');
 /* --- Need to import these to load the models into mongoose --- */
 require('./models/User');
 require('./models/Expense');
-
+require('./models/Income');
 /* ------------------------------------------------------------- */
 require('./config/passport'); // Need to import to configure passport module
 const passport = require('passport');
@@ -55,10 +55,12 @@ app.use(
 const usersRouter = require('./routes/api/users');
 const csrfRouter = require('./routes/api/csrf');
 const expensesRouter = require('./routes/api/expenses');
+const incomesRouter = require('./routes/api/incomes');
 const exp = require('constants');
 app.use('/api/users', usersRouter);
 app.use('/api/csrf', csrfRouter);
 app.use('/api/expenses', expensesRouter);
+app.use('/api/incomes', incomesRouter);
 
 if (!isProduction) {
   app.use(cors())
