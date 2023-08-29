@@ -4,12 +4,14 @@ import session from './session';
 import errors from './errors';
 import expenses from './expenses';
 import categories from './categories'; 
+import budgetReducer from './budget';
 
 const rootReducer = combineReducers({
   session,
   errors,
   expenses,
-  categories
+  categories,
+  budget: budgetReducer
 });
 
 let enhancer;
