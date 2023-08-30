@@ -27,7 +27,13 @@ const budgetSchema = new Schema({
   },
   remainingAmount: {
     type: Number
-  }
+  },
+  year: { type: Number,
+    // required: true 
+    },
+  month: { type: Number,
+    // required: true 
+    },
 }, {
   // tells mongoose to add and maintain `createdAt` and `updatedAt` fields with
   // datetime timestamps

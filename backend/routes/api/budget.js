@@ -11,6 +11,9 @@ const User = mongoose.model('User');
 router.post('/', restoreUser, async (req, res, next) => {
   try {
     const {  budgetAmount, budgetPlan, user, notes, category, date } = req.body;
+    const dateObj = new Date(date); // Convert the date string to a Date object
+    const month = dateObj.getMonth() + 1; // getMonth is zero-based
+    const year = dateObj.getFullYear();
     const newBudget = new Budget({
       budgetAmount,
       budgetPlan,
@@ -18,7 +21,10 @@ router.post('/', restoreUser, async (req, res, next) => {
       notes,
       category,
       date,
-      remainingAmount: budgetAmount
+      remainingAmount: budgetAmount, 
+      month,
+      year,
+
     });
     const savedBudget = await newBudget.save();
     res.json(savedBudget);
