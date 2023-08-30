@@ -13,8 +13,6 @@ import ExpenseInput from './components/Expenses/expenseInput';
 import ExpenseList from './components/Expenses/expenseList';
 import ExpensePieChart from './components/Expenses/expensePieChart';
 import ExpensesPage from './components/Expenses/expensesPage';
-
-
 import { getCurrentUser } from './store/session';
 import Budget from './components/Budget/budget';
 
