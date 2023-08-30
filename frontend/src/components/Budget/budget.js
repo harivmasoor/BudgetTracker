@@ -2,15 +2,27 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBudgets, createBudget, deleteBudget } from '../../store/budget';
 import { fetchCategories } from '../../store/categories';
-import UpdateBudget from './updateBudget';
+import UpdateBudgetModal from './updateBudget';
 
 function Budget() {
   const dispatch = useDispatch();
-  const budgets = useSelector(state => state.budget); // Assuming you've named your reducer "budget"
+  const budgets = useSelector(state => state.budget); 
   const currentUser = useSelector(state => state.session.user);
   const categories = useSelector(state => state.categories)
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [selectedBudget, setSelectedBudget] = useState(null);
   // console.log(currentUser._id)
   
+  const handleOpenUpdateModal = (budget) => {
+    setSelectedBudget(budget);
+    setShowUpdateModal(true);
+  };
+
+  const handleCloseUpdateModal = () => {
+    setSelectedBudget(null);
+    setShowUpdateModal(false);
+  };
+
   const [newBudget, setNewBudget] = useState({
     budgetAmount: '',
     budgetPlan: '',
@@ -69,6 +81,7 @@ function Budget() {
             <div>Notes: {budget.notes}</div>
             <div>Date: {budget.date}</div>
             {/* Other properties */}
+            <button onClick={() => handleOpenUpdateModal(budget)}>Update</button>
             <button onClick={() => handleDeleteBudget(budget._id)}>Delete</button>
           </li>
         ))}
@@ -134,6 +147,9 @@ function Budget() {
         {/* Other input fields */}
         <button onClick={handleCreateBudget}>Add Budget</button>
       </div>
+      {showUpdateModal && (
+        <UpdateBudgetModal budget={selectedBudget} categories={categories} closeModal={handleCloseUpdateModal}/>
+        )}
     </div>
   );
 }
