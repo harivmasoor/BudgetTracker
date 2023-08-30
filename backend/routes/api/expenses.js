@@ -29,9 +29,19 @@ router.post('/', restoreUser, async (req, res, next) => {
 router.get('/', restoreUser, async (req, res, next) => {
     try {
       if (!req.user) return res.status(401).json({ error: "Not logged in" });
+      const expenses = await Expense.find({ user: req.user._id });  // Fetch expenses by user's ID
+      res.json(expenses);
+    } catch (err) {
+      next(err);
+    }
+  });
+  //ChatGPT please make this work to find user expense by current month
+  router.get('/', restoreUser, async (req, res, next) => {
+    try {
+      if (!req.user) return res.status(401).json({ error: "Not logged in" });
       const startDate = new Date('2023-09-01');
       const endDate = new Date('2023-09-31');
-      const expenses = await Expense.find({
+      const incomes = await Income.find({
          user: req.user._id,
          $and: [
           { date: { $gte: startDate } }, // Date greater than or equal to start date
@@ -39,11 +49,12 @@ router.get('/', restoreUser, async (req, res, next) => {
         ]
         }
         );
-      res.json(expenses);
+      res.json(incomes);
     } catch (err) {
       next(err);
     }
   });
+
 
 // Update an expense
 router.put('/:id', restoreUser, async (req, res, next) => {
