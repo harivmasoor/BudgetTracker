@@ -10,13 +10,13 @@ function IncomePieChart() {
   // Object to hold category totals
   const categoryTotals = {};
 
-  expenses.forEach(expense => {
-    const categoryName = expense.category ? expense.category.name : 'Uncategorized';
-    if (expense.variableExpenses) {
+  incomes.forEach(income => {
+    const categoryName = income.category ? income.category.name : 'Uncategorized';
+    if (income.incomeamount) {
       if (!categoryTotals[categoryName]) {
         categoryTotals[categoryName] = 0;
       }
-      categoryTotals[categoryName] += expense.variableExpenses;
+      categoryTotals[categoryName] += income.incomeamount;
     }
   });
 
