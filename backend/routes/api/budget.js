@@ -30,8 +30,17 @@ router.post('/', restoreUser, async (req, res, next) => {
 router.get('/', restoreUser, async (req, res, next) => {
   try {
     if (!req.user) return res.status(401).json({ error: "Not logged in" });
-    const budget = await Budget.find({ user: req.user._id });
-    res.json(budget);
+    const startDate = new Date('2023-09-01');
+    const endDate = new Date('2023-09-31');
+    const budgets = await Budget.find({
+       user: req.user._id,
+       $and: [
+        { date: { $gte: startDate } }, // Date greater than or equal to start date
+        { date: { $lte: endDate } }    // Date less than or equal to end date
+      ]
+      }
+      );
+    res.json(budgets);
   } catch (err) {
     next(err);
   }
