@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom'; // <-- Add this import
+import { Redirect } from 'react-router-dom'; 
 import './SessionForm.css';
 import { signup, clearSessionErrors } from '../../store/session';
 
@@ -9,9 +9,11 @@ function SignupForm () {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
-  const [shouldRedirect, setShouldRedirect] = useState(false); // <-- Add this line
+  const [shouldRedirect, setShouldRedirect] = useState(false);
   const errors = useSelector(state => state.errors.session);
   const dispatch = useDispatch();
+  const CurrentUser = useSelector(state => state.session.user);
+
 
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -54,14 +56,14 @@ function SignupForm () {
       username,
       password
     };
-    const success = await dispatch(signup(user)); // Assume that this returns a boolean or something that evaluates to true on success
+    const success = await dispatch(signup(user));
     if (success) {
-      setShouldRedirect(true); // Redirect to main page
+      setShouldRedirect(true);
     }
   };
 
-  if (shouldRedirect) { // <-- Add this block
-    return <Redirect to="/" />;
+  if (CurrentUser) {
+    return <Redirect to="/profile" />;
   }
 
   return (
