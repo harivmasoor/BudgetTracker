@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './NavBar.css';
 import { logout } from '../../store/session';
+import menuLogo from '../../../src/assets/bblogotrans.ico';
 
 function NavBar() {
   const loggedIn = useSelector(state => !!state.session.user);
@@ -13,27 +14,47 @@ function NavBar() {
     e.preventDefault();
     dispatch(logout());
   }
-
-  const getLinks = () => {
-    if (loggedIn && location.pathname !== '/') {
-      return (
-        <div className="links-nav">
-          <Link to={'/'}>Home</Link>
-          <Link to={'/incomes'}>Incomes</Link>
-          <Link to={'/expenses'}>Expenses</Link>
-          <Link to={'/budget'}>Budget</Link>
-          <Link to={'/profile'}>Profile</Link>
-          <Link to={'/'} onClick={logoutUser}>Logout</Link>
-        </div>
-      );
-    }
-  }
-
+  if (loggedIn && location.pathname !== '/') {
   return (
-    <>
-      { getLinks() }
-    </>
+    <nav className="menu-container">
+    
+      <input type="checkbox" aria-label="Toggle menu" />
+      <span></span>
+      <span></span>
+      <span></span>
+
+
+      <a href="/" className="menu-logo">
+        <img src={menuLogo} alt="menu-logo"/>
+      </a>
+
+      <div className="menu">
+        <ul>
+          <li>
+            <Link to="/profile">Profile</Link>
+          </li>
+          <li>
+            <Link to="/incomes">Incomes</Link>
+          </li>
+          <li>
+            <Link to="/expenses">Expenses</Link>
+          </li>
+          <li>
+            <Link to="/budget">Budget</Link>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <Link to="/instructions">Instruction</Link>
+          </li>
+          <li>
+            <Link to="/" onClick={logoutUser}>Logout</Link>
+          </li>
+        </ul>
+      </div>
+    </nav>
   );
+  }
 }
 
 export default NavBar;
