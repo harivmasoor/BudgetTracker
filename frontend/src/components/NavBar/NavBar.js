@@ -26,12 +26,6 @@ function NavBar () {
       );
     }
   }
-
-  return (
-    <>
-      { getLinks() }
-    </>
-  );
 }
 
 export default NavBar;
