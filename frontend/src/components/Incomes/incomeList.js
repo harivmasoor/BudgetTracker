@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchIncomes } from '../../store/incomes';
+import { fetchIncomes ,deletedIncome} from '../../store/incomes';
 import { fetchIncomeCategories } from '../../store/incomeCategories';
 
 function IncomeList() {
@@ -17,6 +17,10 @@ function IncomeList() {
     dispatch(fetchIncomeCategories());
   }, []);
 
+  const handleDeleteIncome = (incomeId) => {
+    dispatch(deletedIncome(incomeId));
+  };
+
   return (
     <div>
       {incomes.map(income => (
@@ -29,6 +33,7 @@ function IncomeList() {
             category._id === income.category).map(filteredCategory => filteredCategory.name) : 'N/A'}
           </p>
           <p><strong>Date:</strong> {formattedDate(income.date)}</p>
+          <button onClick={() => handleDeleteIncome(income._id)}>Delete</button>
           <hr />
         </div>
       ))}
