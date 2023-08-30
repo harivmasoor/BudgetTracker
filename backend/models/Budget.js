@@ -15,7 +15,7 @@ const budgetSchema = new Schema({
     },
   notes: {
     type: String,
-    required: true
+    // required: true
   },
   category: { type: mongoose.Schema.Types.ObjectId,
                 ref: 'Category',

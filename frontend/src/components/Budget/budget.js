@@ -2,15 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBudgets, createBudget, deleteBudget } from '../../store/budget';
 import { fetchCategories } from '../../store/categories';
-import UpdateBudget from './updateBudget';
+import UpdateBudgetModal from './updateBudget';
+import BudgetPieChart from './budgetpieChart';
 
 function Budget() {
   const dispatch = useDispatch();
-  const budgets = useSelector(state => state.budget); // Assuming you've named your reducer "budget"
+  const budgets = useSelector(state => state.budget); 
   const currentUser = useSelector(state => state.session.user);
   const categories = useSelector(state => state.categories)
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [selectedBudget, setSelectedBudget] = useState(null);
   // console.log(currentUser._id)
   
+  const handleOpenUpdateModal = (budget) => {
+    setSelectedBudget(budget);
+    setShowUpdateModal(true);
+  };
+
+  const handleCloseUpdateModal = () => {
+    setSelectedBudget(null);
+    setShowUpdateModal(false);
+  };
+
   const [newBudget, setNewBudget] = useState({
     budgetAmount: '',
     budgetPlan: '',
@@ -20,17 +33,6 @@ function Budget() {
     user: currentUser._id
   });
 
-    //   const objectById = {};
-    // for (const item of array) {
-    //   objectById[item.id] = item;
-    // }
-    // console.log(objectById);
-
-    // const objectById = array.reduce((acc, item) => {
-    //   acc[item.id] = item;
-    //   return acc;
-    // }, {});
-    // console.log(objectById);
       const handleFetchBudgets = () => {
         dispatch(fetchBudgets());
       };
@@ -67,8 +69,9 @@ function Budget() {
             <div>Budget Plan: {budget.budgetPlan}</div>
             <div>Budget Category: {categories.filter(category => category._id === budget.category).map(filteredCategory => filteredCategory.name)}</div>
             <div>Notes: {budget.notes}</div>
-            <div>Date: {budget.date}</div>
+            <div>Date: {new Date(budget.date).toLocaleDateString()}</div>
             {/* Other properties */}
+            <button onClick={() => handleOpenUpdateModal(budget)}>Update</button>
             <button onClick={() => handleDeleteBudget(budget._id)}>Delete</button>
           </li>
         ))}
@@ -76,7 +79,7 @@ function Budget() {
       <h2>Add New Budget</h2>
       <div>
         <label>
-          Budget Plan:
+          Budget Plan Name:
           <input
             type="text"
             value={newBudget.budgetPlan}
@@ -93,6 +96,7 @@ function Budget() {
             onChange={(e) =>
               setNewBudget({ ...newBudget, budgetAmount: e.target.value })
             }
+            required
           />
         </label>
         <label>
@@ -134,6 +138,10 @@ function Budget() {
         {/* Other input fields */}
         <button onClick={handleCreateBudget}>Add Budget</button>
       </div>
+      {showUpdateModal && (
+        <UpdateBudgetModal budget={selectedBudget} categories={categories} closeModal={handleCloseUpdateModal}/>
+        )}
+        <BudgetPieChart/>
     </div>
   );
 }
