@@ -7,7 +7,7 @@ import NavBar from './components/NavBar/NavBar';
 
 import MainPage from './components/MainPage/MainPage';
 import LoginForm from './components/SessionForms/LoginForm';
-import SignupForm from './components/SessionForms/SignUpForm';
+import SignupForm from './components/SessionForms/SignupForm';
 import Profile from './components/Profile/Profile';
 import ExpenseInput from './components/Expenses/expenseInput';
 import ExpenseList from './components/Expenses/expenseList';
@@ -16,6 +16,7 @@ import ExpensesPage from './components/Expenses/expensesPage';
 import IncomesPage from './components/Incomes/incomePage';
 
 import { getCurrentUser } from './store/session';
+import Budget from './components/Budget/budget';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -27,6 +28,7 @@ function App() {
 
   return loaded && (
     <>
+    
       <NavBar />
       <Switch>
         <AuthRoute exact path="/" component={MainPage} />
@@ -35,8 +37,11 @@ function App() {
         <ProtectedRoute exact path="/profile" component={Profile} />
         <ProtectedRoute exact path="/expenses" component={ExpensesPage} />
         <ProtectedRoute exact path="/incomes" component={IncomesPage} />
-
+        <ProtectedRoute exact path="/budget" component={Budget} />
       </Switch>
+      <footer id="footer">
+    <p>© 2023 by BudgetBuddy. All rights reserved.</p>
+  </footer>
     </>
   );
 }

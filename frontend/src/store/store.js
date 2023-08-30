@@ -6,6 +6,7 @@ import expenses from './expenses';
 import incomes from './incomes';
 import categories from './categories'; 
 import incomeCategories from './incomeCategories'; 
+import budgetReducer from './budget';
 
 const rootReducer = combineReducers({
   session,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   expenses,
   categories,
   incomes,
-  incomeCategories
+  incomeCategories,
+  budget: budgetReducer
 });
 
 let enhancer;
