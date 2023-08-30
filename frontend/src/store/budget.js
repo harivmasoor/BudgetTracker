@@ -41,16 +41,16 @@ export const DELETE_BUDGET = 'budgets/DELETE_BUDGET';
 
     export const createBudget = budget => async dispatch => {
         try {
-          const res = await jwtFetch('/api/budget/', {
+        const res = await jwtFetch('/api/budget/', {
             method: 'POST',
             body: JSON.stringify(budget)
-          });
-          const budgetData = await res.json();
-          dispatch(addBudgetAction(budgetData));
+        });
+            const budgetData = await res.json();
+            dispatch(addBudgetAction(budgetData));
         } catch(error) {
             console.error('Error creating budget:', error);
         }
-      };
+    };
 
 
     export const updateBudget = (updatedData) => async (dispatch) => {

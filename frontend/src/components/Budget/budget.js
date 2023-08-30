@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchBudgets, createBudget, deleteBudget } from '../../store/budget';
 import { fetchCategories } from '../../store/categories';
 import UpdateBudgetModal from './updateBudget';
+import BudgetPieChart from './budgetpieChart';
 
 function Budget() {
   const dispatch = useDispatch();
@@ -32,17 +33,6 @@ function Budget() {
     user: currentUser._id
   });
 
-    //   const objectById = {};
-    // for (const item of array) {
-    //   objectById[item.id] = item;
-    // }
-    // console.log(objectById);
-
-    // const objectById = array.reduce((acc, item) => {
-    //   acc[item.id] = item;
-    //   return acc;
-    // }, {});
-    // console.log(objectById);
       const handleFetchBudgets = () => {
         dispatch(fetchBudgets());
       };
@@ -79,7 +69,7 @@ function Budget() {
             <div>Budget Plan: {budget.budgetPlan}</div>
             <div>Budget Category: {categories.filter(category => category._id === budget.category).map(filteredCategory => filteredCategory.name)}</div>
             <div>Notes: {budget.notes}</div>
-            <div>Date: {budget.date}</div>
+            <div>Date: {new Date(budget.date).toLocaleDateString()}</div>
             {/* Other properties */}
             <button onClick={() => handleOpenUpdateModal(budget)}>Update</button>
             <button onClick={() => handleDeleteBudget(budget._id)}>Delete</button>
@@ -89,7 +79,7 @@ function Budget() {
       <h2>Add New Budget</h2>
       <div>
         <label>
-          Budget Plan:
+          Budget Plan Name:
           <input
             type="text"
             value={newBudget.budgetPlan}
@@ -106,6 +96,7 @@ function Budget() {
             onChange={(e) =>
               setNewBudget({ ...newBudget, budgetAmount: e.target.value })
             }
+            required
           />
         </label>
         <label>
@@ -150,6 +141,7 @@ function Budget() {
       {showUpdateModal && (
         <UpdateBudgetModal budget={selectedBudget} categories={categories} closeModal={handleCloseUpdateModal}/>
         )}
+        <BudgetPieChart/>
     </div>
   );
 }
