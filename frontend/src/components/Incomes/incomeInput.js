@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addIncome } from '../../store/incomes';
 import { fetchIncomeCategories } from '../../store/incomeCategories';
 
+
 function IncomeInput() {
   const incomeCategories = useSelector(state => state.incomeCategories);
   const dispatch = useDispatch();
