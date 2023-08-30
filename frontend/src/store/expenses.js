@@ -34,13 +34,20 @@ export const addExpenseAction = (expense) => ({
     };
   };
   
-  export const fetchExpenses = () => {
+  export const fetchExpenses = (startDate, endDate) => {
     return async (dispatch) => {
-      const response = await jwtFetch('/api/expenses');
+      let url = '/api/expenses';
+  
+      if (startDate && endDate) {
+        url += `?startDate=${startDate}&endDate=${endDate}`;
+      }
+  
+      const response = await jwtFetch(url);
       const data = await response.json();
       dispatch(fetchExpensesAction(data));
     };
   };
+  
   
 
   const initialState = [];
