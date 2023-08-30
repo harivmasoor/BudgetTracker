@@ -38,9 +38,9 @@ function MainPage() {
 
       <Modal showModal={showModal} closeModal={closeModal}>
         {formType === 'login' ? <LoginForm /> : <SignupForm />}
-        <button id="toggleButton" className="toggle-button" onClick={toggleFormType}>
+        {/* <button id="toggleButton" className="toggle-button" onClick={toggleFormType}>
           {formType === 'login' ? 'Don`t have an account? Please Register' : 'Already have an account? Login'}
-        </button>
+        </button> */}
       </Modal>
      </>
   );
