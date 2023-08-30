@@ -35,7 +35,7 @@ function IncomeInput() {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="incomesource">Income Source($):</label>
+        <label htmlFor="incomesource">Income Source:</label>
         <input 
           type="text" 
           id="incomesource" 
