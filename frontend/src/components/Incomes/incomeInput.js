@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addIncome } from '../../store/incomes';
 import { fetchIncomeCategories } from '../../store/incomeCategories';
+import './Income.css';
 
 
 function IncomeInput() {
