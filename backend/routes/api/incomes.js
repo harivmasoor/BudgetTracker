@@ -9,15 +9,16 @@ const Income = mongoose.model('Income');
 // Create a new income
 router.post('/', restoreUser, async (req, res, next) => {
   try {
-    const {user, incomesource, incomeamount, category } = req.body;
+    const {user, incomesource, incomeamount, category ,notes} = req.body;
     const newIncome = new Income({
       user,
       incomesource,
       incomeamount,
-      category
+      category,
+      notes
     });
     const savedIncome = await newIncome.save();
-    res.json(await savedExpense.populate("category"));
+    res.json(savedIncome);
   } catch (err) {
     next(err);
   }
@@ -44,6 +45,7 @@ router.put('/:id', restoreUser, async (req, res, next) => {
     income.user = req.body.user || income.user;
     income.incomesource = req.body.incomesource || income.incomesource;
     income.incomeamount = req.body.incomeamount || income.incomeamount;
+    income.notes = req.body.notes || income.notes;
     income.category = req.body.category || income.category;
     
     const updatedincome = await income.save();
