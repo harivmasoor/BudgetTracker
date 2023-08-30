@@ -5,25 +5,47 @@ const restoreUser = require('../../config/passport').restoreUser;
 
 const User = mongoose.model('User');
 const Expense = mongoose.model('Expense');
+const Budget = mongoose.model('Budget');
 
-// Create a new expense
+
 router.post('/', restoreUser, async (req, res, next) => {
-  try {
-    const { fixedExpenses, variableExpenses, user, notes, category, date } = req.body;
-    const newExpense = new Expense({
-      fixedExpenses,
-      variableExpenses,
-      user,
-      notes,
-      category,
-      date
-    });
-    const savedExpense = await newExpense.save();
-    res.json(savedExpense);
-  } catch (err) {
-    next(err);
-  }
-});
+    try {
+      const { fixedExpenses, variableExpenses, user, notes, category, date } = req.body;
+  
+      // Validate variableExpenses
+      if (!variableExpenses || isNaN(variableExpenses)) {
+        return res.status(400).json({ error: 'Invalid variableExpenses' });
+      }
+  
+      const newExpense = new Expense({
+        fixedExpenses,
+        variableExpenses,
+        user,
+        notes,
+        category,
+        date
+      });
+      
+      const savedExpense = await newExpense.save();
+  
+      // Find the related budget for the user and category
+      const relatedBudget = await Budget.findOne({ user: req.user._id, category: newExpense.category });
+  
+      // Validate relatedBudget and remainingAmount
+      if (!relatedBudget || isNaN(relatedBudget.remainingAmount)) {
+        return res.status(400).json({ error: 'Related budget or remaining amount is invalid' });
+      }
+  
+      // Update the remainingAmount in the related budget
+      relatedBudget.remainingAmount -= newExpense.variableExpenses;
+      await relatedBudget.save();
+  
+      res.json(savedExpense);
+    } catch (err) {
+      next(err);
+    }
+  });
+  
 
   router.get('/', restoreUser, async (req, res, next) => {
     try {

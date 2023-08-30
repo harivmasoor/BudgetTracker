@@ -12,12 +12,13 @@ router.post('/', restoreUser, async (req, res, next) => {
   try {
     const {  budgetAmount, budgetPlan, user, notes, category, date } = req.body;
     const newBudget = new Budget({
-        budgetAmount,
+      budgetAmount,
       budgetPlan,
       user,
       notes,
       category,
-      date
+      date,
+      remainingAmount: budgetAmount
     });
     const savedBudget = await newBudget.save();
     res.json(savedBudget);

@@ -66,6 +66,7 @@ function Budget() {
         {budgets.map((budget) => (
           <li key={budget._id}>
             <div>Budget Amount: {budget.budgetAmount}</div>
+            <div>Remaining Amount: {budget.remainingAmount}</div>
             <div>Budget Plan: {budget.budgetPlan}</div>
             <div>Budget Category: {categories.filter(category => category._id === budget.category).map(filteredCategory => filteredCategory.name)}</div>
             <div>Notes: {budget.notes}</div>
