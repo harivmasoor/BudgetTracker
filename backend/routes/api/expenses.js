@@ -9,16 +9,17 @@ const Expense = mongoose.model('Expense');
 // Create a new expense
 router.post('/', restoreUser, async (req, res, next) => {
   try {
-    const { fixedExpenses, variableExpenses, user, notes, category } = req.body;
+    const { fixedExpenses, variableExpenses, user, notes, category, date } = req.body;
     const newExpense = new Expense({
       fixedExpenses,
       variableExpenses,
       user,
       notes,
-      category
+      category,
+      date
     });
     const savedExpense = await newExpense.save();
-    res.json(await savedExpense.populate("category"));
+    res.json(savedExpense);
   } catch (err) {
     next(err);
   }
@@ -47,6 +48,7 @@ router.put('/:id', restoreUser, async (req, res, next) => {
     expense.user = req.body.user || expense.user;
     expense.notes = req.body.notes || expense.notes;
     expense.category = req.body.category || expense.category;
+    expense.date = req.body.date || expense.date;
 
     
     const updatedExpense = await expense.save();
