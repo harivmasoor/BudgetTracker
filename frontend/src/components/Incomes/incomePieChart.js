@@ -6,12 +6,14 @@ function IncomePieChart() {
   const canvasRef = useRef(null);
   const chartRef = useRef(null);
   const incomes = useSelector(state => state.incomes);
+  const incomeCategories = useSelector(state => state.incomeCategories)
 
   // Object to hold category totals
   const categoryTotals = {};
 
   incomes.forEach(income => {
-    const categoryName = income.category ? income.category.name : 'Uncategorized';
+    const categoryName = incomeCategories.filter(category => category._id === income.category).map(filteredCategory => filteredCategory.name)[0] || 'Uncategorized';
+    
     if (income.incomeamount) {
       if (!categoryTotals[categoryName]) {
         categoryTotals[categoryName] = 0;

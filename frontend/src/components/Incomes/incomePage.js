@@ -8,8 +8,8 @@ function IncomesPage() {
     <div>
       <h2>Your Income</h2>
       <IncomeInput />
+      <IncomePieChart />
       <IncomeList />
-      {/* <IncomePieChart /> */}
     </div>
   );
 }
