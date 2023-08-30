@@ -24,6 +24,9 @@ const budgetSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User'
+  },
+  remainingAmount: {
+    type: Number
   }
 }, {
   // tells mongoose to add and maintain `createdAt` and `updatedAt` fields with
