@@ -8,7 +8,7 @@ function ExpenseList() {
   const expenses = useSelector(state => state.expenses);
 
   useEffect(() => {
-    dispatch(fetchExpenses());
+    dispatch(fetchExpenses('2023-08-11', '2023-08-18'));
   }, [dispatch]);
   if (!categories) return null;
   return (
