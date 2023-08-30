@@ -3,7 +3,9 @@ import thunk from 'redux-thunk';
 import session from './session';
 import errors from './errors';
 import expenses from './expenses';
+import incomes from './incomes';
 import categories from './categories'; 
+import incomeCategories from './incomeCategories'; 
 import budgetReducer from './budget';
 
 const rootReducer = combineReducers({
@@ -11,6 +13,8 @@ const rootReducer = combineReducers({
   errors,
   expenses,
   categories,
+  incomes,
+  incomeCategories,
   budget: budgetReducer
 });
 
