@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './SessionForm.css';
-
-import { login, clearSessionErrors } from '../../store/session';
+import { login, clearSessionErrors, getCurrentUser } from '../../store/session';
+import { Redirect } from 'react-router-dom';
 
 function LoginForm () {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector(state => state.errors.session);
   const dispatch = useDispatch();
+  const CurrentUser = useSelector(state => state.session.user);
+
 
   useEffect(() => {
     return () => {
@@ -33,6 +35,10 @@ function LoginForm () {
     };
 
     dispatch(login(demoUser));
+  }
+
+  if (CurrentUser) {
+    return <Redirect to="/profile" />;
   }
 
   return (
