@@ -44,13 +44,13 @@ router.put('/:id', restoreUser, async (req, res, next) => {
     if (!budget) return res.status(404).json({ error: "Budget not found" });
     
     // Update the properties you want to be editable, for example:
-    budget.fixedbudgets = req.body.fixedBudgets || budget.fixedBudgets;
-    budget.variableBudgets = req.body.variableBudgets || budget.variableBudgets;
+    budget.budgetAmount = req.body.budgetAmount || budget.budgetAmount;
+    budget.budgetPlan = req.body.budgetPlan || budget.budgetPlan;
     budget.user = req.body.user || budget.user;
     budget.notes = req.body.notes || budget.notes;
     budget.category = req.body.category || budget.category;
+    budget.date = req.body.date || budget.date;
 
-    
     const updatedBudget = await budget.save();
     res.json(updatedBudget);
   } catch (err) {
