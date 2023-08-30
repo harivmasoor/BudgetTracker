@@ -13,7 +13,7 @@ import ExpenseInput from './components/Expenses/expenseInput';
 import ExpenseList from './components/Expenses/expenseList';
 import ExpensePieChart from './components/Expenses/expensePieChart';
 import ExpensesPage from './components/Expenses/expensesPage';
-
+import IncomesPage from './components/Incomes/incomePage';
 
 import { getCurrentUser } from './store/session';
 
@@ -34,6 +34,8 @@ function App() {
         <AuthRoute exact path="/signup" component={SignupForm} />
         <ProtectedRoute exact path="/profile" component={Profile} />
         <ProtectedRoute exact path="/expenses" component={ExpensesPage} />
+        <ProtectedRoute exact path="/incomes" component={IncomesPage} />
+
       </Switch>
     </>
   );
