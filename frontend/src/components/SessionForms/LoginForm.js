@@ -57,7 +57,7 @@ function LoginForm () {
         />
       </label>
         <div>
-          <button
+          <button id="demo-but"
             type="button"
             onClick={handleDemoUserLogin}
           >

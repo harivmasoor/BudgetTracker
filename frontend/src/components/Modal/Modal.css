@@ -16,6 +16,9 @@
     border-radius: 8px;
     width: 300px;
     position: relative;
+    animation: slide-down 300ms ease-out forwards;
+    justify-items: center;
+    align-items: center;
   }
   
   .toggle-button {
