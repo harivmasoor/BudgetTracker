@@ -13,6 +13,11 @@ function SignupForm () {
   const errors = useSelector(state => state.errors.session);
   const dispatch = useDispatch();
 
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   useEffect(() => {
     return () => {
       dispatch(clearSessionErrors());
@@ -72,6 +77,7 @@ function SignupForm () {
         />
       </label>
       <div className="errors">{errors?.username}</div>
+      {username.length < 3 && username && 'Username must be at least 3 characters'}
       <label>
         <span>Username</span>
         <input type="text"
@@ -81,6 +87,8 @@ function SignupForm () {
         />
       </label>
       <div className="errors">{errors?.password}</div>
+      {!isValidEmail(email) && email && 'Invalid email format'}
+      {password.length < 6 && password && 'Password must be at least 6 characters'}
       <label>
         <span>Password</span>
         <input type="password"
@@ -103,7 +111,12 @@ function SignupForm () {
       <input
         type="submit"
         value="Sign Up"
-        disabled={!email || !username || !password || password !== password2}
+        disabled={
+          !isValidEmail(email) ||
+          username.length < 3 ||
+          password.length < 6 ||
+          password !== password2
+        }
       />
     </form>
   );
