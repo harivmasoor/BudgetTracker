@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addExpense } from '../../store/expenses';
 import { fetchCategories } from '../../store/categories';
+import ExpenseList from './expenseList';
 
 function ExpenseInput() {
   const categories = useSelector(state => state.categories);
@@ -9,7 +10,8 @@ function ExpenseInput() {
   const [expenseData, setExpenseData] = useState({
     variableExpenses: '',  // Field for variable expenses
     notes: '',  // Field for notes
-    category: '' // Field for category
+    category: '', // Field for category
+    date: '' // Field for date
   });
 
   useEffect(() => {
@@ -37,6 +39,16 @@ function ExpenseInput() {
           id="variableExpenses" 
           name="variableExpenses" 
           value={expenseData.variableExpenses} 
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="date">Date:</label>
+        <input 
+          type="date" 
+          id="date" 
+          name="date" 
+          value={expenseData.date} 
           onChange={handleChange}
         />
       </div>
