@@ -23,6 +23,7 @@ function MainPage() {
 
   return (
     <>
+    <div className="main-page">
       <div className="top-image-container">
         <img className="top-image" src={bblogo} alt="main-logo" />
         {loggedIn ? (
@@ -44,6 +45,7 @@ function MainPage() {
       <Modal showModal={showModal} closeModal={closeModal}>
         {formType === 'login' ? <LoginForm /> : <SignupForm />}
       </Modal>
+    </div>
     </>
   );
 }

@@ -4,7 +4,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height:max-content;
+    height:100%;
     z-index: -1;
     object-fit: cover;
   }
@@ -18,7 +18,7 @@
     z-index: 0;
   }
 
-  body{
+  .main-page{
     background-color: rgb(45, 45, 45);
   }
   
@@ -29,11 +29,9 @@
   .open-modal-button {
     position: absolute;
     top: 50%;
-    /* left: 50%; */
     transform: translate(-50%, -50%);
     background: rgba(45, 45, 45, 0.7);
-    color: white;
-    /* padding: 15px 30px; */
+    color: rgb(73, 108, 157);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -54,7 +52,7 @@
 
 #toggleButton {
     background: rgba(45, 45, 45);
-    color: white;
+    color:rgb(64, 81, 107);
     padding: 5px 10px;
     border: none;
     border-radius: 4px;
@@ -66,3 +64,7 @@
     align-items: center;
 }
   
+.open-modal-button:hover{
+    background: rgb(73, 108, 157);
+    color: #000;
+}

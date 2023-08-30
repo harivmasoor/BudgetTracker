@@ -9,8 +9,6 @@ function LoginForm () {
   const [password, setPassword] = useState('');
   const errors = useSelector(state => state.errors.session);
   const dispatch = useDispatch();
-  // const [shouldRedirect, setShouldRedirect] = useState(false);
-  // const loggedIn = useSelector(state => !!state.session.user);
   const CurrentUser = useSelector(state => state.session.user);
 
 
@@ -28,9 +26,6 @@ function LoginForm () {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login({ email, password })); 
-    // if (loggedIn) {
-    //   setShouldRedirect(true);
-    // }
   }
 
   const handleDemoUserLogin = () => {
@@ -40,9 +35,6 @@ function LoginForm () {
     };
 
     dispatch(login(demoUser));
-    // if (loggedIn) {
-    //   setShouldRedirect(true);
-    // }
   }
 
   if (CurrentUser) {
