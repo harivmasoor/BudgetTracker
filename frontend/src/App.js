@@ -28,6 +28,7 @@ function App() {
 
   return loaded && (
     <>
+    
       <NavBar />
       <Switch>
         <AuthRoute exact path="/" component={MainPage} />
@@ -37,6 +38,9 @@ function App() {
         <ProtectedRoute exact path="/expenses" component={ExpensesPage} />
         <ProtectedRoute exact path="/budget" component={Budget} />
       </Switch>
+      <footer id="footer">
+    <p>© 2023 by BudgetBuddy. All rights reserved.</p>
+  </footer>
     </>
   );
 }
