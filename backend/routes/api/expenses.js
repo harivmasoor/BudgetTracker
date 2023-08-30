@@ -9,13 +9,14 @@ const Expense = mongoose.model('Expense');
 // Create a new expense
 router.post('/', restoreUser, async (req, res, next) => {
   try {
-    const { fixedExpenses, variableExpenses, user, notes, category } = req.body;
+    const { fixedExpenses, variableExpenses, user, notes, category, date } = req.body;
     const newExpense = new Expense({
       fixedExpenses,
       variableExpenses,
       user,
       notes,
-      category
+      category,
+      date
     });
     const savedExpense = await newExpense.save();
     res.json(savedExpense);
@@ -26,14 +27,14 @@ router.post('/', restoreUser, async (req, res, next) => {
 
 // Fetch all expenses for the logged-in user
 router.get('/', restoreUser, async (req, res, next) => {
-  try {
-    if (!req.user) return res.status(401).json({ error: "Not logged in" });
-    const expenses = await Expense.find({ user: req.user._id });
-    res.json(expenses);
-  } catch (err) {
-    next(err);
-  }
-});
+    try {
+      if (!req.user) return res.status(401).json({ error: "Not logged in" });
+      const expenses = await Expense.find({ user: req.user._id });  // Fetch expenses by user's ID
+      res.json(expenses);
+    } catch (err) {
+      next(err);
+    }
+  });
 
 // Update an expense
 router.put('/:id', restoreUser, async (req, res, next) => {
@@ -47,6 +48,7 @@ router.put('/:id', restoreUser, async (req, res, next) => {
     expense.user = req.body.user || expense.user;
     expense.notes = req.body.notes || expense.notes;
     expense.category = req.body.category || expense.category;
+    expense.date = req.body.date || expense.date;
 
     
     const updatedExpense = await expense.save();
@@ -62,7 +64,7 @@ router.delete('/:id', restoreUser, async (req, res, next) => {
     const expense = await Expense.findById(req.params.id);
     if (!expense) return res.status(404).json({ error: "Expense not found" });
     
-    await expense.remove();
+    await expense.deleteOne();
     res.json({ success: true });
   } catch (err) {
     next(err);
