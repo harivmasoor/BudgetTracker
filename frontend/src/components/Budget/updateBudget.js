@@ -1,18 +1,20 @@
     import { useState } from 'react';
-    import { useDispatch } from 'react-redux';
+    import { useDispatch, useSelector } from 'react-redux';
     import { updateBudget } from '../../store/budget';
     import './modal.css'
 
     function UpdateBudgetModal({ budget, categories, closeModal }) {
     const dispatch = useDispatch();
+    const currentUser = useSelector(state => state.session.user);
     
     const [updatedBudget, setUpdatedBudget] = useState({
+        _id: budget._id,
         budgetAmount: budget.budgetAmount,
         budgetPlan: budget.budgetPlan,
         notes: budget.notes,
         category: budget.category,
         date: budget.date,
-        user: budget.user
+        user: currentUser._id
     });
 
     const handleUpdateBudget = () => {
@@ -22,10 +24,7 @@
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setUpdatedBudget({
-        ...updatedBudget,
-        [name]: value,
-        });
+        setUpdatedBudget({...updatedBudget, [name]: value,});
     };
 
     return (
@@ -46,7 +45,7 @@
             <input
                 type="text"
                 name="budgetAmount"
-                value={updatedBudget.budgetPlan}
+                value={updatedBudget.budgetAmount}
                 onChange={handleInputChange}
             />
             </label>
@@ -54,8 +53,8 @@
             Budget Note:
             <input
                 type="text"
-                name="note"
-                value={updatedBudget.budgetPlan}
+                name="notes"
+                value={updatedBudget.notes}
                 onChange={handleInputChange}
             />
             </label>
@@ -64,14 +63,14 @@
             <input
                 type="date"
                 name="date"
-                value={updatedBudget.budgetPlan}
+                value={updatedBudget.date}
                 onChange={handleInputChange}
             />
             Budget Category:
             <select 
             id="category" 
             name="category" 
-            value={updatedBudget.budgetPlan} 
+            value={updatedBudget.category} 
             onChange={handleInputChange}
             >
             <option value="" disabled>Select a category</option>
