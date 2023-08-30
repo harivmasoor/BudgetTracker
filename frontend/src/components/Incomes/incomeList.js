@@ -8,6 +8,10 @@ function IncomeList() {
   const incomes = useSelector(state => state.incomes);
   const incomeCategories = useSelector(state => state.incomeCategories)
 
+  const formattedDate = (date) => {
+    return date.split('T')[0]; // Extract the date part
+  };
+
   useEffect(() => {
     dispatch(fetchIncomes());
     dispatch(fetchIncomeCategories());
@@ -24,7 +28,7 @@ function IncomeList() {
           {income.category ? incomeCategories.filter(category => 
             category._id === income.category).map(filteredCategory => filteredCategory.name) : 'N/A'}
           </p>
-          <p><strong>Date:</strong> {income.date}</p>
+          <p><strong>Date:</strong> {formattedDate(income.date)}</p>
           <hr />
         </div>
       ))}
