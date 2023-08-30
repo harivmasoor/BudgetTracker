@@ -1,16 +1,22 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { addExpense } from '../../store/expenses';
+import { fetchCategories } from '../../store/categories';
+import ExpenseList from './expenseList';
 
 function ExpenseInput() {
+  const categories = useSelector(state => state.categories);
   const dispatch = useDispatch();
   const [expenseData, setExpenseData] = useState({
-    fixedExpenses: '',
-    variableExpenses: '',
-    user: '', 
-    notes: '',
-    category: ''
+    variableExpenses: '',  // Field for variable expenses
+    notes: '',  // Field for notes
+    category: '', // Field for category
+    date: '' // Field for date
   });
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
 
   const handleChange = (e) => {
     setExpenseData({
@@ -25,58 +31,55 @@ function ExpenseInput() {
   };
 
   return (
-<form onSubmit={handleSubmit}>
-  <div>
-    <label htmlFor="fixedExpenses">Fixed Expenses:</label>
-    <input 
-      type="number" 
-      id="fixedExpenses" 
-      name="fixedExpenses" 
-      value={expenseData.fixedExpenses} 
-      onChange={handleChange}
-      placeholder="Enter fixed expenses amount"
-    />
-  </div>
-
-  <div>
-    <label htmlFor="variableExpenses">Variable Expenses:</label>
-    <input 
-      type="number" 
-      id="variableExpenses" 
-      name="variableExpenses" 
-      value={expenseData.variableExpenses} 
-      onChange={handleChange}
-      placeholder="Enter variable expenses amount"
-    />
-  </div>
-
-  <div>
-    <label htmlFor="notes">Notes:</label>
-    <textarea 
-      id="notes" 
-      name="notes" 
-      value={expenseData.notes} 
-      onChange={handleChange}
-      placeholder="Any notes related to the expenses?"
-    />
-  </div>
-
-  <div>
-    <label htmlFor="category">Category:</label>
-    <input 
-      type="number" 
-      id="category" 
-      name="category" 
-      value={expenseData.category} 
-      onChange={handleChange}
-      placeholder="Enter category number (e.g., 1, 2, 3...)"
-    />
-  </div>
-
-  <button type="submit">Add Expense</button>
-</form>
-
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="variableExpenses">Variable Expense ($):</label>
+        <input 
+          type="number" 
+          id="variableExpenses" 
+          name="variableExpenses" 
+          value={expenseData.variableExpenses} 
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="date">Date:</label>
+        <input 
+          type="date" 
+          id="date" 
+          name="date" 
+          value={expenseData.date} 
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="notes">Notes:</label>
+        <textarea 
+          id="notes" 
+          name="notes" 
+          value={expenseData.notes} 
+          onChange={handleChange}
+        ></textarea>
+      </div>
+      <div>
+        <label htmlFor="category">Category:</label>
+        <select 
+          id="category" 
+          name="category" 
+          value={expenseData.category} 
+          onChange={handleChange}
+        >
+          <option value="" disabled>Select a category</option>
+          {categories.map((category, index) => (
+            <option key={index} value={category._id}>{category.name}</option>
+          ))}
+        </select>
+      </div>
+      
+      <button type="submit">Add Expense</button>
+    </form>
   );
 }
 
 export default ExpenseInput;
+
