@@ -32,13 +32,12 @@ router.post('/', restoreUser, async (req, res, next) => {
       const relatedBudget = await Budget.findOne({ user: req.user._id, category: newExpense.category });
   
       // Validate relatedBudget and remainingAmount
-      if (!relatedBudget || isNaN(relatedBudget.remainingAmount)) {
-        return res.status(400).json({ error: 'Related budget or remaining amount is invalid' });
+      if (relatedBudget && !isNaN(relatedBudget.remainingAmount)) {
+        // Update the remainingAmount in the related budget
+        relatedBudget.remainingAmount -= newExpense.variableExpenses;
+        await relatedBudget.save();
+        // return res.status(400).json({ error: 'Related budget or remaining amount is invalid' });
       }
-  
-      // Update the remainingAmount in the related budget
-      relatedBudget.remainingAmount -= newExpense.variableExpenses;
-      await relatedBudget.save();
   
       res.json(savedExpense);
     } catch (err) {
