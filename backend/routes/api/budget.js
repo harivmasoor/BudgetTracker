@@ -10,10 +10,10 @@ const User = mongoose.model('User');
 // Create a new budget
 router.post('/', restoreUser, async (req, res, next) => {
   try {
-    const {  budgetAmount, budgetPlan, user, notes, category, date } = req.body;
+    const {  budgetAmount, budgetPlan, user, notes, category, date, endDate } = req.body;
     const dateObj = new Date(date); // Convert the date string to a Date object
-    const month = dateObj.getMonth() + 1; // getMonth is zero-based
-    const year = dateObj.getFullYear();
+    // const month = dateObj.getMonth() + 1; // getMonth is zero-based
+    // const year = dateObj.getFullYear();
     const newBudget = new Budget({
       budgetAmount,
       budgetPlan,
@@ -22,9 +22,7 @@ router.post('/', restoreUser, async (req, res, next) => {
       category,
       date,
       remainingAmount: budgetAmount, 
-      month,
-      year,
-
+      endDate
     });
     const savedBudget = await newBudget.save();
     res.json(savedBudget);
@@ -33,37 +31,29 @@ router.post('/', restoreUser, async (req, res, next) => {
   }
 });
 
-// Fetch all budgets for the logged-in user
 router.get('/', restoreUser, async (req, res, next) => {
   try {
     if (!req.user) return res.status(401).json({ error: "Not logged in" });
-    const budget = await Budget.find({ user: req.user._id });
-    res.json(budget);
+    
+    const { startDate, endDate } = req.query;
+
+    let query = { user: req.user._id };
+
+    if (startDate && endDate) {
+      query.date = {
+        $gte: new Date(startDate),
+        $lte: new Date(endDate)
+      };
+    }
+
+    const budgets = await Budget.find(query);
+    res.json(budgets);
+
   } catch (err) {
     next(err);
   }
 });
 
-
-router.get('/', restoreUser, async (req, res, next) => {
-  try {
-    if (!req.user) return res.status(401).json({ error: "Not logged in" });
-    const startDate = new Date('2023-09-01');
-    const endDate = new Date('2023-09-31');
-    const incomes = await Income.find({
-       user: req.user._id,
-       $and: [
-        { date: { $gte: startDate } }, // Date greater than or equal to start date
-        { date: { $lte: endDate } }    // Date less than or equal to end date
-      ]
-      }
-      );
-    res.json(incomes);
-  } catch (err) {
-    next(err);
-  }
-});
-// Update an budget
 router.put('/:id', restoreUser, async (req, res, next) => {
   try {
     const budget = await Budget.findById(req.params.id);

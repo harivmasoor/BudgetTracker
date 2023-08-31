@@ -31,7 +31,7 @@ function ExpenseList() {
         startDate = undefined;
         endDate = undefined;
     }
-    console.log(startDate, endDate)
+    // console.log(startDate, endDate)
     dispatch(fetchExpenses(startDate, endDate));
 
   }, [dispatch, timeFrame]);
