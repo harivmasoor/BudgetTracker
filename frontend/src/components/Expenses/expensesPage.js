@@ -10,14 +10,16 @@ function ExpensesPage() {
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
   return (
-    <div className="expenses-page-container">
-      <h2>Your Expenses</h2>
+    <div>
       <button onClick={openModal}>Add New Expenses</button>
       <Modal showModal={showModal} closeModal={closeModal}>
         <ExpenseInput />
       </Modal>
+    <div className="expenses-page-container">
+      <h2>Your Expenses</h2>
       <ExpensePieChart />
       <ExpenseList />
+    </div>
     </div>
   );
 }
