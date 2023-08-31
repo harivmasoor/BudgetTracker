@@ -34,7 +34,7 @@ function IncomeList() {
           {income.category ? incomeCategories.filter(category => 
             category._id === income.category).map(filteredCategory => filteredCategory.name) : 'N/A'}
           </p>
-          <p><strong>Date:</strong> {formattedDate(income.date)}</p>
+          <p><strong>Date:</strong> {income.date.split('T')[0]}</p>
           <button onClick={() => handleDeleteIncome(income._id)}>Delete</button>
           <hr />
         </div>

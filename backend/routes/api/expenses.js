@@ -28,16 +28,37 @@ router.post('/', restoreUser, async (req, res, next) => {
       
       const savedExpense = await newExpense.save();
   
-      // Find the related budget for the user and category
-      const relatedBudget = await Budget.findOne({ user: req.user._id, category: newExpense.category });
-  
-      // Validate relatedBudget and remainingAmount
-      if (relatedBudget && !isNaN(relatedBudget.remainingAmount)) {
+      const budgetStartDate = new Date(newExpense.date);
+      budgetStartDate.setDate(1); // Set day to 1st
+      budgetStartDate.setHours(0, 0, 0, 0); // Set time to midnight
+      
+      const relatedBudget = await Budget.find({
+        user: req.user._id,
+        category: newExpense.category,
+        endDate: {
+          $gte: newExpense.date      // Start of the month for newExpense.date
+        },
+        startDate: {
+          $lte: newExpense.date      // Start of the month for newExpense.date
+        },
+      });
+      // console.log(relatedBudget);
+      
+      if (Array.isArray(relatedBudget)) {
+        for (const budget of relatedBudget) {
+          if (!isNaN(budget.remainingAmount)) {
+            // Update the remainingAmount in the related budget
+            budget.remainingAmount -= newExpense.variableExpenses;
+            await budget.save();
+          }
+        }
+      } else if (relatedBudget && !isNaN(relatedBudget.remainingAmount)) {
         // Update the remainingAmount in the related budget
         relatedBudget.remainingAmount -= newExpense.variableExpenses;
         await relatedBudget.save();
         // return res.status(400).json({ error: 'Related budget or remaining amount is invalid' });
       }
+      
   
       res.json(savedExpense);
     } catch (err) {
