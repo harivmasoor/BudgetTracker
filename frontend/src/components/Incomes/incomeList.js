@@ -7,7 +7,7 @@ import './Income.css';
 import { formattedDate } from '../../Util/dateUtil';
 
 function IncomeList() {
-  const incomes = useSelector(state => state.incomes);
+  const incomes = useSelector(state => state.incomes.income);
   const incomeCategories = useSelector(state => state.incomeCategories);
   const dispatch = useDispatch();
 
@@ -22,7 +22,7 @@ function IncomeList() {
 
   return (
     <div>
-      {incomes.map(income => (
+      {incomes && incomes.map(income => (
         <div key={income._id}>
           <p><strong>Income Source:</strong> {income.incomesource}</p>
           <p><strong>Income Amount:</strong> ${income.incomeamount}</p>
