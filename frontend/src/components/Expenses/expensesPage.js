@@ -5,7 +5,7 @@ import ExpensePieChart from './expensePieChart';
 
 function ExpensesPage() {
   return (
-    <div>
+    <div className="expenses-page-container">
       <h2>Your Expenses</h2>
       <ExpenseInput />
       <ExpensePieChart />

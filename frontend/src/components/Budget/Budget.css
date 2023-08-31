@@ -1,5 +1,5 @@
 
-.incomes-page-container {
+.budgets-page-container {
     font-family: Arial, sans-serif;
     margin: auto;
     width: 80%;
@@ -35,34 +35,46 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+    font-family: Arial, sans-serif;
+    margin-right: 16px;
+    /* margin-left: 16px; */
   }
   
   button {
     padding: 10px 20px;
     background: rgb(45, 45, 45);
-    color: white;
+    color: rgb(230, 227, 227);
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-family: Arial, sans-serif;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 16px;
+    margin-left: 16px;
   }
   
   button:hover {
     background: rgb(73, 108, 157);
   }
   
-  /* Income List */
-  .income-list-container {
+  /* budget List */
+  .budget-list-container {
     margin-top: 2rem;
   }
   
-  .income-item {
+  .budget-item {
     padding: 1rem;
     border: 1px solid #e1e1e1;
     border-radius: 4px;
     margin: 1rem 0;
   }
   
-  .income-item p {
+  .budget-item p {
     margin: 0.5rem 0;
   }
   
