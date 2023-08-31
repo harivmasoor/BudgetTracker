@@ -69,3 +69,18 @@
     border-top: 1px solid #e1e1e1;
   }
   
+  .expense-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+  }
+  
+  #expense-chart {
+    flex: 1;
+  }
+  
+  #expense-list {
+    flex: 1;
+    height: 500px; 
+    overflow-y: auto;
+  }

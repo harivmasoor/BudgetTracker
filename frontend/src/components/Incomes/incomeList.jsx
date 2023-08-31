@@ -67,12 +67,18 @@ function IncomeList() {
     // Calculate savings
     const savings = totalIn - totalEx;
   
-    return savings;
+    return {savings:savings,totalIn:totalIn,totalEx:totalEx};
   };
-
+const {savings,totalIn,totalEx}=countSaving(expenses, incomes);
   return (
     <div>
-      <div>{countSaving(expenses, incomes)}</div>
+      <div id='stt'>
+        <label htmlFor=""></label>
+        <div>Saving: ${savings}</div>
+        <div>Total Income: ${totalIn} </div>
+        <div>Total Expenses: ${totalEx} </div>
+      </div>
+      <div className='incomes-page-container'>
       <label htmlFor="timeFrame">Select Time Frame: </label>
       <select id="timeFrame" value={timeFrame} onChange={handleTimeFrameChange}>
         <option value="all">All</option>
@@ -93,8 +99,9 @@ function IncomeList() {
           <p><strong>Date:</strong> {formattedDate(income.date)}</p>
           <button onClick={() => handleDeleteIncome(income._id)}>Delete</button>
           <hr />
-        </div>
+          </div>
       ))}
+      </div>
     </div>
   );
 }

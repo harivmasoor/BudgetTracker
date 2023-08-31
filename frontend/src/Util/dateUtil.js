@@ -1,7 +1,12 @@
 export const formattedDate = (date) => {
-    if (!date || date ==="") return date
-    return date.split('T')[0]; // Extract the date part
-  };
+  if (!date || date === "") return date;
+  const newDate = new Date(date);
+  const day = newDate.getDate();
+  const month = newDate.toLocaleString('default', { month: 'long' }); // This will give the full month name
+  const year = newDate.getFullYear();
+  return `${day} ${month} ${year}`;
+};
+
 
   export const getCurrentMonthYear = (selectedInterval, dateInput) => {
     const newDate = new Date(dateInput);
