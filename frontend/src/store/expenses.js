@@ -49,7 +49,7 @@ export const addExpenseAction = (expense) => ({
       dispatch(fetchExpensesAction(data));
     };
   };
-  
+   
   export const deleteExpense = (expenseId) => async (dispatch) => {
     try {
     await jwtFetch(`/api/expenses/${expenseId}`, {
