@@ -57,7 +57,7 @@ function BudgetPieChart() {
     }, [categoryNames, categoryValues]);
 
     return (
-        <div>
+        <div className="budgets-page-container">
         <canvas ref={canvasRef} width="400" height="400"></canvas>
         </div>
     );

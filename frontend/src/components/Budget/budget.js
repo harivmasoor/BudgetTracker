@@ -117,7 +117,7 @@ function Budget() {
   };
   
   return (
-    <div>
+    <div className="budgets-page-container">
       <label htmlFor="timeFrame">Select Time Frame: </label>
       <select id="timeFrame" value={timeFrame} onChange={handleTimeFrameChange}>
         <option value="all">All</option>
@@ -220,12 +220,4 @@ function Budget() {
   );
       }
   export default Budget;
-  
-  
-  
-  // const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
-  // const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-  // const filteredBudgets = selectedInterval === 'monthly'
-  // ? budgets.filter(budget => new Date(budget.date).getMonth() + 1 === selectedMonth && new Date(budget.date).getFullYear() === selectedYear)
-  // : budgets.filter(budget => new Date(budget.date).getFullYear() === selectedYear);
 
