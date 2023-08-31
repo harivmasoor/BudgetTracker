@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import Chart from 'chart.js/auto';
+import './Budget.css';
 
 function BudgetPieChart() {
     const categories = useSelector(state => state.categories);

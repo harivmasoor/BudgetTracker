@@ -4,6 +4,7 @@ import { fetchBudgets, createBudget, deleteBudget } from '../../store/budget';
 import { fetchCategories } from '../../store/categories';
 import UpdateBudgetModal from './updateBudget';
 import BudgetPieChart from './budgetpieChart';
+import './Budget.css';
 
 function Budget() {
   const dispatch = useDispatch();

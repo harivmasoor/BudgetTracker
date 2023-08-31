@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import Chart from 'chart.js/auto';
+import './Expenses.css';
+
 
 function ExpensePieChart() {
   const categories = useSelector(state => state.categories);
@@ -40,7 +42,7 @@ function ExpensePieChart() {
         datasets: [
           {
             data: categoryValues,  // Expense totals for each category
-            backgroundColor: ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'],
+            backgroundColor: ['#606060', '#006666', '#A0A0A0', '#6666ff', '#3333ff', '#006633'],
           },
         ],
       },
