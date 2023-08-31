@@ -119,8 +119,40 @@ router.delete('/:id', restoreUser, async (req, res, next) => {
   try {
     const expense = await Expense.findById(req.params.id);
     if (!expense) return res.status(404).json({ error: "Expense not found" });
-    
+
     await expense.deleteOne();
+    
+    const budgetStartDate = new Date(expense.date);
+      budgetStartDate.setDate(1); // Set day to 1st
+      budgetStartDate.setHours(0, 0, 0, 0); // Set time to midnight
+      
+      const relatedBudget = await Budget.find({
+        user: req.user._id,
+        category: expense.category,
+        endDate: {
+          $gte: expense.date      // Start of the month for expense.date
+        },
+        startDate: {
+          $lte: expense.date      // Start of the month for expense.date
+        },
+      });
+      // console.log(relatedBudget);
+      
+      if (Array.isArray(relatedBudget)) {
+        for (const budget of relatedBudget) {
+          if (!isNaN(budget.remainingAmount)) {
+            // Update the remainingAmount in the related budget
+            budget.remainingAmount += expense.variableExpenses;
+            await budget.save();
+          }
+        }
+      } else if (relatedBudget && !isNaN(relatedBudget.remainingAmount)) {
+        // Update the remainingAmount in the related budget
+        relatedBudget.remainingAmount += expense.variableExpenses;
+        await relatedBudget.save();
+        // return res.status(400).json({ error: 'Related budget or remaining amount is invalid' });
+      }
+
     res.json({ success: true });
   } catch (err) {
     next(err);
