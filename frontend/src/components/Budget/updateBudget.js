@@ -2,6 +2,8 @@
     import { useDispatch, useSelector } from 'react-redux';
     import { updateBudget } from '../../store/budget';
     import './modal.css'
+    import './Budget.css';
+
 
     function UpdateBudgetModal({ budget, categories, closeModal }) {
     const dispatch = useDispatch();
