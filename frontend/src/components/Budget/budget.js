@@ -50,7 +50,7 @@ function Budget() {
   
   const [newBudget, setNewBudget] = useState({
     budgetAmount: '',
-    budgetPlan: '',
+    budgetPlan: selectedInterval,
     notes: '',
     category: categories.length > 0 ? categories[0]._id : '',
     date: '',
@@ -90,7 +90,7 @@ function Budget() {
 
   const handleCreateBudget = () => {
     const {startDate, endDate} = getCurrentMonthYear(selectedInterval, newBudget.date)
-    dispatch(createBudget({...newBudget, endDate,startDate}));
+    dispatch(createBudget({...newBudget, endDate,startDate, budgetPlan: selectedInterval}));
     setNewBudget({
       budgetAmount: 0,
       budgetPlan: '',
@@ -181,16 +181,6 @@ function Budget() {
       </ul>
       <h2>Add New Budget</h2>
       <div>
-        <label>
-          Budget Plan Name:
-          <input
-            type="text"
-            value={newBudget.budgetPlan}
-            onChange={(e) =>
-              setNewBudget({ ...newBudget, budgetPlan: e.target.value })
-            }
-            />
-        </label>
         <label>
           Budget Amount:
           <input
