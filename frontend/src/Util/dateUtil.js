@@ -22,7 +22,7 @@ export const formattedDate = (date) => {
       Date.UTC(currentYear, currentMonth + 1, 0) - (timezoneOffset * 60 * 1000)
     );
   
-    if (selectedInterval !== "monthly") {q
+    if (selectedInterval !== "monthly") {
       const startOfYear = new Date(Date.UTC(currentYear, 0, 1) - (timezoneOffset * 60 * 1000));
       const endOfYear = new Date(Date.UTC(currentYear + 1, 0, 0) - (timezoneOffset * 60 * 1000));
       return {
