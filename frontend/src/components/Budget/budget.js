@@ -103,6 +103,23 @@ function Budget() {
       // Other properties
     });
   };
+  const getRemainingDaysPercent = (startDate, endDate, maxWidth) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const now = new Date();
+    const totalDays = (end - start) / (1000 * 60 * 60 * 24);
+    const elapsedDays = (now - start) / (1000 * 60 * 60 * 24);
+    let remainingDaysPercent = ((totalDays - elapsedDays) / totalDays) * 100;
+  
+    // Ensure the black line doesn't go off the bar
+    if (remainingDaysPercent < 0) {
+      remainingDaysPercent = 0;
+    } else if (remainingDaysPercent > maxWidth) {
+      remainingDaysPercent = maxWidth;
+    }
+  
+    return remainingDaysPercent;
+  };
   
 
 
@@ -138,6 +155,23 @@ function Budget() {
             <div>Notes: {budget.notes}</div>
             <div>Date: {formattedDate(budget.date)}</div>
             <div>EndDate: {formattedDate(budget.endDate)}</div>
+            <div style={{ position: 'relative', width: '200px', height: '20px', backgroundColor: 'lightgray' }}>
+              {/* Budget bar */}
+              <div style={{ 
+                width: `${(budget.remainingAmount / budget.budgetAmount) * 100}%`, 
+                height: '100%', 
+                backgroundColor: 'green' 
+              }}></div>
+              {/* Remaining Days bar */}
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: `${getRemainingDaysPercent(budget.startDate, budget.endDate, 100)}%`, // 100% is the max width
+                width: '2px',
+                height: '100%',
+                backgroundColor: 'black'
+              }}></div>
+            </div>
 
             {/* Other properties */}
             <button onClick={() => handleOpenUpdateModal(budget)}>Update</button>
