@@ -70,3 +70,26 @@
     border-top: 1px solid #e1e1e1;
   }
   
+  .income-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+  }
+  
+  #income-chart {
+    flex: 1;
+  }
+  
+  #income-list {
+    flex: 1;
+    height: 500px; 
+    overflow-y: auto;
+  }
+
+  #stt{
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+  }

@@ -17,8 +17,14 @@ function IncomesPage() {
       <Modal showModal={showModal} closeModal={closeModal}>
         <IncomeInput />
       </Modal>
-      <IncomePieChart />
-      <IncomeList />
+      <div className="income-container">
+        <div id='income-list'>
+          <IncomeList />
+        </div>
+        <div id='income-chart'>
+          <IncomePieChart />
+        </div>
+      </div>
     </div>
   );
 }
