@@ -132,7 +132,7 @@ function Budget() {
             <div>Budget Plan: {budget.budgetPlan}</div>
             <div>Budget Category: {categories.filter(category => category._id === budget.category).map(filteredCategory => filteredCategory.name)}</div>
             <div>Notes: {budget.notes}</div>
-            <div>Date: {new Date(budget.date).toLocaleDateString()}</div>
+            <div>Date: {new Date(budget.date).toUTCString()}</div>
             {/* Other properties */}
             <button onClick={() => handleOpenUpdateModal(budget)}>Update</button>
             <button onClick={() => handleDeleteBudget(budget._id)}>Delete</button>
