@@ -62,7 +62,7 @@ function ExpenseList() {
           <p><strong>Variable Expense:</strong> ${expense.variableExpenses}</p>
           <p><strong>Date:</strong> {formattedDate(expense.date)}</p>
           <p><strong>Notes:</strong> {expense.notes}</p>
-          <div>Category: {categories.filter(category => category._id === expense.category).map(filteredCategory => filteredCategory.name)}</div>
+          <p><strong>Category:</strong>{categories.filter(category => category._id === expense.category).map(filteredCategory => filteredCategory.name)}</p>
           <hr />
           <button onClick={() => handleDeleteExpense(expense._id)}>Delete</button>
         </div>

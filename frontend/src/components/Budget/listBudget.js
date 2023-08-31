@@ -80,16 +80,17 @@ function ListBudget() {
       };
       
   return (
-    <div className="budget-list">
+    <div className="budget-container">
+        <div id="budget-list">
           <ul>
         {budgets.map((budget) => (
           <li key={budget._id}>
-            <div>Budget Plan: {budget.budgetPlan}</div>
-            <div>Budget Category: {categories.filter(category => category._id === budget.category).map(filteredCategory => filteredCategory.name)}</div>
-            <div>Notes: {budget.notes}</div>
-            <div>Date: {formattedDate(budget.date)}</div>
-            <div>EndDate: {formattedDate(budget.endDate)}</div>
-            <div>{budget.remainingAmount}/{budget.budgetAmount}</div>
+            <p><strong>Budget Plan:</strong> {budget.budgetPlan}</p>
+            <p><strong>Budget Category:</strong> {categories.filter(category => category._id === budget.category).map(filteredCategory => filteredCategory.name)}</p>
+            <p><strong>Notes:</strong> {budget.notes}</p>
+            <p><strong>Date:</strong> {formattedDate(budget.date)}</p>
+            <p><strong>End Date: </strong>{formattedDate(budget.endDate)}</p>
+            <p><strong>${budget.remainingAmount}/${budget.budgetAmount}</strong></p>
             <div style={{ position: 'relative', width: '200px', height: '20px', backgroundColor: 'lightgray' }}>
               {/* Budget bar */}
               <div style={{ 
@@ -127,6 +128,7 @@ function ListBudget() {
     {showUpdateModal && (
         <UpdateBudgetModal budget={selectedBudget} categories={categories} closeModal={handleCloseUpdateModal}/>
         )}
+      </div>
       <div id='budget-chart'>
         <BudgetPieChart/>
       </div>
