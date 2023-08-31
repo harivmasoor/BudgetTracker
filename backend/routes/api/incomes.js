@@ -9,14 +9,16 @@ const Income = mongoose.model('Income');
 // Create a new income
 router.post('/', restoreUser, async (req, res, next) => {
   try {
-    const {user, incomesource, incomeamount, category ,notes,date} = req.body;
+    const {user, incomesource, incomeamount, category ,notes,date,endDate,startDate} = req.body;
     const newIncome = new Income({
       user,
       incomesource,
       incomeamount,
       category,
       notes,
-      date
+      date,
+      endDate,
+      startDate
     });
     const savedIncome = await newIncome.save();
     res.json(savedIncome);
@@ -29,8 +31,21 @@ router.post('/', restoreUser, async (req, res, next) => {
 router.get('/', restoreUser, async (req, res, next) => {
   try {
     if (!req.user) return res.status(401).json({ error: "Not logged in" });
-    const incomes = await Income.find({ user: req.user._id });
+    // const incomes = await Income.find({ user: req.user._id });
+    const { startDate, endDate } = req.query;
+    let query = { user: req.user._id };
+  
+    if (startDate && endDate) {
+      query.date = {
+        $gte: new Date(startDate),
+        $lte: new Date(endDate)
+      };
+    }
+
+    const incomes = await Income.find(query);
+
     res.json(incomes);
+
   } catch (err) {
     next(err);
   }

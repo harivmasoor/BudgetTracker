@@ -5,7 +5,7 @@ import { fetchCategories } from '../../store/categories';
 import UpdateBudgetModal from './updateBudget';
 import BudgetPieChart from './budgetpieChart';
 import './Budget.css';
-import { formattedDate } from '../../Util/dateUtil';
+import { formattedDate,getCurrentMonthYear } from '../../Util/dateUtil';
 
 function Budget() {
   const dispatch = useDispatch();
@@ -23,26 +23,7 @@ function Budget() {
     setShowUpdateModal(true);
   };
   
-  function getCurrentMonthYear(selectedInterval, dateInput) {
-    // Get the current year and month
-    const newDate = new Date(dateInput)
-    const currentYear = newDate.getFullYear();
-    const currentMonth = newDate.getMonth();
-    // Calculate the start and end dates of the current month
-    let startDate = new Date(currentYear, currentMonth, 1);
-    let endDate = new Date(currentYear, currentMonth + 1, 0);
-    if(selectedInterval === "monthly") {
-      startDate = new Date(currentYear, currentMonth, 1);
-      endDate = new Date(currentYear, currentMonth + 1, 0);
-    }else{
-      startDate = new Date(currentYear, 0, 1);
-      endDate = new Date(currentYear +1, 0, 0);
-    }
-    return {
-      startDate: startDate.toISOString().split('T')[0],
-      endDate: endDate.toISOString().split('T')[0]
-    };
-  }
+
   const handleCloseUpdateModal = () => {
     setSelectedBudget(null);
     setShowUpdateModal(false);
