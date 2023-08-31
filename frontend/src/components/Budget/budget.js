@@ -53,7 +53,8 @@ function Budget() {
     category: categories.length > 0 ? categories[0]._id : '',
     date: '',
     user: currentUser._id,
-    endDate: selectedInterval
+    endDate: selectedInterval,
+    startDate:''
   });
 
   let startDate, endDate;
@@ -87,7 +88,7 @@ function Budget() {
 
   const handleCreateBudget = () => {
     const {startDate, endDate} = getCurrentMonthYear(selectedInterval, newBudget.date)
-    dispatch(createBudget({...newBudget, endDate}));
+    dispatch(createBudget({...newBudget, endDate,startDate}));
     setNewBudget({
       budgetAmount: 0,
       budgetPlan: '',
@@ -95,7 +96,8 @@ function Budget() {
       date:'',
       category:'',
       user: currentUser._id,
-      endDate: selectedInterval
+      endDate: selectedInterval,
+      startDate:''
       // Other properties
     });
   };
@@ -132,7 +134,9 @@ function Budget() {
             <div>Budget Plan: {budget.budgetPlan}</div>
             <div>Budget Category: {categories.filter(category => category._id === budget.category).map(filteredCategory => filteredCategory.name)}</div>
             <div>Notes: {budget.notes}</div>
-            <div>Date: {new Date(budget.date).toUTCString()}</div>
+            <div>Date: {budget.date.split('T')[0]}</div>
+            <div>EndDate: {budget.endDate.split('T')[0]}</div>
+
             {/* Other properties */}
             <button onClick={() => handleOpenUpdateModal(budget)}>Update</button>
             <button onClick={() => handleDeleteBudget(budget._id)}>Delete</button>
