@@ -2,6 +2,7 @@ import jwtFetch from './jwt.js';
 
 export const ADD_EXPENSE = 'expenses/ADD_EXPENSE';
 export const FETCH_EXPENSES = 'expenses/FETCH_EXPENSES';
+export const DELETE_EXPENSE = 'expenses/DELETE_EXPENSE';
 
 export const addExpenseAction = (expense) => ({
     type: ADD_EXPENSE,
@@ -13,9 +14,10 @@ export const addExpenseAction = (expense) => ({
     payload: expenses
   });
   
-
-
-
+  export const deleteExpenseAction = (deletedExpensesId) => ({
+    type: DELETE_EXPENSE,
+    deletedExpensesId
+});
   export const addExpense = (expenseData) => {
     return async (dispatch, getState) => {
       const state = getState();
@@ -48,7 +50,17 @@ export const addExpenseAction = (expense) => ({
     };
   };
   
-  
+  export const deleteExpense = (expenseId) => async (dispatch) => {
+    try {
+    await jwtFetch(`/api/expenses/${expenseId}`, {
+        method: 'DELETE'
+    });
+
+    dispatch(deleteExpenseAction(expenseId));
+    } catch (error) {
+    console.error('Error deleting expense:', error);
+    }
+};
 
   const initialState = [];
 
@@ -58,6 +70,8 @@ export const addExpenseAction = (expense) => ({
         return [...state, action.payload];
       case FETCH_EXPENSES:
         return action.payload;
+      case DELETE_EXPENSE:
+        return state.filter((expenses) => expenses._id !== action.deletedExpensesId);
       default:
         return state;
     }

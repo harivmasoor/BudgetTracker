@@ -1,35 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createBudget } from '../../store/budget';
-import { fetchCategories } from '../../store/categories';
 import './Budget.css';
+import { getCurrentMonthYear } from '../../Util/dateUtil';
 
 function CreateBudget() {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.session.user);
   const categories = useSelector(state => state.categories);
   const [selectedInterval, setSelectedInterval] = useState('monthly'); // Default value is 'monthly'
-  
-  function getCurrentMonthYear(selectedInterval, dateInput) {
-    // Get the current year and month
-    const newDate = new Date(dateInput)
-    const currentYear = newDate.getFullYear();
-    const currentMonth = newDate.getMonth();
-    // Calculate the start and end dates of the current month
-    let startDate = new Date(currentYear, currentMonth, 1);
-    let endDate = new Date(currentYear, currentMonth + 1, 0);
-    if(selectedInterval === "monthly") {
-      startDate = new Date(currentYear, currentMonth, 1);
-      endDate = new Date(currentYear, currentMonth + 1, 0);
-    }else{
-      startDate = new Date(currentYear, 0, 1);
-      endDate = new Date(currentYear +1, 0, 0);
-    }
-    return {
-      startDate: startDate.toISOString().split('T')[0],
-      endDate: endDate.toISOString().split('T')[0]
-    };
-  }
 
   const [newBudget, setNewBudget] = useState({
     budgetAmount: '',
