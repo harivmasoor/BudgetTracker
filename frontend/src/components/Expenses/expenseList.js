@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchExpenses } from '../../store/expenses';
+import './Expenses.css';
 import { formattedDate } from '../../Util/dateUtil';
 
 function ExpenseList() {
@@ -43,7 +44,7 @@ function ExpenseList() {
 
   if (!categories) return null;
   return (
-    <div>
+    <div className="expenses-page-container">
       <label htmlFor="timeFrame">Select Time Frame: </label>
       <select id="timeFrame" value={timeFrame} onChange={handleTimeFrameChange}>
         <option value="all">All</option>

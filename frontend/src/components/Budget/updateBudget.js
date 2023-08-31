@@ -2,6 +2,8 @@
     import { useDispatch, useSelector } from 'react-redux';
     import { updateBudget } from '../../store/budget';
     import './modal.css'
+    import './Budget.css';
+
 
     function UpdateBudgetModal({ budget, categories, closeModal }) {
     const dispatch = useDispatch();
@@ -28,6 +30,7 @@
     };
 
     return (
+        <div className="budgets-page-container">
         <div className="modal">
         <div className="modal-content">
             <h2>Update Budget</h2>
@@ -82,6 +85,7 @@
             {/* Other input fields */}
             <button onClick={handleUpdateBudget}>Update</button>
             <button onClick={closeModal}>Cancel</button>
+        </div>
         </div>
         </div>
     );

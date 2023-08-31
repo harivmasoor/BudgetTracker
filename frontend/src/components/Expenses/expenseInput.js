@@ -4,6 +4,7 @@ import { addExpense } from '../../store/expenses';
 import { fetchCategories } from '../../store/categories';
 import ExpenseList from './expenseList';
 import { fetchBudgets } from '../../store/budget';
+import './Expenses.css';
 
 function ExpenseInput() {
   const categories = useSelector(state => state.categories);
@@ -33,6 +34,7 @@ function ExpenseInput() {
   };
 
   return (
+    <div className="expenses-page-container">
     <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="variableExpenses">Variable Expense ($):</label>
@@ -80,6 +82,7 @@ function ExpenseInput() {
       
       <button type="submit">Add Expense</button>
     </form>
+    </div>
   );
 }
 
