@@ -15,6 +15,7 @@ require('./models/Expense');
 require('./models/Category');
 require('./models/Income');
 require('./models/IncomeCategory');
+require('./models/SavingsGoal');
 
 /* ------------------------------------------------------------- */
 require('./config/passport'); // Need to import to configure passport module
@@ -63,6 +64,7 @@ const budgetRouter = require('./routes/api/budget');
 const expensesRouter = require('./routes/api/expenses');
 const categoriesRouter = require('./routes/api/categories');
 const incomeCategoriesRouter = require('./routes/api/incomeCategories');
+const savingsGoalsRouter = require('./routes/api/savingsGoals');
 
 app.use('/api/users', usersRouter);
 app.use('/api/csrf', csrfRouter);
@@ -71,6 +73,7 @@ app.use('/api/expenses', expensesRouter);
 app.use('/api/incomes', incomesRouter);
 app.use('/api/categories', categoriesRouter);
 app.use('/api/incomeCategories', incomeCategoriesRouter);
+app.use('/api/savingsGoals', savingsGoalsRouter);
 
 const exp = require('constants');
 
