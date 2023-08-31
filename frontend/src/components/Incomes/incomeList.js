@@ -4,15 +4,12 @@ import { fetchIncomes ,deletedIncome} from '../../store/incomes';
 import { fetchIncomeCategories } from '../../store/incomeCategories';
 import React from 'react';
 import './Income.css';
+import { formattedDate } from '../../Util/dateUtil';
 
 function IncomeList() {
   const incomes = useSelector(state => state.incomes);
   const incomeCategories = useSelector(state => state.incomeCategories);
   const dispatch = useDispatch();
-
-  const formattedDate = (date) => {
-    return date.split('T')[0]; // Extract the date part
-  };
 
   useEffect(() => {
     dispatch(fetchIncomes());
@@ -34,7 +31,7 @@ function IncomeList() {
           {income.category ? incomeCategories.filter(category => 
             category._id === income.category).map(filteredCategory => filteredCategory.name) : 'N/A'}
           </p>
-          <p><strong>Date:</strong> {income.date.split('T')[0]}</p>
+          <p><strong>Date:</strong> {formattedDate(income.date)}</p>
           <button onClick={() => handleDeleteIncome(income._id)}>Delete</button>
           <hr />
         </div>

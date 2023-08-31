@@ -4,6 +4,7 @@ import { fetchBudgets, createBudget, deleteBudget } from '../../store/budget';
 import { fetchCategories } from '../../store/categories';
 import UpdateBudgetModal from './updateBudget';
 import BudgetPieChart from './budgetpieChart';
+import { formattedDate } from '../../Util/dateUtil';
 
 function Budget() {
   const dispatch = useDispatch();
@@ -134,8 +135,8 @@ function Budget() {
             <div>Budget Plan: {budget.budgetPlan}</div>
             <div>Budget Category: {categories.filter(category => category._id === budget.category).map(filteredCategory => filteredCategory.name)}</div>
             <div>Notes: {budget.notes}</div>
-            <div>Date: {budget.date.split('T')[0]}</div>
-            <div>EndDate: {budget.endDate.split('T')[0]}</div>
+            <div>Date: {formattedDate(budget.date)}</div>
+            <div>EndDate: {formattedDate(budget.endDate)}</div>
 
             {/* Other properties */}
             <button onClick={() => handleOpenUpdateModal(budget)}>Update</button>
