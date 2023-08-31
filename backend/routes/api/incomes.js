@@ -9,14 +9,16 @@ const Income = mongoose.model('Income');
 // Create a new income
 router.post('/', restoreUser, async (req, res, next) => {
   try {
-    const {user, incomesource, incomeamount, category ,notes,date} = req.body;
+    const {user, incomesource, incomeamount, category ,notes,date,endDate,startDate} = req.body;
     const newIncome = new Income({
       user,
       incomesource,
       incomeamount,
       category,
       notes,
-      date
+      date,
+      endDate,
+      startDate
     });
     const savedIncome = await newIncome.save();
     res.json(savedIncome);
