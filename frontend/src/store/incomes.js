@@ -4,6 +4,8 @@ export const ADD_INCOME = 'incomes/ADD_INCOME';
 export const FETCH_INCOMES = 'incomes/FETCH_INCOMES';
 export const DELETE_INCOME = 'incomes/DELETE_INCOME';
 
+export const FETCH_SAVINGS = 'incomes/FETCH_SAVINGS';
+
 export const addIncomeAction = (income) => ({
     type: ADD_INCOME,
     payload: income
@@ -19,6 +21,12 @@ export const addIncomeAction = (income) => ({
     deletedIncomeId
   });
 
+  export const fetchSavingsAction = (Savings) => ({
+    type: FETCH_SAVINGS,
+    payload: Savings
+  });
+
+  
   export const addIncome = (incomeData) => {
     return async (dispatch, getState) => {
       const state = getState();
@@ -37,9 +45,23 @@ export const addIncomeAction = (income) => ({
     };
   };
   
-  export const fetchIncomes = () => {
+  // export const fetchIncomes = () => {
+  //   return async (dispatch) => {
+  //     const response = await jwtFetch('/api/incomes');
+  //     const data = await response.json();
+  //     dispatch(fetchIncomesAction(data));
+  //   };
+  // };
+
+  export const fetchIncomes = (startDate, endDate) => {
     return async (dispatch) => {
-      const response = await jwtFetch('/api/incomes');
+      let url = '/api/incomes';
+  
+      if (startDate && endDate) {
+        url += `?startDate=${startDate}&endDate=${endDate}`;
+      }
+  
+      const response = await jwtFetch(url);
       const data = await response.json();
       dispatch(fetchIncomesAction(data));
     };
@@ -56,16 +78,27 @@ export const addIncomeAction = (income) => ({
     console.error('Error deleting income:', error);
     }
   };  
-  const initialState = [];
+
+  export const fetchSavings = () => {
+    return async (dispatch) => {
+      const response = await jwtFetch('/api/incomes');
+      const data = await response.json();
+      dispatch(fetchIncomesAction(data));
+    };
+  };
+  const initialState = {income:[],saving:[]};
 
   const incomesReducer = (state = initialState, action) => {
     switch (action.type) {
       case ADD_INCOME:
-        return [...state, action.payload];
+        return { ...state, income: [...state.income, action.payload] };
       case FETCH_INCOMES:
-        return action.payload;
+        return { ...state, income: action.payload };
       case DELETE_INCOME:
-          return state.filter((income) => income._id !== action.deletedIncomeId);
+        return {
+          ...state,
+          income: state.income.filter((income) => income._id !== action.deletedIncomeId)
+        };
       default:
           return state;
       }

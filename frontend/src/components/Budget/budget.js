@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import CreateBudget from './createBudget';
 import ListBudget from './listBudget';
-
 function Budget() {
   const [selectedInterval, setSelectedInterval] = useState('monthly'); // Default value is 'monthly'
   const [timeFrame, setTimeFrame] = useState("all");
-
   const handleTimeFrameChange = (e) => {
     setTimeFrame(e.target.value);
   };
