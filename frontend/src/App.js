@@ -12,6 +12,7 @@ import Budget from './components/Budget/budget';
 import InstructionPage from './components/Instruction/InstructionPage';
 import ContactUsPage from './components/ContactUs/ContactUsPage';
 import './App.css';
+import SavingsGoalForm from './components/SavingsGoals/savingsGoalForm';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -33,6 +34,7 @@ function App() {
         <ProtectedRoute exact path="/expenses" component={ExpensesPage} />
         <ProtectedRoute exact path="/incomes" component={IncomesPage} />
         <ProtectedRoute exact path="/budget" component={Budget} />
+        <ProtectedRoute exact path="/savingGoals" component={SavingsGoalForm} />
         <Redirect to="/" />
       </Switch>
       <footer id="footer">

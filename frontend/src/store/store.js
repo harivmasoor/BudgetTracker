@@ -7,6 +7,7 @@ import incomes from './incomes';
 import categories from './categories'; 
 import incomeCategories from './incomeCategories'; 
 import budgetReducer from './budget';
+import savingsGoalsReducer from './savingsGoal';
 
 const rootReducer = combineReducers({
   session,
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
   categories,
   incomes,
   incomeCategories,
-  budget: budgetReducer
+  budget: budgetReducer,
+  savingsGoal: savingsGoalsReducer
 });
 
 let enhancer;
