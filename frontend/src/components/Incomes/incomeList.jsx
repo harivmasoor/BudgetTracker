@@ -73,6 +73,7 @@ const {savings,totalIn,totalEx}=countSaving(expenses, incomes);
   return (
     <div>
       <div id='stt'>
+        <label htmlFor=""></label>
         <div>Saving: ${savings}</div>
         <div>Total Income: ${totalIn} </div>
         <div>Total Expenses: ${totalEx} </div>
