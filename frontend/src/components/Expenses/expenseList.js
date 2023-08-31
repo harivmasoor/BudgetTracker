@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchExpenses } from '../../store/expenses';
+import { fetchExpenses ,deleteExpense} from '../../store/expenses';
 import './Expenses.css';
 import { formattedDate } from '../../Util/dateUtil';
 
@@ -38,6 +38,10 @@ function ExpenseList() {
 
   }, [dispatch, timeFrame]);
 
+  const handleDeleteExpense = (expense) => {
+    dispatch(deleteExpense(expense));
+  };
+
   const handleTimeFrameChange = (e) => {
     setTimeFrame(e.target.value);
   };
@@ -60,6 +64,7 @@ function ExpenseList() {
           <p><strong>Notes:</strong> {expense.notes}</p>
           <div>Category: {categories.filter(category => category._id === expense.category).map(filteredCategory => filteredCategory.name)}</div>
           <hr />
+          <button onClick={() => handleDeleteExpense(expense._id)}>Delete</button>
         </div>
       ))}
     </div>
