@@ -93,9 +93,19 @@ function ListBudget() {
             <div style={{ position: 'relative', width: '200px', height: '20px', backgroundColor: 'lightgray' }}>
               {/* Budget bar */}
               <div style={{ 
-                width: `${(budget.remainingAmount / budget.budgetAmount) * 100}%`, 
+                width: `${
+                  budget.remainingAmount > 0 
+                    ? (budget.remainingAmount / budget.budgetAmount) * 100 
+                    : budget.remainingAmount < 0 
+                      ? Math.min(Math.abs(budget.remainingAmount / budget.budgetAmount) * 100, 100)
+                      : 0
+                }%`, 
                 height: '100%', 
-                backgroundColor: 'green' 
+                backgroundColor: budget.remainingAmount > 0 
+                  ? 'green' 
+                  : budget.remainingAmount < 0 
+                    ? 'red' 
+                    : 'lightgray' 
               }}></div>
               {/* Remaining Days bar */}
               <div style={{
