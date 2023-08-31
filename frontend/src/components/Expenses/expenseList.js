@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchExpenses } from '../../store/expenses';
 import './Expenses.css';
-
+import { formattedDate } from '../../Util/dateUtil';
 
 function ExpenseList() {
   const categories = useSelector(state => state.categories);
@@ -56,7 +56,7 @@ function ExpenseList() {
       {expenses.map(expense => (
         <div key={expense._id}>
           <p><strong>Variable Expense:</strong> ${expense.variableExpenses}</p>
-          <p><strong>Date:</strong> {expense.date}</p>
+          <p><strong>Date:</strong> {formattedDate(expense.date)}</p>
           <p><strong>Notes:</strong> {expense.notes}</p>
           <div>Category: {categories.filter(category => category._id === expense.category).map(filteredCategory => filteredCategory.name)}</div>
           <hr />
