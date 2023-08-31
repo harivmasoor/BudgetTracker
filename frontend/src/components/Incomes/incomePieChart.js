@@ -39,7 +39,7 @@ function IncomePieChart() {
         datasets: [
           {
             data: categoryValues,  // Expense totals for each category
-            backgroundColor: ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'],
+            backgroundColor: ['#0088FE', '#00C49F', '#606060', '#00435F', '#00B3FF', '#A0A0A0', '#003CFF', '#788098', '#006633', '#0E6C00', '#0026A2'],
           },
         ],
       },
