@@ -30,6 +30,7 @@
     };
 
     return (
+        <div className="budgets-page-container">
         <div className="modal">
         <div className="modal-content">
             <h2>Update Budget</h2>
@@ -84,6 +85,7 @@
             {/* Other input fields */}
             <button onClick={handleUpdateBudget}>Update</button>
             <button onClick={closeModal}>Cancel</button>
+        </div>
         </div>
         </div>
     );

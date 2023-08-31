@@ -42,7 +42,7 @@ function ExpensePieChart() {
         datasets: [
           {
             data: categoryValues,  // Expense totals for each category
-            backgroundColor: ['#606060', '#006666', '#A0A0A0', '#6666ff', '#3333ff', '#006633'],
+            backgroundColor: ['#606060', '#00435F', '#00B3FF', '#A0A0A0', '#003CFF', '#788098', '#006633', '#0E6C00', '#0026A2'],
           },
         ],
       },
@@ -59,7 +59,7 @@ function ExpensePieChart() {
 
   return (
     <div>
-      <canvas ref={canvasRef} width="400" height="400"></canvas>
+      <canvas ref={canvasRef} width="500" height="500"></canvas>
     </div>
   );
 }
