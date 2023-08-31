@@ -31,8 +31,21 @@ router.post('/', restoreUser, async (req, res, next) => {
 router.get('/', restoreUser, async (req, res, next) => {
   try {
     if (!req.user) return res.status(401).json({ error: "Not logged in" });
-    const incomes = await Income.find({ user: req.user._id });
+    // const incomes = await Income.find({ user: req.user._id });
+    const { startDate, endDate } = req.query;
+    let query = { user: req.user._id };
+  
+    if (startDate && endDate) {
+      query.date = {
+        $gte: new Date(startDate),
+        $lte: new Date(endDate)
+      };
+    }
+
+    const incomes = await Income.find(query);
+
     res.json(incomes);
+
   } catch (err) {
     next(err);
   }
