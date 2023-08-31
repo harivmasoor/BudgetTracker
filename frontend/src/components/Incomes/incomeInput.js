@@ -3,17 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addIncome } from '../../store/incomes';
 import { fetchIncomeCategories } from '../../store/incomeCategories';
 import './Income.css';
+import { getCurrentMonthYear } from '../../Util/dateUtil';
 
 
 function IncomeInput() {
   const incomeCategories = useSelector(state => state.incomeCategories);
+  const [selectedInterval, setSelectedInterval] = useState('monthly');
   const dispatch = useDispatch();
   const [incomeData, setIncomeData] = useState({
     incomesource: '', 
     incomeamount: '',  
-    category: '', 
+    category: incomeCategories.length > 0 ? incomeCategories[0]._id : '',
     notes:'',
-    date:''
+    date:'',
+    endDate: selectedInterval,
+    startDate:''
   });
 
   useEffect(() => {
@@ -29,7 +33,8 @@ function IncomeInput() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addIncome(incomeData));
+    const {startDate, endDate} = getCurrentMonthYear(selectedInterval, incomeData.date)
+    dispatch(addIncome({...incomeData, endDate,startDate}));
   };
 
   return (
@@ -87,6 +92,16 @@ function IncomeInput() {
           onChange={handleChange}
         />
       </div>
+      <label>
+            Select Income Interval:
+            <select
+              value={selectedInterval}
+              onChange={(e) => setSelectedInterval(e.target.value)}
+              >
+              <option value="monthly">Monthly</option>
+              <option value="yearly">Yearly</option>
+            </select>
+      </label>
       <button type="submit">Add Income</button>
     </form>
   );

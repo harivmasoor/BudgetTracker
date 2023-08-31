@@ -5,13 +5,13 @@ import Chart from 'chart.js/auto';
 function IncomePieChart() {
   const canvasRef = useRef(null);
   const chartRef = useRef(null);
-  const incomes = useSelector(state => state.incomes);
+  const incomes = useSelector(state => state.incomes.income);
   const incomeCategories = useSelector(state => state.incomeCategories)
 
   // Object to hold category totals
   const categoryTotals = {};
 
-  incomes.forEach(income => {
+  incomes && incomes.forEach(income => {
     const categoryName = incomeCategories.filter(category => category._id === income.category).map(filteredCategory => filteredCategory.name)[0] || 'Uncategorized';
     
     if (income.incomeamount) {
