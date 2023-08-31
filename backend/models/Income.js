@@ -24,6 +24,12 @@ const incomeSchema = new Schema({
   date: { type: Date,
     required: true 
     },
+  endDate: { type: Date,
+    // required: true 
+    },
+  startDate: { type: Date,
+    // required: true 
+    },
 }, {
   // tells mongoose to add and maintain `createdAt` and `updatedAt` fields with
   // datetime timestamps
