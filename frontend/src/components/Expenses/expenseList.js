@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchExpenses ,deleteExpense} from '../../store/expenses';
 import './Expenses.css';
 import { formattedDate } from '../../Util/dateUtil';
+import { fetchCategories } from '../../store/categories';
 
 function ExpenseList() {
   const categories = useSelector(state => state.categories);
@@ -35,7 +36,7 @@ function ExpenseList() {
     }
     // console.log(startDate, endDate)
     dispatch(fetchExpenses(startDate, endDate));
-
+    dispatch(fetchCategories());
   }, [dispatch, timeFrame]);
 
   const handleDeleteExpense = (expense) => {
