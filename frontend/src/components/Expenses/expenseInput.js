@@ -34,7 +34,7 @@ function ExpenseInput() {
   };
 
   return (
-    <div className="expenses-page-container">
+    <div>
     <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="variableExpenses">Variable Expense ($):</label>
