@@ -59,7 +59,7 @@ function ExpensePieChart() {
 
   return (
     <div>
-      <canvas ref={canvasRef} width="500" height="500"></canvas>
+      <canvas ref={canvasRef} width="450" height="450"></canvas>
     </div>
   );
 }
