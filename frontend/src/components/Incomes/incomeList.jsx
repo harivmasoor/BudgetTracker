@@ -7,12 +7,37 @@ import './Income.css';
 import { formattedDate } from '../../Util/dateUtil';
 import { fetchExpenses } from '../../store/expenses';
 
+import alimony from './IncomeAss/alimony.png';
+import bonus from './IncomeAss/bonus.png';
+import business from './IncomeAss/business.png';
+import childSupport from './IncomeAss/childSupport.png';
+import crowdfunding from './IncomeAss/crowdfunding.png';
+import disable from './IncomeAss/disabled-person.png';
+import freelance from './IncomeAss/freelance-work.png';
+import giftbox from './IncomeAss/giftbox.png';
+import house from './IncomeAss/house.png';
+import investement from './IncomeAss/investement.png';
+import lottery from './IncomeAss/lottery.png';
+import other from './IncomeAss/other.png';
+import pension from './IncomeAss/pension.png';
+import royalties from './IncomeAss/royalties.png';
+import SalaryWages from './IncomeAss/SalaryWages.png';
+import scholarship from './IncomeAss/scholarship.png';
+import sellinggoods from './IncomeAss/sellinggoods.png';
+import socialSecurity from './IncomeAss/social-security.png';
+import sponsorship from './IncomeAss/sponsorship.png';
+import unemployment from './IncomeAss/unemployment.png';
+
+
+
 function IncomeList() {
   const incomes = useSelector(state => state.incomes.income);
   const incomeCategories = useSelector(state => state.incomeCategories);
   const dispatch = useDispatch();
   const expenses = useSelector(state => state.expenses);
   const [timeFrame, setTimeFrame] = useState("all"); // default to 'all'
+
+ 
 
   useEffect(() => {
     dispatch(fetchIncomeCategories());
