@@ -20,6 +20,7 @@ function Budget() {
     </Modal>
 
     <div className="budgets-page-container">
+    <h2>Your Budgets</h2>
     <button onClick={openModal}>Add New Budget plan</button>
     <div>
         <label htmlFor="timeFrame">Select Time Frame: </label>
