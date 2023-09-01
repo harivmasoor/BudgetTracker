@@ -42,6 +42,9 @@ function NavBar() {
           <li>
             <Link to="/budget">Budget</Link>
           </li>
+          <li>
+            <Link to="/savingGoals">Savings Goals</Link>
+          </li>
         </ul>
         <ul>
           <li>
