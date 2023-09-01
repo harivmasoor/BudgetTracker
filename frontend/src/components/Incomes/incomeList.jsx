@@ -1,47 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchIncomes ,deletedIncome} from '../../store/incomes';
+import { fetchIncomes, deletedIncome } from '../../store/incomes';
 import { fetchIncomeCategories } from '../../store/incomeCategories';
-import React from 'react';
 import './Income.css';
 import { formattedDate } from '../../Util/dateUtil';
-import { fetchExpenses } from '../../store/expenses';
-
-import alimony from './IncomeAss/alimony.png';
-import bonus from './IncomeAss/bonus.png';
-import business from './IncomeAss/business.png';
-import childSupport from './IncomeAss/childSupport.png';
-import crowdfunding from './IncomeAss/crowdfunding.png';
 import disable from './IncomeAss/disabled-person.png';
-import freelance from './IncomeAss/freelance-work.png';
-import giftbox from './IncomeAss/giftbox.png';
-import house from './IncomeAss/house.png';
-import investement from './IncomeAss/investement.png';
-import lottery from './IncomeAss/lottery.png';
-import other from './IncomeAss/other.png';
-import pension from './IncomeAss/pension.png';
-import royalties from './IncomeAss/royalties.png';
-import SalaryWages from './IncomeAss/SalaryWages.png';
-import scholarship from './IncomeAss/scholarship.png';
-import sellinggoods from './IncomeAss/sellinggoods.png';
-import socialSecurity from './IncomeAss/social-security.png';
-import sponsorship from './IncomeAss/sponsorship.png';
-import unemployment from './IncomeAss/unemployment.png';
-
-
+import childSupport from './IncomeAss/childSupport.png';
 
 function IncomeList() {
   const incomes = useSelector(state => state.incomes.income);
   const incomeCategories = useSelector(state => state.incomeCategories);
   const dispatch = useDispatch();
-  const expenses = useSelector(state => state.expenses);
   const [timeFrame, setTimeFrame] = useState("all"); // default to 'all'
-
- 
 
   useEffect(() => {
     dispatch(fetchIncomeCategories());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     let startDate, endDate;
@@ -66,8 +40,7 @@ function IncomeList() {
         startDate = undefined;
         endDate = undefined;
     }
-    // console.log(startDate, endDate)
-    dispatch(fetchExpenses(startDate, endDate));
+
     dispatch(fetchIncomes(startDate, endDate));
 
   }, [dispatch, timeFrame]);
@@ -75,35 +48,15 @@ function IncomeList() {
   const handleDeleteIncome = (incomeId) => {
     dispatch(deletedIncome(incomeId));
   };
+
   const handleTimeFrameChange = (e) => {
     setTimeFrame(e.target.value);
   };
 
-  const countSaving = (expenses, incomes) => {
-    let totalEx = 0;
-    let totalIn = 0;
-    
-    if (expenses)
-      totalEx = expenses.reduce((accumulator, expense) => accumulator + expense.variableExpenses, 0);
-  
-    if (incomes)
-      totalIn = incomes.reduce((accumulator, income) => accumulator + income.incomeamount, 0);
-  
-    // Calculate savings
-    const savings = totalIn - totalEx;
-  
-    return {savings:savings,totalIn:totalIn,totalEx:totalEx};
-  };
-const {savings,totalIn,totalEx}=countSaving(expenses, incomes);
+  if (!incomeCategories) return null;
+
   return (
-    <div>
-      <div id='stt'>
-        <label htmlFor=""></label>
-        <div>Saving: ${savings}</div>
-        <div>Total Income: ${totalIn} </div>
-        <div>Total Expenses: ${totalEx} </div>
-      </div>
-      <div className='incomes-page-container'>
+    <div className="incomes-page-container">
       <label htmlFor="timeFrame">Select Time Frame: </label>
       <select id="timeFrame" value={timeFrame} onChange={handleTimeFrameChange}>
         <option value="all">All</option>
@@ -112,21 +65,32 @@ const {savings,totalIn,totalEx}=countSaving(expenses, incomes);
         <option value="monthly">Monthly</option>
       </select>
       <hr />
-      {incomes && incomes.map(income => (
+      {incomes.map(income => (
         <div key={income._id}>
           <p><strong>Income Source:</strong> {income.incomesource}</p>
           <p><strong>Income Amount:</strong> ${income.incomeamount}</p>
           <p><strong>Notes:</strong> {income.notes}</p>
-          <p><strong>Category:</strong> 
-          {income.category ? incomeCategories.filter(category => 
-            category._id === income.category).map(filteredCategory => filteredCategory.name) : 'N/A'}
+          <p>
+            <strong>Category:</strong>
+            {income.category ? incomeCategories.filter(category => 
+    category._id === income.category).map(filteredCategory => (
+    <>
+        {filteredCategory.name}
+        {filteredCategory.name === 'Disability Benefits' && (
+            <img src={disable} alt="Disability Benefits Icon" style={{ width: '20px', height: '20px', marginLeft: '10px' }} />
+        )}
+        {filteredCategory.name === 'Child Support' && (
+            <img src={childSupport} alt="Child Support Icon" style={{ width: '20px', height: '20px', marginLeft: '10px' }} />
+        )}
+    </>
+)): 'N/A'}
+
           </p>
           <p><strong>Date:</strong> {formattedDate(income.date)}</p>
           <button onClick={() => handleDeleteIncome(income._id)}>Delete</button>
           <hr />
-          </div>
+        </div>
       ))}
-      </div>
     </div>
   );
 }
