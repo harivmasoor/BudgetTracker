@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateSavingsGoal } from '../../store/savingsGoal';  // Import your update action
+import { updateSavingsGoal } from '../../store/savingsGoal';
 
 const SavingsGoalUpdateModal = ({ goal, closeModal }) => {
   const [updatedGoalAmount, setUpdatedGoalAmount] = useState(goal.goalAmount);
@@ -11,13 +11,13 @@ const SavingsGoalUpdateModal = ({ goal, closeModal }) => {
   const handleUpdate = (e) => {
     e.preventDefault();
     const updatedSavingsGoalData = {
-      _id: goal._id,  // Pass the goal ID for updating
+      _id: goal._id,  
       goalAmount: parseFloat(updatedGoalAmount),
       currentAmount: parseFloat(updatedCurrentAmount),
       notes: updatedNotes,
     };
     dispatch(updateSavingsGoal(updatedSavingsGoalData));
-    closeModal();  // Close the modal after updating
+    closeModal();
   };
 
   return (
