@@ -4,7 +4,7 @@ import jwtFetch from './jwt.js';
 export const ADD_SAVINGS_GOAL = 'savings/ADD_SAVINGS_GOAL';
 export const FETCH_SAVINGS_GOALS = 'savings/FETCH_SAVINGS_GOALS';
 export const UPDATE_SAVING_GOAL = 'savings/UPDATE_SAVING_GOAL';
-
+export const DELETE_SAVING_GOAL = 'savings/DELETE_SAVING_GOAL';
 // Action Creators
 export const addSavingsGoalAction = (savingsGoal) => ({
   type: ADD_SAVINGS_GOAL,
@@ -16,9 +16,14 @@ export const fetchSavingsGoalsAction = (savingsGoals) => ({
   payload: savingsGoals
 });
 
+export const deletesavingGoalAction = (deletesavingGoalId) => ({
+  type: DELETE_SAVING_GOAL,
+  deletesavingGoalId
+});
+
 export const updateSavingGoalsAction = (updatedsavingGoal) => ({
     type: UPDATE_SAVING_GOAL,
-    payload: updatedsavingGoal
+    updatedsavingGoal
   });
 // Thunk Actions
 export const addSavingsGoal = (savingsGoalData) => {
@@ -63,6 +68,19 @@ export const updateSavingsGoal = (updatedData) => async (dispatch) => {
     }
 };
 
+export const deleteSavingGoal = (savingsGoalId) => async (dispatch) => {
+  try {
+  await jwtFetch(`/api/savingsGoals/${savingsGoalId}`, {
+      method: 'DELETE'
+  });
+
+  dispatch(deletesavingGoalAction(savingsGoalId));
+  } catch (error) {
+  console.error('Error deleting budget:', error);
+  }
+};
+
+
 // Initial State
 const initialState = [];
 
@@ -77,6 +95,8 @@ const savingsGoalsReducer = (state = initialState, action) => {
         return state.map((savingsGoal) =>
         savingsGoal._id === action.updatedsavingGoal._id ? action.updatedsavingGoal : savingsGoal
     );
+    case DELETE_SAVING_GOAL:
+          return state.filter((savingsGoal) => savingsGoal._id !== action.deletesavingGoalId);
     default:
       return state;
   }
