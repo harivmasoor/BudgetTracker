@@ -62,14 +62,13 @@ function LoginForm () {
           placeholder="Password"
         />
       </label>
-        <div>
-          <button id="demo-but"
-            type="button"
+        
+          <input id='demo'
+            type="submit"
+            value="Demo User"
             onClick={handleDemoUserLogin}
-          >
-          Demo User
-          </button>
-        </div>
+          />
+  
           <input
             type="submit"
             value="Log In"

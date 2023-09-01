@@ -90,7 +90,9 @@ function ListBudget() {
             <p><strong>Notes:</strong> {budget.notes}</p>
             <p><strong>Date:</strong> {formattedDate(budget.date)}</p>
             <p><strong>End Date: </strong>{formattedDate(budget.endDate)}</p>
-            <p><strong>${budget.remainingAmount}/${budget.budgetAmount}</strong></p>
+            <p style={{ color: budget.remainingAmount < 0 ? 'red' : 'green' }}>
+              <strong>${budget.remainingAmount}/${budget.budgetAmount}</strong>
+            </p>
             <div style={{ position: 'relative', width: '200px', height: '20px', backgroundColor: 'lightgray' }}>
               {/* Budget bar */}
               <div style={{ 
