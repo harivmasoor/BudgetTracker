@@ -59,7 +59,7 @@ function ExpenseList() {
       <hr />
       {expenses.map(expense => (
         <div key={expense._id}>
-          <p><strong>Variable Expense:</strong> ${expense.variableExpenses}</p>
+          <p><strong>${expense.variableExpenses}</strong></p>
           <p><strong>Date:</strong> {formattedDate(expense.date)}</p>
           <p><strong>Notes:</strong> {expense.notes}</p>
           <p><strong>Category:</strong>{categories.filter(category => category._id === expense.category).map(filteredCategory => filteredCategory.name)}</p>

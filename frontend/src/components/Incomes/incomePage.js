@@ -11,13 +11,13 @@ function IncomesPage() {
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
   return (
-    <div className="incomes-page-container">
+    <div className="incomes-page-container" id='stt1'>
       <h2>Your Income</h2>
       <button onClick={openModal}>Add New Income</button>  {/* Button to open the modal */}
       <Modal showModal={showModal} closeModal={closeModal}>
         <IncomeInput />
       </Modal>
-      <div className="income-container">
+      <div className="income-container" id='i-list'>
         <div id='income-list'>
           <IncomeList />
         </div>
