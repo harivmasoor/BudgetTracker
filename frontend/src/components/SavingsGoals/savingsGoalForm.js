@@ -23,19 +23,19 @@ const SavingsGoalForm = () => {
     setNotes('');
   };
 
-//   const handleUpdate = (e) => {
-//     e.preventDefault();
-//     const savingsGoalData = {
-//       goalAmount: parseFloat(goalAmount),
-//       currentAmount: parseFloat(currentAmount),
-//       notes,
-//       date: new Date(),
-//     };
-//     dispatch(addSavingsGoal(savingsGoalData));
-//     setGoalAmount('');
-//     setCurrentAmount('');
-//     setNotes('');
-//   };
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    const savingsGoalData = {
+      goalAmount: parseFloat(goalAmount),
+      currentAmount: parseFloat(currentAmount),
+      notes,
+      date: new Date(),
+    };
+    dispatch(addSavingsGoal(savingsGoalData));
+    setGoalAmount('');
+    setCurrentAmount('');
+    setNotes('');
+  };
 
   return (
     <>
