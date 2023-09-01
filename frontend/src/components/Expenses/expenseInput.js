@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addExpense } from '../../store/expenses';
 import { fetchCategories } from '../../store/categories';
 import ExpenseList from './expenseList';
-import { fetchBudgets } from '../../store/budget';
+import { fetchBudgets,FETCH_BUDGETS } from '../../store/budget';
 import './Expenses.css';
 
 function ExpenseInput() {
@@ -30,7 +30,7 @@ function ExpenseInput() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addExpense(expenseData));
-    dispatch(fetchBudgets());
+    dispatch(fetchBudgets(FETCH_BUDGETS));
   };
 
   return (

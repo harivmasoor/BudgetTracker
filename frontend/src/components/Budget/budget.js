@@ -21,7 +21,7 @@ function Budget() {
 
     <div className="budgets-page-container">
     <button onClick={openModal}>Add New Budget plan</button>
-    <div>
+    {/* <div>
         <label htmlFor="timeFrame">Select Time Frame: </label>
           <select id="timeFrame" value={timeFrame} onChange={handleTimeFrameChange}>
             <option value="all">All</option>
@@ -29,9 +29,8 @@ function Budget() {
             <option value="weekly">Weekly</option>
             <option value="monthly">Monthly</option>
           </select>
-        </div>
-      <ListBudget timeFrame={timeFrame} />
-
+        </div> */}
+      <ListBudget/>
     </div>
     </div>
   );

@@ -7,7 +7,7 @@ function BudgetPieChart() {
     const categories = useSelector(state => state.categories);
     const canvasRef = useRef(null);
     const chartRef = useRef(null);
-    const budgets = useSelector(state => state.budget);
+    const budgets = useSelector(state => state.budget.all); 
 
     // Object to hold category totals
     const categoryTotals = {};
