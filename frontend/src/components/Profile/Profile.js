@@ -1,14 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import IncomePieChart from '../Incomes/incomePieChart';
 import ExpensePieChart from '../Expenses/expensePieChart';
 import BudgetPieChart from '../Budget/budgetpieChart';
 import './Profile.css';
+import { fetchExpenses } from '../../store/expenses';
+import { fetchIncomes } from '../../store/incomes';
+import { fetchCategories } from '../../store/categories';
+import { fetchIncomeCategories } from '../../store/incomeCategories';
+import { fetchBudgets } from '../../store/budget';
 
 function Profile() {
   const [currentSection, setCurrentSection] = useState(0); // 0: Income, 1: Expenses, 2: Budget
   const currentUser = useSelector(state => state.session.user);
-
+  const dispatch = useDispatch();
   const handleNext = () => {
     setCurrentSection(prev => (prev + 1) % 3);
   };
@@ -17,6 +22,23 @@ function Profile() {
     setCurrentSection(prev => (prev - 1 + 3) % 3);
   };
   
+  useEffect(() => {
+    let startDate, endDate;
+    const today = new Date();
+    endDate = today.toISOString().split('T')[0]; // current date
+
+    const lastMonth = new Date(today);
+    lastMonth.setMonth(today.getMonth() - 1);
+    startDate = lastMonth.toISOString().split('T')[0];
+
+    dispatch(fetchBudgets(startDate, endDate));
+    dispatch(fetchExpenses(startDate, endDate));
+    dispatch(fetchIncomes(startDate, endDate));
+    dispatch(fetchCategories());
+    dispatch(fetchIncomeCategories());
+
+  }, [dispatch]);
+
   return (
     <div className="profile-container">
       <h1 className="profile-header">Profile</h1>

@@ -33,7 +33,9 @@ function LoginForm () {
       email: 'demo@example.com',
       password: 'Demo!123'
     };
-
+    setEmail('demo@example.com');
+    setPassword('Demo!123')
+    
     dispatch(login(demoUser));
   }
 

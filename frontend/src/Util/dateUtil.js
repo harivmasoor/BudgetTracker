@@ -1,10 +1,19 @@
 export const formattedDate = (date) => {
   if (!date || date === "") return date;
-  const newDate = new Date(date);
-  const day = newDate.getDate();
-  const month = newDate.toLocaleString('default', { month: 'long' }); // This will give the full month name
-  const year = newDate.getFullYear();
+
+  const dateString = new Date(date).toUTCString();
+  const parts = dateString.split(' ');
+  
+  const day = parts[1];
+  const month = parts[2];
+  const year = parts[3];
   return `${day} ${month} ${year}`;
+
+  // const newDate = new Date(date);
+  // const day = newDate.getDate();
+  // const month = newDate.toLocaleString('default', { month: 'long' }); // This will give the full month name
+  // const year = newDate.getFullYear();
+  // return `${day} ${month} ${year}`;
 };
 
 
