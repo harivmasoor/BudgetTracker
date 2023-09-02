@@ -66,7 +66,7 @@
             <input
                 type="date"
                 name="date"
-                value={updatedBudget.date}
+                value={(updatedBudget.date).split('T')[0]}
                 onChange={handleInputChange}
             />
             Budget Category:

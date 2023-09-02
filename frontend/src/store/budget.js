@@ -6,8 +6,6 @@ import { buildTimeFrame, getCurrentMonthYear } from '../Util/dateUtil';
 export const FETCH_BUDGETS = 'budgets/FETCH_BUDGETS';
 export const ADD_BUDGET = 'budgets/ADD_BUDGET';
 export const UPDATE_BUDGET = 'budgets/UPDATE_BUDGET';
-export const UPDATE_BUDGET_MONTH = 'budgets/UPDATE_BUDGET_MONTH';
-export const UPDATE_BUDGET_YEAR = 'budgets/UPDATE_BUDGET_YEAR';
 export const DELETE_BUDGET = 'budgets/DELETE_BUDGET';
 
 
@@ -26,7 +24,7 @@ export const DELETE_BUDGET = 'budgets/DELETE_BUDGET';
     });
 
     export const updateBudgetAction = (updatedBudget,type) => ({
-        type: type,
+        type: UPDATE_BUDGET,
         updatedBudget
     });
 
@@ -120,7 +118,7 @@ export const DELETE_BUDGET = 'budgets/DELETE_BUDGET';
         switch (action.type) {
             case ADD_BUDGET:
                 // Create a new budget object with timeFrames property
-                const budgetWithTimeFrames = { ...budget, timeFrames };
+                // const budgetWithTimeFrames = { ...budget, timeFrames };
           
                 // Update the corresponding lists based on timeFrames
                 timeFrames.forEach((timeFrame) => {
@@ -144,12 +142,13 @@ export const DELETE_BUDGET = 'budgets/DELETE_BUDGET';
         //     return state.map((budget) =>
         //     budget._id === action.updatedBudget._id ? action.updatedBudget : budget
         // );
-            return {
-                ...state,
-                all: state.all.map((budget) =>
-                budget._id === action.updatedBudget._id ? action.updatedBudget : budget
-                )
-            };
+            const { updatedBudget } = action;   
+            ['monthly', 'yearly'].forEach((timeFrame) => {
+                updatedState[timeFrame] = updatedState[timeFrame].map((budget) =>
+                budget._id === updatedBudget._id ? updatedBudget : budget
+                );
+            });
+            return updatedState;
         case DELETE_BUDGET:
             // return state.filter((budget) => budget._id !== action.deletedBudgetId);
             const { deletedBudgetId } = action;
