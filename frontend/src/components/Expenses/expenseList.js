@@ -4,6 +4,9 @@ import { fetchExpenses ,deleteExpense} from '../../store/expenses';
 import './Expenses.css';
 import { formattedDate } from '../../Util/dateUtil';
 import { fetchCategories } from '../../store/categories';
+import Clothing from '../../assets/expensesIcons/Clothing.png'
+import Education from '../../assets/expensesIcons/Education.png'
+
 
 function ExpenseList() {
   const categories = useSelector(state => state.categories);
@@ -60,10 +63,23 @@ function ExpenseList() {
       <hr />
       {expenses.map(expense => (
         <div key={expense._id}>
-          <p><strong>Variable Expense:</strong> ${expense.variableExpenses}</p>
+          <p><strong>${expense.variableExpenses}</strong></p>
           <p><strong>Date:</strong> {formattedDate(expense.date)}</p>
           <p><strong>Notes:</strong> {expense.notes}</p>
-          <p><strong>Category:</strong>{categories.filter(category => category._id === expense.category).map(filteredCategory => filteredCategory.name)}</p>
+          <p>
+            <strong>Category:</strong>
+            {categories.filter(category => category._id === expense.category).map(filteredCategory => (
+              <>
+                {filteredCategory.name}
+                {filteredCategory.name === 'Clothing' && (
+                  <img src={Clothing} alt="Clothing Icon" style={{ width: '20px', height: '20px', marginLeft: '10px' }} />
+                )}
+                {filteredCategory.name === 'Education' && (
+                  <img src={Education} alt="Education Icon" style={{ width: '20px', height: '20px', marginLeft: '10px' }} />
+                )}
+              </>
+            ))}
+          </p>
           <hr />
           <button onClick={() => handleDeleteExpense(expense._id)}>Delete</button>
         </div>
