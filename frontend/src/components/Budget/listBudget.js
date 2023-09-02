@@ -90,12 +90,14 @@ function ListBudget() {
           <ul>
         {budgets_month?.map((budget) => (
           <li key={budget._id}>
-            <div>Budget Plan: {budget.budgetPlan}</div>
-            <div>Budget Category: {categories.filter(category => category._id === budget.category).map(filteredCategory => filteredCategory.name)}</div>
-            <div>Notes: {budget.notes}</div>
-            <div>Date: {formattedDate(budget.date)}</div>
-            <div>EndDate: {formattedDate(budget.endDate)}</div>
-            <div>{budget.remainingAmount}/{budget.budgetAmount}</div>
+            <p><strong>Budget Plan:</strong> {budget.budgetPlan}</p>
+            <p><strong>Budget Category:</strong> {categories.filter(category => category._id === budget.category).map(filteredCategory => filteredCategory.name)}</p>
+            <p><strong>Notes:</strong> {budget.notes}</p>
+            <p><strong>Date:</strong> {formattedDate(budget.date)}</p>
+            <p><strong>End Date: </strong>{formattedDate(budget.endDate)}</p>
+            <p style={{ color: budget.remainingAmount < 0 ? 'red' : 'green' }}>
+              <strong>${budget.remainingAmount}/${budget.budgetAmount}</strong>
+            </p>
             <div style={{ position: 'relative', width: '200px', height: '20px', backgroundColor: 'lightgray' }}>
               <div style={{ 
                 width: `${(budget.remainingAmount / budget.budgetAmount) * 100}%`, 
