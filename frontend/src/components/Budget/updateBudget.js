@@ -5,7 +5,7 @@
     import './Budget.css';
 
 
-    function UpdateBudgetModal({ budget, categories, closeModal }) {
+    function UpdateBudgetModal({ budget, categories, closeModal ,chartTimeFrame}) {
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.session.user);
     
@@ -20,7 +20,7 @@
     });
 
     const handleUpdateBudget = () => {
-        dispatch(updateBudget(updatedBudget));
+        dispatch(updateBudget({...updatedBudget,chartTimeFrame:chartTimeFrame}));
         closeModal();
     };
 

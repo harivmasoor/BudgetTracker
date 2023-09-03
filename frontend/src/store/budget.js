@@ -36,10 +36,9 @@ export const DELETE_BUDGET_CHAT = 'budgets/DELETE_BUDGET_CHAT';
         updatedBudget
     });
 
-    export const deleteBudgetAction = (deletedBudgetId,timeFrames) => ({
+    export const deleteBudgetAction = (deletedBudgetId) => ({
         type: DELETE_BUDGET,
         deletedBudgetId,
-        timeFrames
     });
 
     // Async Action Creator (using Redux Thunk)
@@ -119,9 +118,9 @@ export const DELETE_BUDGET_CHAT = 'budgets/DELETE_BUDGET_CHAT';
         await jwtFetch(`/api/budget/${budgetId}`, {
             method: 'DELETE'
         });
-        let timeFrames=['all'];
-        timeFrames.push(timeFrame);
-        dispatch(deleteBudgetAction(budgetId,timeFrames));
+        // let timeFrames=['all'];
+        // timeFrames.push(timeFrame);
+        dispatch(deleteBudgetAction(budgetId));
         } catch (error) {
         console.error('Error deleting budget:', error);
         }
@@ -163,7 +162,7 @@ export const DELETE_BUDGET_CHAT = 'budgets/DELETE_BUDGET_CHAT';
         //     budget._id === action.updatedBudget._id ? action.updatedBudget : budget
         // );
             const { updatedBudget } = action;   
-            ['monthly', 'yearly'].forEach((timeFrame) => {
+            ['monthly', 'yearly','chart'].forEach((timeFrame) => {
                 updatedState[timeFrame] = updatedState[timeFrame].map((budget) =>
                 budget._id === updatedBudget._id ? updatedBudget : budget
                 );
@@ -173,7 +172,7 @@ export const DELETE_BUDGET_CHAT = 'budgets/DELETE_BUDGET_CHAT';
             // return state.filter((budget) => budget._id !== action.deletedBudgetId);
             const { deletedBudgetId } = action;
             // Loop through both time frames ('monthly' and 'yearly')
-            timeFrames.forEach((timeFrame) => {
+            ['monthly', 'yearly','chart'].forEach((timeFrame) => {
               updatedState[timeFrame] = updatedState[timeFrame].filter(
                 (budget) => budget._id !== deletedBudgetId
               );
