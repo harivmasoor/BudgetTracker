@@ -34,6 +34,9 @@ const budgetSchema = new Schema({
   startDate: { type: Date,
     // required: true 
     },
+  planningInterval:{
+    type: String
+  }
 }, {
   // tells mongoose to add and maintain `createdAt` and `updatedAt` fields with
   // datetime timestamps
