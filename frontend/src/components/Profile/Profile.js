@@ -31,7 +31,7 @@ function Profile() {
     lastMonth.setMonth(today.getMonth() - 1);
     startDate = lastMonth.toISOString().split('T')[0];
 
-    dispatch(fetchBudgets(startDate, endDate));
+    dispatch(fetchBudgets());
     dispatch(fetchExpenses(startDate, endDate));
     dispatch(fetchIncomes(startDate, endDate));
     dispatch(fetchCategories());
@@ -61,7 +61,7 @@ function Profile() {
           </div>
           <div className="profile-section">
             <h2 className="section-header">Budget</h2>
-            <BudgetPieChart />
+            {/* <BudgetPieChart /> */}
           </div>
         </div>
       </div>

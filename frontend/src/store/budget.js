@@ -8,6 +8,7 @@ export const ADD_BUDGET = 'budgets/ADD_BUDGET';
 export const UPDATE_BUDGET = 'budgets/UPDATE_BUDGET';
 export const DELETE_BUDGET = 'budgets/DELETE_BUDGET';
 
+export const FETCH_BUDGETS_CHAT = 'budgets/FETCH_BUDGETS_CHAT';
 
 
 // Action Creators
@@ -15,6 +16,12 @@ export const DELETE_BUDGET = 'budgets/DELETE_BUDGET';
     type: FETCH_BUDGETS,
     budgets,
     timeFrames
+    });
+
+    export const fetchBudgetsAction_chat = (budgets,timeFrames) => ({
+        type: FETCH_BUDGETS_CHAT,
+        budgets,
+        timeFrames
     });
 
     export const addBudgetAction = (budget,timeFrames) => ({
@@ -35,7 +42,7 @@ export const DELETE_BUDGET = 'budgets/DELETE_BUDGET';
     });
 
     // Async Action Creator (using Redux Thunk)
-    export const fetchBudgets = (timeFrame) => async (dispatch) => {
+    export const fetchBudgets = (timeFrame,stateObj) => async (dispatch) => {
         let today = new Date();
         let startDate , endDate;
         if (timeFrame === 'monthly'){
@@ -54,10 +61,16 @@ export const DELETE_BUDGET = 'budgets/DELETE_BUDGET';
         if (startDate && endDate) {
           url += `?startDate=${startDate}&endDate=${endDate}`;
         }
+        if (timeFrame==='monthly' || timeFrame==='yearly')
+          url += `&timeFrame=${timeFrame}`;
+
         const response = await jwtFetch(url);
         // const response = await jwtFetch('/api/budget'); // Fetch budgets using jwtFetch
         const budgets = await response.json();
-        dispatch(fetchBudgetsAction(budgets,timeFrame));
+        if (stateObj)
+           dispatch(fetchBudgetsAction_chat(budgets,timeFrame));
+        else
+           dispatch(fetchBudgetsAction(budgets,timeFrame));
     } catch (error) {
         console.error('Error fetching budgets:', error);
     }
@@ -71,7 +84,7 @@ export const DELETE_BUDGET = 'budgets/DELETE_BUDGET';
         });
             const budgetData = await res.json();
             let timeFrames=['all'];
-            timeFrames.push(budget.budgetPlan);
+            timeFrames.push(budget.planningInterval);
             // const timeFrames = buildTimeFrame(budgetPlan)
             dispatch(addBudgetAction(budgetData,timeFrames));
         } catch(error) {
@@ -80,7 +93,7 @@ export const DELETE_BUDGET = 'budgets/DELETE_BUDGET';
     };
 
 
-    export const updateBudget = (updatedData,type) => async (dispatch) => {
+    export const updateBudget = (updatedData) => async (dispatch) => {
         try {
         const response = await jwtFetch(`/api/budget/${updatedData._id}`, {
             method: 'PUT',
@@ -109,11 +122,11 @@ export const DELETE_BUDGET = 'budgets/DELETE_BUDGET';
         }
     };
 
-    const initialState = {monthly:[],yearly:[],all:[]}
+    const initialState = {monthly:[],yearly:[],all:[],chart:[]}
     
     
     const budgetReducer = (state = initialState, action) => {
-        const { budget, timeFrames } = action;
+        const { budget, timeFrames} = action;
         const updatedState = { ...state };
         switch (action.type) {
             case ADD_BUDGET:
@@ -134,9 +147,14 @@ export const DELETE_BUDGET = 'budgets/DELETE_BUDGET';
                     return {...state,monthly:action.budgets};
                 } else if (timeFrames === 'yearly') {
                     return {...state,yearly:action.budgets};
+                }
+                else if (timeFrames === 'chart') {
+                     return {...state,chart:action.budgets};
                 } else {
                     return {...state,all:action.budgets};
                 }
+            case FETCH_BUDGETS_CHAT:
+                    return {...state,chart:action.budgets};
         // More cases for other actions
         case UPDATE_BUDGET:
         //     return state.map((budget) =>
