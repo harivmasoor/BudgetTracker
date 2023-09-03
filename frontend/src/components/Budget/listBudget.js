@@ -6,7 +6,7 @@ import UpdateBudgetModal from './updateBudget';
 import BudgetPieChart from './budgetpieChart';
 import { formattedDate,getCurrentMonthYear } from '../../Util/dateUtil';
 
-function ListBudget() {
+function ListBudget({chartTimeFrame, setChartTimeFrame}) {
   const dispatch = useDispatch();
   const budgets = useSelector(state => state.budget.all); 
   const budgets_month = useSelector(state => state.budget.monthly); 
@@ -16,13 +16,12 @@ function ListBudget() {
   const categories = useSelector(state => state.categories)
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [selectedBudget, setSelectedBudget] = useState(null);
-  const [timeFrame, setTimeFrame] = useState("monthly");
 
     let startDate, endDate;
     const today = new Date();
     endDate = today.toISOString().split('T')[0]; // current date
 
-    switch (timeFrame) {
+    switch (chartTimeFrame) {
       case 'monthly':
         const lastMonth = new Date(today);
         lastMonth.setMonth(today.getMonth() - 1);
@@ -42,7 +41,7 @@ function ListBudget() {
     setShowUpdateModal(false);
   };
   const handleTimeFrameChange = (e) => {
-    setTimeFrame(e.target.value);
+    setChartTimeFrame(e.target.value);
   };
   const handleFetchBudgets = () => {
     dispatch(fetchBudgets());
@@ -58,8 +57,8 @@ function ListBudget() {
   }, [dispatch]);
   
   useEffect(() => {
-    dispatch(fetchBudgets(timeFrame,'chart'));
-  }, [timeFrame]);
+    dispatch(fetchBudgets(chartTimeFrame,'chart'));
+  }, [chartTimeFrame]);
 
   const handleDeleteBudget = (budgetId,timeFrame) => {
     dispatch(deleteBudget(budgetId,timeFrame));
@@ -86,7 +85,7 @@ function ListBudget() {
   <>
     <div id='budget-chart'>
       <label htmlFor="timeFrame">Select Time Frame: </label>
-      <select id="timeFrame" value={timeFrame} onChange={handleTimeFrameChange}>
+      <select id="timeFrame" value={chartTimeFrame} onChange={handleTimeFrameChange}>
           <option value="all">All</option>
           <option value="monthly">Monthly</option>
           <option value="yearly">Yearly</option>

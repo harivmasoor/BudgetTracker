@@ -9,7 +9,8 @@ export const UPDATE_BUDGET = 'budgets/UPDATE_BUDGET';
 export const DELETE_BUDGET = 'budgets/DELETE_BUDGET';
 
 export const FETCH_BUDGETS_CHAT = 'budgets/FETCH_BUDGETS_CHAT';
-
+export const UPDATE_BUDGET_CHAT = 'budgets/UPDATE_BUDGET_CHAT';
+export const DELETE_BUDGET_CHAT = 'budgets/DELETE_BUDGET_CHAT';
 
 // Action Creators
     export const fetchBudgetsAction = (budgets,timeFrames) => ({
@@ -84,8 +85,11 @@ export const FETCH_BUDGETS_CHAT = 'budgets/FETCH_BUDGETS_CHAT';
         });
             const budgetData = await res.json();
             let timeFrames=['all'];
-            if (checkUpdateState(budget.planningInterval,budget.date))
+            if (checkUpdateState(budget.planningInterval,budget.date)){
                 timeFrames.push(budget.planningInterval);
+                if (budget.planningInterval === budget.chartTimeFrame)
+                    timeFrames.push('chart');
+            }
             // const timeFrames = buildTimeFrame(budgetPlan)
             dispatch(addBudgetAction(budgetData,timeFrames));
         } catch(error) {
@@ -148,9 +152,6 @@ export const FETCH_BUDGETS_CHAT = 'budgets/FETCH_BUDGETS_CHAT';
                     return {...state,monthly:action.budgets};
                 } else if (timeFrames === 'yearly') {
                     return {...state,yearly:action.budgets};
-                }
-                else if (timeFrames === 'chart') {
-                     return {...state,chart:action.budgets};
                 } else {
                     return {...state,all:action.budgets};
                 }
