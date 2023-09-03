@@ -4,7 +4,7 @@ import { createBudget } from '../../store/budget';
 import './Budget.css';
 import { getCurrentMonthYear } from '../../Util/dateUtil';
 
-function CreateBudget() {
+function CreateBudget({chartTimeFrame, setChartTimeFrame}) {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.session.user);
   const categories = useSelector(state => state.categories);
@@ -12,18 +12,20 @@ function CreateBudget() {
 
   const [newBudget, setNewBudget] = useState({
     budgetAmount: '',
-    budgetPlan: selectedInterval,
+    budgetPlan: '',
     notes: '',
     category: categories.length > 0 ? categories[0]._id : '',
     date: '',
     user: currentUser._id,
-    endDate: selectedInterval,
+    endDate: '',
     startDate: '',
+    planningInterval:selectedInterval
   });
 
   const handleCreateBudget = () => {
     const {startDate, endDate} = getCurrentMonthYear(selectedInterval, newBudget.date)
-    dispatch(createBudget({...newBudget, endDate,startDate, budgetPlan: selectedInterval}));
+    dispatch(createBudget({...newBudget, endDate,startDate, planningInterval: selectedInterval,
+      chartTimeFrame:chartTimeFrame}));
     setNewBudget({
       budgetAmount: 0,
       budgetPlan: '',
@@ -31,8 +33,9 @@ function CreateBudget() {
       date:'',
       category:'',
       user: currentUser._id,
-      endDate: selectedInterval,
-      startDate:''
+      endDate: '',
+      startDate:'',
+      planningInterval:''
       // Other properties
     });
   };
@@ -41,6 +44,16 @@ function CreateBudget() {
     <div className="create-budget-form">
        <h2>Add New Budget</h2>
       <div>
+        <label>
+          Budget Plan:
+          <input
+            type="string"
+            value={newBudget.budgetPlan}
+            onChange={(e) =>
+              setNewBudget({ ...newBudget, budgetPlan: e.target.value })
+            }
+            />
+        </label>
         <label>
           Budget Amount:
           <input
