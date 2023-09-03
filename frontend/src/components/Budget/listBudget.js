@@ -4,7 +4,7 @@ import { fetchBudgets, deleteBudget} from '../../store/budget';
 import { fetchCategories } from '../../store/categories';
 import UpdateBudgetModal from './updateBudget';
 import BudgetPieChart from './budgetpieChart';
-import { formattedDate,getCurrentMonthYear } from '../../Util/dateUtil';
+import { formattedDate } from '../../Util/dateUtil';
 
 function ListBudget({chartTimeFrame, setChartTimeFrame}) {
   const dispatch = useDispatch();
@@ -127,7 +127,8 @@ function ListBudget({chartTimeFrame, setChartTimeFrame}) {
         ))}
       </ul>
     {showUpdateModal && (
-        <UpdateBudgetModal budget={selectedBudget} categories={categories} closeModal={handleCloseUpdateModal}/>
+        <UpdateBudgetModal budget={selectedBudget} categories={categories} closeModal={handleCloseUpdateModal}
+        chartTimeFrame={chartTimeFrame}/>
         )}
     </div>
 
@@ -165,7 +166,8 @@ function ListBudget({chartTimeFrame, setChartTimeFrame}) {
         ))}
       </ul>
     {showUpdateModal && (
-        <UpdateBudgetModal budget={selectedBudget} categories={categories} closeModal={handleCloseUpdateModal}/>
+        <UpdateBudgetModal budget={selectedBudget} categories={categories} closeModal={handleCloseUpdateModal}
+        chartTimeFrame={chartTimeFrame}/>
         )}
     </div>
   </>

@@ -61,7 +61,7 @@ function Profile() {
           </div>
           <div className="profile-section">
             <h2 className="section-header">Budget</h2>
-            {/* <BudgetPieChart /> */}
+            <BudgetPieChart />
           </div>
         </div>
       </div>
