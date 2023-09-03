@@ -1,6 +1,6 @@
 // budgetActions.js
 import jwtFetch from './jwt';
-import { buildTimeFrame, getCurrentMonthYear } from '../Util/dateUtil';
+import { buildTimeFrame, checkUpdateState, getCurrentMonthYear } from '../Util/dateUtil';
 
 // Action Types
 export const FETCH_BUDGETS = 'budgets/FETCH_BUDGETS';
@@ -30,7 +30,7 @@ export const FETCH_BUDGETS_CHAT = 'budgets/FETCH_BUDGETS_CHAT';
     timeFrames
     });
 
-    export const updateBudgetAction = (updatedBudget,type) => ({
+    export const updateBudgetAction = (updatedBudget) => ({
         type: UPDATE_BUDGET,
         updatedBudget
     });
@@ -84,7 +84,8 @@ export const FETCH_BUDGETS_CHAT = 'budgets/FETCH_BUDGETS_CHAT';
         });
             const budgetData = await res.json();
             let timeFrames=['all'];
-            timeFrames.push(budget.planningInterval);
+            if (checkUpdateState(budget.planningInterval,budget.date))
+                timeFrames.push(budget.planningInterval);
             // const timeFrames = buildTimeFrame(budgetPlan)
             dispatch(addBudgetAction(budgetData,timeFrames));
         } catch(error) {
