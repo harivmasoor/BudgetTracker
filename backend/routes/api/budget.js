@@ -10,7 +10,7 @@ const User = mongoose.model('User');
 // Create a new budget
 router.post('/', restoreUser, async (req, res, next) => {
   try {
-    const {  budgetAmount, budgetPlan, user, notes, category, date, endDate ,startDate} = req.body;
+    const {  budgetAmount, budgetPlan, user, notes, category, date, endDate ,startDate,planningInterval} = req.body;
     const dateObj = new Date(date); // Convert the date string to a Date object
     // const month = dateObj.getMonth() + 1; // getMonth is zero-based
     // const year = dateObj.getFullYear();
@@ -23,7 +23,8 @@ router.post('/', restoreUser, async (req, res, next) => {
       date,
       remainingAmount: budgetAmount, 
       endDate,
-      startDate
+      startDate,
+      planningInterval
     });
     const savedBudget = await newBudget.save();
     console.log(savedBudget);
@@ -37,9 +38,12 @@ router.get('/', restoreUser, async (req, res, next) => {
   try {
     if (!req.user) return res.status(401).json({ error: "Not logged in" });
     
-    const { startDate, endDate } = req.query;
+    const { startDate, endDate ,timeFrame} = req.query;
 
     let query = { user: req.user._id };
+    
+    if (timeFrame)
+      query.planningInterval = timeFrame
 
     if (startDate && endDate) {
       query.date = {
@@ -68,6 +72,9 @@ router.put('/:id', restoreUser, async (req, res, next) => {
     budget.notes = req.body.notes || budget.notes;
     budget.category = req.body.category || budget.category;
     budget.date = req.body.date || budget.date;
+    budget.endDate = req.body.endDate || budget.endDate;
+    budget.startDate = req.body.startDate || budget.startDate;
+    budget.planningInterval = req.body.planningInterval || budget.planningInterval;
 
     const updatedBudget = await budget.save();
     res.json(updatedBudget);

@@ -12,18 +12,19 @@ function CreateBudget() {
 
   const [newBudget, setNewBudget] = useState({
     budgetAmount: '',
-    budgetPlan: selectedInterval,
+    budgetPlan: '',
     notes: '',
     category: categories.length > 0 ? categories[0]._id : '',
     date: '',
     user: currentUser._id,
     endDate: selectedInterval,
     startDate: '',
+    planningInterval:selectedInterval
   });
 
   const handleCreateBudget = () => {
     const {startDate, endDate} = getCurrentMonthYear(selectedInterval, newBudget.date)
-    dispatch(createBudget({...newBudget, endDate,startDate, budgetPlan: selectedInterval}));
+    dispatch(createBudget({...newBudget, endDate,startDate, planningInterval: selectedInterval}));
     setNewBudget({
       budgetAmount: 0,
       budgetPlan: '',
@@ -32,7 +33,8 @@ function CreateBudget() {
       category:'',
       user: currentUser._id,
       endDate: selectedInterval,
-      startDate:''
+      startDate:'',
+      planningInterval:''
       // Other properties
     });
   };
@@ -41,6 +43,16 @@ function CreateBudget() {
     <div className="create-budget-form">
        <h2>Add New Budget</h2>
       <div>
+        <label>
+          Budget Plan:
+          <input
+            type="string"
+            value={newBudget.budgetPlan}
+            onChange={(e) =>
+              setNewBudget({ ...newBudget, budgetPlan: e.target.value })
+            }
+            />
+        </label>
         <label>
           Budget Amount:
           <input

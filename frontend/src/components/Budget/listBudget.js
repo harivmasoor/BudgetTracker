@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBudgets, deleteBudget ,FETCH_BUDGETS,FETCH_BUDGETS_MONTH,FETCH_BUDGETS_YEAR} from '../../store/budget';
+import { fetchBudgets, deleteBudget} from '../../store/budget';
 import { fetchCategories } from '../../store/categories';
 import UpdateBudgetModal from './updateBudget';
 import BudgetPieChart from './budgetpieChart';
@@ -16,21 +16,13 @@ function ListBudget() {
   const categories = useSelector(state => state.categories)
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [selectedBudget, setSelectedBudget] = useState(null);
-  const [timeFrame, setTimeFrame] = useState("all");
+  const [timeFrame, setTimeFrame] = useState("monthly");
 
     let startDate, endDate;
     const today = new Date();
     endDate = today.toISOString().split('T')[0]; // current date
 
     switch (timeFrame) {
-      case 'daily':
-        startDate = today.toISOString().split('T')[0];
-        break;
-      case 'weekly':
-        const lastWeek = new Date(today);
-        lastWeek.setDate(today.getDate() - 7);
-        startDate = lastWeek.toISOString().split('T')[0];
-        break;
       case 'monthly':
         const lastMonth = new Date(today);
         lastMonth.setMonth(today.getMonth() - 1);
@@ -49,11 +41,14 @@ function ListBudget() {
     setSelectedBudget(null);
     setShowUpdateModal(false);
   };
-  
+  const handleTimeFrameChange = (e) => {
+    setTimeFrame(e.target.value);
+  };
   const handleFetchBudgets = () => {
     dispatch(fetchBudgets());
     dispatch(fetchBudgets('monthly'));
     dispatch(fetchBudgets('yearly'));
+
   };
   
   
@@ -62,6 +57,10 @@ function ListBudget() {
     dispatch(fetchCategories());
   }, [dispatch]);
   
+  useEffect(() => {
+    dispatch(fetchBudgets(timeFrame,'chart'));
+  }, [timeFrame]);
+
   const handleDeleteBudget = (budgetId,timeFrame) => {
     dispatch(deleteBudget(budgetId,timeFrame));
   };
@@ -85,6 +84,15 @@ function ListBudget() {
       
   return (
   <>
+    <div id='budget-chart'>
+      <label htmlFor="timeFrame">Select Time Frame: </label>
+      <select id="timeFrame" value={timeFrame} onChange={handleTimeFrameChange}>
+          <option value="all">All</option>
+          <option value="monthly">Monthly</option>
+          <option value="yearly">Yearly</option>
+      </select>
+      <BudgetPieChart/>
+    </div>
     <div className="budget-list">
       <h1>month</h1>
           <ul>
@@ -122,9 +130,6 @@ function ListBudget() {
     {showUpdateModal && (
         <UpdateBudgetModal budget={selectedBudget} categories={categories} closeModal={handleCloseUpdateModal}/>
         )}
-      <div id='budget-chart'>
-          {/* <BudgetPieChart/> */}
-      </div>
     </div>
 
 
@@ -163,9 +168,6 @@ function ListBudget() {
     {showUpdateModal && (
         <UpdateBudgetModal budget={selectedBudget} categories={categories} closeModal={handleCloseUpdateModal}/>
         )}
-      <div id='budget-chart'>
-        {/* <BudgetPieChart/> */}
-      </div>
     </div>
   </>
 
