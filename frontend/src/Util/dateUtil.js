@@ -16,7 +16,6 @@ export const formattedDate = (date) => {
   // return `${day} ${month} ${year}`;
 };
 
-
 export const getCurrentMonthYear = (selectedInterval, dateInput) => {
   const newDate = new Date(formattedDate(dateInput));
   const newDate_wrong = new Date(dateInput);
@@ -52,6 +51,19 @@ export const getCurrentMonthYear = (selectedInterval, dateInput) => {
     endDate: endDate.toISOString().split('T')[0]
   };
 };
+
+export const checkUpdateState = (planningInterval,dateInput) => {
+  const inputDate = new Date(formattedDate(dateInput));
+  const nowDateString = new Date().toUTCString();
+  // const nowDateReturn = getCurrentMonthYear(planningInterval, nowDateString)
+  const {startDate,endDate} = getCurrentMonthYear(planningInterval, nowDateString);
+  const start_Date = new Date(formattedDate(startDate));
+  const end_Date = new Date(formattedDate(endDate));
+  if (start_Date <= inputDate && inputDate <= end_Date) 
+    return true;
+  
+    return false;
+}
 
 // export const buildTimeFrame=(budgetPlan)=>{
 //   let timeFrame=['all'];
