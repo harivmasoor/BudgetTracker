@@ -3,20 +3,16 @@ import CreateBudget from './createBudget';
 import ListBudget from './listBudget';
 import Modal from '../Modal/Modal';
 function Budget() {
-  const [selectedInterval, setSelectedInterval] = useState('monthly'); // Default value is 'monthly'
-  const [timeFrame, setTimeFrame] = useState("all");
+  // const [selectedInterval, setSelectedInterval] = useState('monthly'); // Default value is 'monthly'
+  const [chartTimeFrame, setChartTimeFrame] = useState("monthly");
   const [showModal, setShowModal] = useState(false);
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
-  const handleTimeFrameChange = (e) => {
-    setTimeFrame(e.target.value);
-  };
-
   return (
     <div>
     <Modal showModal={showModal} closeModal={closeModal}>
-      <CreateBudget selectedInterval={selectedInterval} />
+      <CreateBudget chartTimeFrame={chartTimeFrame} setChartTimeFrame={setChartTimeFrame} />
     </Modal>
 
     <div className="budgets-page-container">
@@ -31,7 +27,7 @@ function Budget() {
             <option value="monthly">Monthly</option>
           </select>
         </div> */}
-      <ListBudget/>
+      <ListBudget chartTimeFrame={chartTimeFrame} setChartTimeFrame={setChartTimeFrame}/>
     </div>
     </div>
   );
