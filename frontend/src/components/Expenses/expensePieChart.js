@@ -5,6 +5,7 @@ import './Expenses.css';
 
 
 function ExpensePieChart() {
+  const isLoading = useSelector(state => state.isLoading);
   const categories = useSelector(state => state.categories);
   const canvasRef = useRef(null);
   const chartRef = useRef(null);
@@ -29,6 +30,7 @@ function ExpensePieChart() {
   const categoryValues = Object.values(categoryTotals);
 
   useEffect(() => {
+    if (isLoading) return; 
     // Destroy the existing chart if there is one
     if (chartRef.current) {
       chartRef.current.destroy();
@@ -55,7 +57,7 @@ function ExpensePieChart() {
     // Store the new chart instance to this variable for later use in the useEffect
     chartRef.current = newChartInstance;
 
-  }, [categoryNames, categoryValues]);
+  }, [categoryNames, categoryValues, isLoading]);
 
   return (
     <div>
