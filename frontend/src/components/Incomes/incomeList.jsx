@@ -4,8 +4,7 @@ import { fetchIncomes, deletedIncome } from '../../store/incomes';
 import { fetchIncomeCategories } from '../../store/incomeCategories';
 import './Income.css';
 import { formattedDate } from '../../Util/dateUtil';
-import disable from './IncomeAss/disabled-person.png';
-import childSupport from './IncomeAss/childSupport.png';
+import  IncomeCategoryIcons  from './IncomeCategoryIcons'
 
 function IncomeList() {
   const incomes = useSelector(state => state.incomes.income);
@@ -71,20 +70,20 @@ function IncomeList() {
           <p><strong>Income Amount:</strong> ${income.incomeamount}</p>
           <p><strong>Notes:</strong> {income.notes}</p>
           <p>
-            <strong>Category:</strong>
+          <strong>Category:</strong>
             {income.category ? incomeCategories.filter(category => 
     category._id === income.category).map(filteredCategory => (
-    <>
-        {filteredCategory.name}
-        {filteredCategory.name === 'Disability Benefits' && (
-            <img src={disable} alt="Disability Benefits Icon" style={{ width: '20px', height: '20px', marginLeft: '10px' }} />
-        )}
-        {filteredCategory.name === 'Child Support' && (
-            <img src={childSupport} alt="Child Support Icon" style={{ width: '20px', height: '20px', marginLeft: '10px' }} />
-        )}
-    </>
-)): 'N/A'}
-
+                <span key={filteredCategory._id}>
+                    {filteredCategory.name}
+                    {IncomeCategoryIcons[filteredCategory.name] && (
+                        <img 
+                            src={IncomeCategoryIcons[filteredCategory.name]} 
+                            alt={`${filteredCategory.name} Icon`} 
+                            style={{ width: '20px', height: '20px', marginLeft: '10px' }} 
+                        />
+                    )}
+                </span>
+            )): 'N/A'}
           </p>
           <p><strong>Date:</strong> {formattedDate(income.date)}</p>
           <button onClick={() => handleDeleteIncome(income._id)}>Delete</button>
