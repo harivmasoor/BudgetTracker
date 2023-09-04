@@ -9,7 +9,7 @@ import Insurance from '../../assets/expensesIcons/Insurance.png';
 import Entertainment from '../../assets/expensesIcons/Entertainment.png';
 import Clothing from '../../assets/expensesIcons/Clothing.png';
 import Education from '../../assets/expensesIcons/Education.png';
-import PersonalCare from '../../assets/expensesIcons/Personal_Care.png';
+import PersonalCare from '../../assets/expensesIcons/Personal Care.png';
 import GiftsDonations from '../../assets/expensesIcons/Gifts:Donations.png';
 import Electronics from '../../assets/expensesIcons/Electronics.png';
 import VacationTravel from '../../assets/expensesIcons/Vacation:Travel.png';
