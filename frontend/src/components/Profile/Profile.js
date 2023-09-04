@@ -31,7 +31,7 @@ function Profile() {
     lastMonth.setMonth(today.getMonth() - 1);
     startDate = lastMonth.toISOString().split('T')[0];
 
-    dispatch(fetchBudgets());
+    dispatch(fetchBudgets('monthly','chart'));
     dispatch(fetchExpenses(startDate, endDate));
     dispatch(fetchIncomes(startDate, endDate));
     dispatch(fetchCategories());
