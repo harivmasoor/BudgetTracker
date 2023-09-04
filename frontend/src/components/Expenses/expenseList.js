@@ -76,8 +76,8 @@ function ExpenseList() {
               </span>
             ))}
           </div>
-          <hr />
           <button onClick={() => handleDeleteExpense(expense._id)}>Delete</button>
+          <hr />
         </div>
       ))}
     </div>
