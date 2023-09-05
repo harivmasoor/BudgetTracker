@@ -35,8 +35,7 @@ const SavingsGoalPieChart = () => {
 
   return (
     <div>
-      <h2>Total Savings Goals</h2>
-      <canvas ref={chartRef}></canvas>
+      <canvas ref={chartRef} width="450" height="450"></canvas>
     </div>
   );
 };

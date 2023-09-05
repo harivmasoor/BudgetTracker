@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import IncomePieChart from '../Incomes/incomePieChart';
 import ExpensePieChart from '../Expenses/expensePieChart';
 import BudgetPieChart from '../Budget/budgetpieChart';
+import SavingsGoalPieChart from '..//SavingsGoals/SavingsGoalPieChart';
 import './Profile.css';
 import { fetchExpenses } from '../../store/expenses';
 import { fetchIncomes } from '../../store/incomes';
@@ -15,11 +16,11 @@ function Profile() {
   const currentUser = useSelector(state => state.session.user);
   const dispatch = useDispatch();
   const handleNext = () => {
-    setCurrentSection(prev => (prev + 1) % 3);
+    setCurrentSection(prev => (prev + 1) % 4);
   };
   
   const handlePrev = () => {
-    setCurrentSection(prev => (prev - 1 + 3) % 3);
+    setCurrentSection(prev => (prev - 1 + 4) % 4);
   };
   
   useEffect(() => {
@@ -48,7 +49,8 @@ function Profile() {
         <button onClick={handlePrev}>{"<"}</button>
         { currentSection === 0 && (<strong>Income</strong>) ||
           currentSection === 1 && (<strong>Expenses</strong>) ||
-          currentSection === 2 && (<strong>Budget</strong>)}
+          currentSection === 2 && (<strong>Budget</strong>) ||
+          currentSection === 3 && (<strong>Savings Goals</strong>)}
         <button onClick={handleNext}>{">"}</button>
         <div className="profile-section-wrapper" style={{ transform: `translateX(-${currentSection * 100}%)` }}>
           <div className="profile-section">
@@ -62,6 +64,10 @@ function Profile() {
           <div className="profile-section">
             <h2 className="section-header">Budget</h2>
             <BudgetPieChart />
+          </div>
+          <div className="profile-section">
+          <h2 className="section-header">Savings Goals</h2>
+            <SavingsGoalPieChart />
           </div>
         </div>
       </div>
