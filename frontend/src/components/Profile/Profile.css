@@ -30,6 +30,7 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.5);
   margin-top: 2rem;
   margin-bottom: 3rem;
+  text-align: center; 
 }
 
 .profile-username {
@@ -45,3 +46,4 @@
   justify-content: space-between;
   width: 100%;
 }
+
