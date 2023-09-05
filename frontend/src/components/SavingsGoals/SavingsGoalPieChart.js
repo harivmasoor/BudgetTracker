@@ -26,6 +26,10 @@ const SavingsGoalPieChart = () => {
           backgroundColor: backgroundColors,
         }],
       },
+      options: {
+        responsive: false,  // Disable automatic resizing
+        maintainAspectRatio: false  // Allow custom dimensions without maintaining aspect ratio
+      }
     });
 
     return () => {
@@ -35,9 +39,11 @@ const SavingsGoalPieChart = () => {
 
   return (
     <div>
+      <h2>Total Savings Goals</h2>
       <canvas ref={chartRef} width="450" height="450"></canvas>
     </div>
   );
 };
 
 export default SavingsGoalPieChart;
+
