@@ -15,10 +15,10 @@ const SavingsGoalList = () => {
   return (
     <div>
               <>
+              <SavingsGoalPieChart />
       {savingsGoals?.map((goal) => (
         <SavingsGoalItem key={goal._id} goal={goal} />
       ))}
-      <SavingsGoalPieChart />
       </>
     </div>
   );
