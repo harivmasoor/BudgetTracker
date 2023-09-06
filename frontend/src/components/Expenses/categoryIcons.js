@@ -3,7 +3,7 @@ import DiningOut from '../../assets/expensesIcons/Dining_Out.png';
 import RentMortgage from '../../assets/expensesIcons/Rent:Mortgage.png';
 import Utilities from '../../assets/expensesIcons/Utilities.png';
 import GasFuel from '../../assets/expensesIcons/Gas:Fuel.png';
-import PublicTransport from '../../assets/expensesIcons/Public_Transport.png';
+import PublicTransport from '../../assets/expensesIcons/Public Transport.png';
 import Healthcare from '../../assets/expensesIcons/Healthcare.png';
 import Insurance from '../../assets/expensesIcons/Insurance.png';
 import Entertainment from '../../assets/expensesIcons/Entertainment.png';
