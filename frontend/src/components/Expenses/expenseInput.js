@@ -16,9 +16,9 @@ function ExpenseInput() {
     date: '' // Field for date
   });
 
-  useEffect(() => {
-    dispatch(fetchCategories());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchCategories());
+  // }, [dispatch]);
 
   const handleChange = (e) => {
     setExpenseData({

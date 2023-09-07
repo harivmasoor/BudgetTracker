@@ -6,9 +6,11 @@ import Modal from '../Modal/Modal';
 import { useState } from 'react';
 
 function ExpensesPage() {
+  console.log('ExpensesPage');
   const [showModal, setShowModal] = useState(false);
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
+  const [isLoading, setIsLoading] = useState(true);
   return (
     <div>
       <Modal showModal={showModal} closeModal={closeModal}>
@@ -19,11 +21,14 @@ function ExpensesPage() {
       <button onClick={openModal}>Add New Expenses</button>
       <div className="income-container">
         <div id='expense-list'>
-          <ExpenseList />
+          <ExpenseList setIsLoading={setIsLoading} />
         </div>
-        <div id='expense-chart'>
-          <ExpensePieChart />
-        </div>
+        {!isLoading && (
+                  <div id='expense-chart'>
+                  <ExpensePieChart />
+                </div>
+        )}
+
       </div>
     </div>
   </div>

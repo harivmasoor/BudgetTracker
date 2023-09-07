@@ -7,7 +7,7 @@ import { fetchCategories } from '../../store/categories';
 import CategoryIcons from './categoryIcons';
 
 
-function ExpenseList() {
+function ExpenseList({setIsLoading}) {
   const categories = useSelector(state => state.categories);
   const dispatch = useDispatch();
   const expenses = useSelector(state => state.expenses);
@@ -37,8 +37,13 @@ function ExpenseList() {
         endDate = undefined;
     }
     // console.log(startDate, endDate)
-    dispatch(fetchExpenses(startDate, endDate));
-    dispatch(fetchCategories());
+    const fn = async () => {
+      await dispatch(fetchExpenses(startDate, endDate));
+      await dispatch(fetchCategories());
+      setIsLoading(false);
+    }
+    fn();
+
   }, [dispatch, timeFrame]);
 
   const handleDeleteExpense = (expense) => {
