@@ -8,7 +8,7 @@ const SavingsGoalUpdateModal = ({ goal, closeModal }) => {
   const [updatedCurrentAmount, setUpdatedCurrentAmount] = useState(goal.currentAmount);
   const [updatedNotes, setUpdatedNotes] = useState(goal.notes);
   const dispatch = useDispatch();
-// push
+// push test
   const handleUpdate = (e) => {
     e.preventDefault();
     const updatedSavingsGoalData = {
