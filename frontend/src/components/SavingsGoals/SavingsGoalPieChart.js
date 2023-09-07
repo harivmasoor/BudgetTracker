@@ -13,6 +13,9 @@ const SavingsGoalPieChart = () => {
   }, []);
 
   useEffect(() => {
+    if (savingsGoals.length === 0) {
+        return;
+    }
     const labels = savingsGoals.map(goal => goal.notes);
     const data = savingsGoals.map(goal => goal.goalAmount);
     const backgroundColors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple']; // Add more colors if you have more goals

@@ -26,6 +26,10 @@ function IncomePieChart() {
   const categoryValues = Object.values(categoryTotals);
 
   useEffect(() => {
+    if (categoryNames.length === 0 || categoryValues.length === 0) {
+      return;
+    }
+
     // Destroy the existing chart if there is one
     if (chartRef.current) {
       chartRef.current.destroy();

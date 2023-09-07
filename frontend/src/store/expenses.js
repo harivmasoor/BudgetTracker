@@ -46,7 +46,7 @@ export const addExpenseAction = (expense) => ({
   
       const response = await jwtFetch(url);
       const data = await response.json();
-      dispatch(fetchExpensesAction(data));
+      return dispatch(fetchExpensesAction(data));
     };
   };
     

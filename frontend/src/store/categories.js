@@ -12,7 +12,7 @@ export const FETCH_CATEGORIES = 'categories/FETCH_CATEGORIES';
     try {
         const response = await jwtFetch('/api/categories'); // Fetch categories using jwtFetch
         const budgets = await response.json();
-        dispatch(fetchCategoriesAction(budgets));
+        return dispatch(fetchCategoriesAction(budgets));
     } catch (error) {
         console.error('Error fetching categories:', error);
     }
