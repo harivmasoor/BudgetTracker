@@ -16,6 +16,7 @@ function ListBudget({chartTimeFrame, setChartTimeFrame}) {
   const categories = useSelector(state => state.categories)
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [selectedBudget, setSelectedBudget] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
     let startDate, endDate;
     const today = new Date();
@@ -47,18 +48,19 @@ function ListBudget({chartTimeFrame, setChartTimeFrame}) {
     dispatch(fetchBudgets());
     dispatch(fetchBudgets('monthly'));
     dispatch(fetchBudgets('yearly'));
-
   };
   
   
   useEffect(() => {
-    handleFetchBudgets();
-    dispatch(fetchCategories());
-  }, [dispatch]);
+    const fn = async () => {
+      await handleFetchBudgets();
+      await dispatch(fetchCategories());
+      await dispatch(fetchBudgets(chartTimeFrame,'chart'));
+      setIsLoading(false);
+    }
+    fn();
+  }, [dispatch, chartTimeFrame]);
   
-  useEffect(() => {
-    dispatch(fetchBudgets(chartTimeFrame,'chart'));
-  }, [chartTimeFrame]);
 
   const handleDeleteBudget = (budgetId,timeFrame) => {
     dispatch(deleteBudget(budgetId,timeFrame));
@@ -172,49 +174,6 @@ function ListBudget({chartTimeFrame, setChartTimeFrame}) {
     </div>
   </>
 
-
-
-    // <div className="budget-list">
-    //       <ul>
-    //     {budgets.map((budget) => (
-    //       <li key={budget._id}>
-    //         <div>Budget Plan: {budget.budgetPlan}</div>
-    //         <div>Budget Category: {categories.filter(category => category._id === budget.category).map(filteredCategory => filteredCategory.name)}</div>
-    //         <div>Notes: {budget.notes}</div>
-    //         <div>Date: {formattedDate(budget.date)}</div>
-    //         <div>EndDate: {formattedDate(budget.endDate)}</div>
-    //         <div>{budget.remainingAmount}/{budget.budgetAmount}</div>
-    //         <div style={{ position: 'relative', width: '200px', height: '20px', backgroundColor: 'lightgray' }}>
-    //           {/* Budget bar */}
-    //           <div style={{ 
-    //             width: `${(budget.remainingAmount / budget.budgetAmount) * 100}%`, 
-    //             height: '100%', 
-    //             backgroundColor: 'green' 
-    //           }}></div>
-    //           {/* Remaining Days bar */}
-    //           <div style={{
-    //             position: 'absolute',
-    //             top: 0,
-    //             left: `${getRemainingDaysPercent(budget.startDate, budget.endDate, 100)}%`, // 100% is the max width
-    //             width: '2px',
-    //             height: '100%',
-    //             backgroundColor: 'black'
-    //           }}></div>
-    //         </div>
-
-    //         {/* Other properties */}
-    //         <button onClick={() => handleOpenUpdateModal(budget)}>Update</button>
-    //         <button onClick={() => handleDeleteBudget(budget._id)}>Delete</button>
-    //       </li>
-    //     ))}
-    //   </ul>
-    // {showUpdateModal && (
-    //     <UpdateBudgetModal budget={selectedBudget} categories={categories} closeModal={handleCloseUpdateModal}/>
-    //     )}
-    //   <div id='budget-chart'>
-    //     <BudgetPieChart/>
-    //   </div>
-    // </div>
   );
 }
 
