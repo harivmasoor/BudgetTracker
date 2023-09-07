@@ -24,22 +24,22 @@ function Profile() {
     setCurrentSection(prev => (prev - 1 + 4) % 4);
   };
 
-  // useEffect(() => {
-  //   let startDate, endDate;
-  //   const today = new Date();
-  //   endDate = today.toISOString().split('T')[0]; // current date
+  useEffect(() => {
+    let startDate, endDate;
+    const today = new Date();
+    endDate = today.toISOString().split('T')[0]; // current date
 
-  //   const lastMonth = new Date(today);
-  //   lastMonth.setMonth(today.getMonth() - 1);
-  //   startDate = lastMonth.toISOString().split('T')[0];
+    const lastMonth = new Date(today);
+    lastMonth.setMonth(today.getMonth() - 1);
+    startDate = lastMonth.toISOString().split('T')[0];
 
-  //   dispatch(fetchBudgets('monthly','chart'));
-  //   dispatch(fetchExpenses(startDate, endDate));
-  //   dispatch(fetchIncomes(startDate, endDate));
-  //   dispatch(fetchCategories());
-  //   dispatch(fetchIncomeCategories());
+    dispatch(fetchBudgets('monthly','chart'));
+    dispatch(fetchExpenses(startDate, endDate));
+    dispatch(fetchIncomes(startDate, endDate));
+    dispatch(fetchCategories());
+    dispatch(fetchIncomeCategories());
 
-  // }, [dispatch]);
+  }, [dispatch]);
 
   return (
     <div className="profile-container">
