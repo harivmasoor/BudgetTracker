@@ -1,115 +1,123 @@
-## BudgetBuddy
+# BudgetBuddy
 
-### BudgetBuddy
+![BudgetBuddy Logo](assets/bblogo.jpg)
 
-BudgetBuddy is a webApp that assists users in managing their personal finances, tracking expenses, and achieving financial aspirations.
+## Table of Contents
 
-## Background and Overview
+- [Overview](#overview)
+- [Technologies](#technologies)
+- [Features](#features)
+- [Installation](#installation)
+- [Screenshots](#screenshots)
+- [Future Directions](#future-directions)
+- [Contact](#contact)
 
-In today's complex financial landscape, individuals are searching for streamlined platforms to monitor and optimize their finances. BudgetBuddy addresses this need by offering a consolidated solution to track expenses, incomes, and budgetary goals.
+## Overview
 
-## Functionality & MVP
+**BudgetBuddy** is a comprehensive financial management web application that allows users to track and manage their budgets, expenses, and incomes seamlessly.
 
-- [ ] User authentication with CSRF protection, Google Login, and traditional email/password.
-- [ ] User dashboard presenting charts for income, expenses, savings, etc.
-- [ ] Input forms for daily expenses and monthly income.
-- [ ] Budgeting tools facilitating planning and visualization.
-- [ ] Integration with a cost-of-living API for financial insights.
-- [ ] Production README.
-<p align="center">
-  <kbd>
-    <img src="./assets/UserDashboard.png" width="500" alt="Account Creation">
-  </kbd>
-</p>
+## Technologies
 
-<p align="center">
-  <kbd>
-    <img src="./assets/BudgetingTab.png" width="500" alt="Account Creation">
-  </kbd>
-</p>
+- **Frontend**: React, Redux
+- **Backend**: Node.js, Express
+- **Database**: [Specify the database technology if mentioned in the repository]
 
-<p align="center">
-  <kbd>
-    <img src="./assets/ExpensesTab.png" width="500" alt="Account Creation">
-  </kbd>
-</p>
+## Features
 
+- **Budget Management**: Set monthly or yearly budgets and track your spending against them.
+- **Expenses Tracking**: Categorize and record your daily expenses with intuitive visuals.
+- **Income Tracking**: Keep track of all your income sources and view them in a consolidated manner.
+- **User Profile**: Personalize your experience and set financial goals.
+- **Authentication**: Secure user registration and login functionality.
+- **Interactive Visuals**: Pie charts and bar graphs for better financial insights.
 
-#### Bonus Features
-- [ ] OCR API integration to scan receipts and categorize expenses.
-- [ ] Alerts for nearing or exceeding budget limits.
-- [ ] Recommendations based on spending behavior.
-- [ ] Integration with other financial data sources or APIs.
+## Installation
 
-## Technologies & Technical Challenges
+### Backend
 
-BudgetBuddy leverages the MERN stack, consisting of MongoDB, Express.js, React, and Node.js, ensuring a dynamic, scalable, and interactive user experience.
+1. Navigate to the `backend` directory.
+2. Install the required packages:
+   ```bash
+   npm install
+3. Set up your environment variables in `backend/config/keys.js`.
+4. Start the server:
+   ```bash
+   npm start
 
-### Backend: MongoDB/Express
-- Store comprehensive user data including financial profiles, expenses, budgets, and receipt scans.
-- Ensure data integrity and security.
+### Frontend
 
-### Frontend: React/Node.js
-- Provide an interactive dashboard displaying user financial data.
-- Facilitate smooth user interactions for budget planning, expense tracking, and data visualization.
+1. Navigate to the `frontend` directory.
+2. Install the required packages:
+   ```bash
+   npm install
+3. Start the React app:
+   ```bash
+   npm start
 
-#### Technical Challenges:
+## Screenshots
 
-**OCR API Integration**:
-- Efficiently extracting and categorizing data from scanned receipts.
-- Handling potential inaccuracies in OCR data extraction.
-  
-**Backend: MongoDB/Express**:
-- Structuring the database to accommodate various financial data types and relationships.
-- Ensuring data security, especially with sensitive financial information.
-  
-**Frontend: React/Node.js**:
-- Designing an intuitive UI/UX for a diverse range of financial functionalities.
-- Handling real-time data visualization as users input new financial data.
-- Ensuring the application's responsiveness across various devices and screen sizes.
+- **User Dashboard**: ![User Dashboard](assets/profile.gif)
+- **Budgeting Tab**: ![Budgeting Tab](assets/Budgets.gif)
+- **Expenses Tab**: ![Expenses Tab](assets/expenses.gif)
 
-## Group Members & Work Breakdown
+## Code Modularization and Use of Modals
 
-**Hari Masoor**, Flex
-**Elilta Abrham**, Flex
-**Farivar Amiri**, Front-End
-**Dominic Chan**, Backend
+In the `ExpensesPage` component, we've taken a modular approach to structure the code. This not only makes the code more readable but also easier to maintain and scale.
 
-### Day 1
-- Set up the basic MERN stack project structure - **Elilta** and **Dominic**.
-- Begin user authentication backend - **Hari**.
-- Research potential APIs for cost of living - **Farivar**.
+## Code Modularization and Use of Modals
 
-### Day 2
-- Complete user authentication backend and start frontend - **Hari** and **Dominic**.
-- Set up database schemas for income, expenses, and budgets - **Elilta**.
-- Begin frontend dashboard design - **Farivar**.
+In the `ExpensesPage` component, we've taken a modular approach to structure the code. This not only makes the code more readable but also easier to maintain and scale.
 
-### Day 3
-- Implement charts for the dashboard using a library like Chart.js or D3 - **Dominic**.
-- Integrate user income and expense data into charts - **Elilta** and **Hari**.
-- Begin work on budgeting tools - **Farivar**.
+```javascript
+function ExpensesPage() {
+  console.log('ExpensesPage');
+  const [showModal, setShowModal] = useState(false);
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
+  const [isLoading, setIsLoading] = useState(true);
+  return (
+    <div>
+      <Modal showModal={showModal} closeModal={closeModal}>
+        <ExpenseInput />
+      </Modal>
+      <div className="expenses-page-container">
+        <h2>Your Expenses</h2>
+        <button onClick={openModal}>Add New Expenses</button>
+        <div className="income-container">
+          <div id='expense-list'>
+            <ExpenseList setIsLoading={setIsLoading} />
+          </div>
+          {!isLoading && (
+            <div id='expense-chart'>
+              <ExpensePieChart />
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
-### Day 4
-- Complete the budgeting tools and integrate them into the user dashboard - **Farivar** and **Hari**.
-- Implement input forms for expenses and income - **Elilta**.
-- Test API integrations - **Dominic**.
+export default ExpensesPage;
+```
 
-### Day 5
-- Refine UI/UX and polish frontend components - **Dominic** and **Farivar**.
-- Ensure robust error handling and validation for all forms - **Hari**.
-- Optimize backend queries and routes - **Elilta**.
+### Key Highlights:
 
-### Day 6
-- Conduct thorough testing of all features - **All team members**.
-- Finalize the production README.md - **Elilta**.
-- Address any bugs or issues identified during testing - **All team members**.
+- **Modularization**: The code is structured into distinct components like `Modal`, `ExpenseInput`, `ExpenseList`, and `ExpensePieChart`. This modularization allows for better separation of concerns, where each component handles its specific functionality.
 
-### Day 7
-- Final review and deployment preparations - **All team members**.
-- Deploy the app to a platform like Heroku or Vercel - **Dominic** and **Hari**.
+- **Use of Modals**: The `Modal` component is used to display the `ExpenseInput` form. This provides a better user experience by allowing users to input expenses without navigating away from the current page. The modal can be toggled on and off using the `showModal` state and the associated `openModal` and `closeModal` functions.
+
+- **Conditional Rendering**: The `ExpensePieChart` component is conditionally rendered based on the `isLoading` state. This ensures that the pie chart is only displayed once the data is fully loaded, providing a smoother user experience.
+
+By adopting such practices, the code remains clean, organized, and efficient, making it easier for developers to understand and modify in the future.
 
 
+## Future Directions
 
+- **Mobile App**: Develop a mobile version of BudgetBuddy for on-the-go budgeting.
+- **Financial Insights**: Implement AI-driven insights to provide users with financial advice based on their spending habits.
+- **Integration with Banks**: Allow users to link their bank accounts for real-time transaction tracking.
 
- 
+## Contact
+
+For any questions or feedback, please reach out to [Hari Masoor](mailto:harimasoor@gmail.com), [Farivar Amiri](farivaramiri@gmail.com), [Elilta Abrham](eliltatabrham@gmail.com), Dominic Chan.
