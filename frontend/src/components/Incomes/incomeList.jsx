@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchIncomes, deletedIncome } from '../../store/incomes';
+import { fetchIncomes, deletedIncome, updateIncome } from '../../store/incomes';
 import { fetchIncomeCategories } from '../../store/incomeCategories';
 import './Income.css';
 import { formattedDate } from '../../Util/dateUtil';
 import  IncomeCategoryIcons  from './IncomeCategoryIcons'
+
 
 function IncomeList() {
   const incomes = useSelector(state => state.incomes.income);
   const incomeCategories = useSelector(state => state.incomeCategories);
   const dispatch = useDispatch();
   const [timeFrame, setTimeFrame] = useState("all"); // default to 'all'
+  const [isEditing, setIsEditing] = useState(false);
+  const [currentIncome, setCurrentIncome] = useState(null);
 
   useEffect(() => {
     dispatch(fetchIncomeCategories());
@@ -51,7 +54,20 @@ function IncomeList() {
   const handleTimeFrameChange = (e) => {
     setTimeFrame(e.target.value);
   };
+  const handleEditIncome = (income) => {
+    setIsEditing(true);
+    setCurrentIncome(income);
+  };
 
+  const handleUpdateIncome = async (e) => {
+    e.preventDefault();
+    const updatedData = {
+      notes: e.target.notes.value,
+    };
+    await dispatch(updateIncome(currentIncome._id, updatedData));
+    setIsEditing(false);
+    setCurrentIncome(null);
+  };
   if (!incomeCategories) return null;
 
   return (
@@ -87,6 +103,14 @@ function IncomeList() {
           </p>
           <p><strong>Date:</strong> {formattedDate(income.date)}</p>
           <button onClick={() => handleDeleteIncome(income._id)}>Delete</button>
+          <button onClick={() => handleEditIncome(income)}>Edit</button>
+          {isEditing && currentIncome._id === income._id && (
+            <form onSubmit={handleUpdateIncome}>
+              <textarea name="notes" defaultValue={income.notes}></textarea>
+              <button type="submit">Update</button>
+              <button onClick={() => setIsEditing(false)}>Cancel</button>
+            </form>
+          )}
           <hr />
         </div>
       ))}
