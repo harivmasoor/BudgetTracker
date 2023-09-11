@@ -6,7 +6,7 @@ import './Income.css';
 import { getCurrentMonthYear } from '../../Util/dateUtil';
 
 
-function IncomeInput() {
+function IncomeInput({closeModal}) {
   const incomeCategories = useSelector(state => state.incomeCategories);
   const [selectedInterval, setSelectedInterval] = useState('monthly');
   const dispatch = useDispatch();
@@ -41,7 +41,9 @@ function IncomeInput() {
     }
     else{
       const {startDate, endDate} = getCurrentMonthYear(selectedInterval, incomeData.date)
-      dispatch(addIncome({...incomeData, endDate,startDate}));
+      // dispatch(addIncome({...incomeData, endDate,startDate}));
+      if (dispatch(addIncome({...incomeData, endDate,startDate}))) closeModal();
+
     }
   };
 
