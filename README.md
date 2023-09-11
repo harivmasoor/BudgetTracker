@@ -56,9 +56,19 @@
 
 ## Screenshots
 
-- **User Dashboard**: ![User Dashboard](assets/profile.gif)
-- **Budgeting Tab**: ![Budgeting Tab](assets/Budgets.gif)
-- **Expenses Tab**: ![Expenses Tab](assets/expenses.gif)
+- **User Dashboard**: 
+
+![User Dashboard](assets/profile.gif)
+
+
+- **Budgeting Tab**: 
+
+![Budgeting Tab](assets/Budgets.gif)
+
+
+- **Expenses Tab**: 
+
+![Expenses Tab](assets/expenses.gif)
 
 ## Code Modularization and Use of Modals
 
