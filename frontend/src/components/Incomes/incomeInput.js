@@ -46,7 +46,7 @@ function IncomeInput({closeModal}) {
 
     }
   };
-
+  if (!incomeCategories) return null;
   return (
     <form onSubmit={handleSubmit}>
       <div>

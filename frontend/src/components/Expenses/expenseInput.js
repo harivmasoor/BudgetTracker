@@ -6,9 +6,10 @@ import ExpenseList from './expenseList';
 import { fetchBudgets,FETCH_BUDGETS } from '../../store/budget';
 import './Expenses.css';
 
-function ExpenseInput() {
+function ExpenseInput({closeModal,setIsLoading}) {
   const categories = useSelector(state => state.categories);
   const dispatch = useDispatch();
+  const [validationError, setValidationError] = useState({});
   const [expenseData, setExpenseData] = useState({
     variableExpenses: '',  // Field for variable expenses
     notes: '',  // Field for notes
@@ -29,21 +30,37 @@ function ExpenseInput() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addExpense(expenseData));
-    dispatch(fetchBudgets(FETCH_BUDGETS));
+    if (parseFloat(expenseData.variableExpenses) <= 0) {
+      setValidationError({variableExpenses: "Expenses amount must be greater than 0"});
+    }
+    else{
+    // dispatch(addExpense(expenseData));
+    // dispatch(fetchBudgets(FETCH_BUDGETS));
+    // if (dispatch(addExpense(expenseData)) && dispatch(fetchBudgets(FETCH_BUDGETS))) closeModal();
+    const fn = async () => {
+      await dispatch(addExpense(expenseData));
+      await dispatch(fetchBudgets(FETCH_BUDGETS));
+      setIsLoading(false);
+      closeModal();
+    }
+    fn();
+  }
   };
+  if (!categories) return null;
 
   return (
     <div>
     <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="variableExpenses">Variable Expense ($):</label>
+        <div className="errors">{validationError?.variableExpenses}</div>
         <input 
           type="number" 
           id="variableExpenses" 
           name="variableExpenses" 
           value={expenseData.variableExpenses} 
           onChange={handleChange}
+          required
         />
       </div>
       <div>
@@ -54,6 +71,7 @@ function ExpenseInput() {
           name="date" 
           value={expenseData.date} 
           onChange={handleChange}
+          required
         />
       </div>
       <div>
@@ -72,6 +90,7 @@ function ExpenseInput() {
           name="category" 
           value={expenseData.category} 
           onChange={handleChange}
+          required
         >
           <option value="" disabled>Select a category</option>
           {categories.map((category, index) => (
