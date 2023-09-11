@@ -74,7 +74,7 @@ function LoginForm () {
           <input
             type="submit"
             value="Log In"
-            disabled={!email || !password}
+            // disabled={!email || !password}
           />
     </form>
   );

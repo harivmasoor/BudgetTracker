@@ -15,7 +15,7 @@ function IncomesPage() {
       <h2>Your Income</h2>
       <button onClick={openModal}>Add New Income</button>  {/* Button to open the modal */}
       <Modal showModal={showModal} closeModal={closeModal}>
-        <IncomeInput />
+        <IncomeInput closeModal={closeModal}/>
       </Modal>
       <div className="income-container" id='i-list'>
         <div id='income-list'>

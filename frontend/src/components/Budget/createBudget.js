@@ -4,17 +4,19 @@ import { createBudget } from '../../store/budget';
 import './Budget.css';
 import { getCurrentMonthYear } from '../../Util/dateUtil';
 
-function CreateBudget({chartTimeFrame, setChartTimeFrame}) {
+function CreateBudget({chartTimeFrame, setChartTimeFrame,closeModal}) {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.session.user);
   const categories = useSelector(state => state.categories);
   const [selectedInterval, setSelectedInterval] = useState('monthly'); // Default value is 'monthly'
+  const [validationError, setValidationError] = useState({});
 
   const [newBudget, setNewBudget] = useState({
     budgetAmount: '',
     budgetPlan: '',
     notes: '',
-    category: categories.length > 0 ? categories[0]._id : '',
+    // category: categories.length > 0 ? categories[0]._id : '',
+    category: '',
     date: '',
     user: currentUser._id,
     endDate: '',
@@ -23,22 +25,42 @@ function CreateBudget({chartTimeFrame, setChartTimeFrame}) {
   });
 
   const handleCreateBudget = () => {
-    const {startDate, endDate} = getCurrentMonthYear(selectedInterval, newBudget.date)
-    dispatch(createBudget({...newBudget, endDate,startDate, planningInterval: selectedInterval,
-      chartTimeFrame:chartTimeFrame}));
-    setNewBudget({
-      budgetAmount: 0,
-      budgetPlan: '',
-      notes: '',
-      date:'',
-      category:'',
-      user: currentUser._id,
-      endDate: '',
-      startDate:'',
-      planningInterval:''
-      // Other properties
-    });
+    if (parseFloat(newBudget.budgetAmount) <= 0) {
+      setValidationError({ budgetAmount: "Budget amount must be greater than 0" });
+    } else {
+      const dateInfo = getCurrentMonthYear(selectedInterval, newBudget.date);
+  
+      if (dateInfo) {
+        const { startDate, endDate } = dateInfo;
+        dispatch(
+          createBudget({
+            ...newBudget,
+            endDate,
+            startDate,
+            planningInterval: selectedInterval,
+            chartTimeFrame: chartTimeFrame,
+          })
+        );
+  
+        // Reset the form and close modal if dispatch is successful
+        setNewBudget({
+          budgetAmount: 0,
+          budgetPlan: "",
+          notes: "",
+          date: "",
+          category: "",
+          user: currentUser._id,
+          endDate: "",
+          startDate: "",
+          planningInterval: "",
+          // Other properties
+        });
+        closeModal();
+      }
+    };
   };
+  
+  if (!categories) return null;
 
   return (
     <div className="create-budget-form">
@@ -52,10 +74,12 @@ function CreateBudget({chartTimeFrame, setChartTimeFrame}) {
             onChange={(e) =>
               setNewBudget({ ...newBudget, budgetPlan: e.target.value })
             }
+            required
             />
         </label>
         <label>
           Budget Amount:
+          <div className="errors">{validationError?.budgetAmount}</div>
           <input
             type="number"
             value={newBudget.budgetAmount}
@@ -73,6 +97,7 @@ function CreateBudget({chartTimeFrame, setChartTimeFrame}) {
             onChange={(e) =>
               setNewBudget({ ...newBudget, date: e.target.value })
             }
+            required
             />
         </label>
         <label>
@@ -94,6 +119,7 @@ function CreateBudget({chartTimeFrame, setChartTimeFrame}) {
           onChange={(e) =>
             setNewBudget({ ...newBudget, category: e.target.value })
           }
+          required
           >
           <option value="" disabled>Select a category</option>
           {categories.map((category, index) => (
