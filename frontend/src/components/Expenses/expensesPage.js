@@ -14,7 +14,7 @@ function ExpensesPage() {
   return (
     <div>
       <Modal showModal={showModal} closeModal={closeModal}>
-        <ExpenseInput />
+        <ExpenseInput closeModal={closeModal} setIsLoading={setIsLoading}/>
       </Modal>
     <div className="expenses-page-container">
       <h2>Your Expenses</h2>

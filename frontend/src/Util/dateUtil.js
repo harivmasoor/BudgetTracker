@@ -17,6 +17,9 @@ export const formattedDate = (date) => {
 };
 
 export const getCurrentMonthYear = (selectedInterval, dateInput) => {
+  if (!dateInput || isNaN(Date.parse(dateInput))) {
+    return null;
+  }
   const newDate = new Date(formattedDate(dateInput));
   const newDate_wrong = new Date(dateInput);
   newDate.setHours(0, 0, 0, 0);
