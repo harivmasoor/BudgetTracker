@@ -3,6 +3,8 @@ import jwtFetch from './jwt.js';
 export const ADD_EXPENSE = 'expenses/ADD_EXPENSE';
 export const FETCH_EXPENSES = 'expenses/FETCH_EXPENSES';
 export const DELETE_EXPENSE = 'expenses/DELETE_EXPENSE';
+export const UPDATE_EXPENSE = 'expenses/UPDATE_EXPENSE';
+
 
 export const addExpenseAction = (expense) => ({
     type: ADD_EXPENSE,
@@ -18,6 +20,12 @@ export const addExpenseAction = (expense) => ({
     type: DELETE_EXPENSE,
     deletedExpensesId
 });
+
+export const updateExpenseAction = (updatedExpense) => ({
+  type: UPDATE_EXPENSE,
+  payload: updatedExpense
+});
+
   export const addExpense = (expenseData) => {
     return async (dispatch, getState) => {
       const state = getState();
@@ -49,6 +57,21 @@ export const addExpenseAction = (expense) => ({
       return dispatch(fetchExpensesAction(data));
     };
   };
+
+  export const updateExpense = (expenseId, updatedData) => async (dispatch) => {
+    try {
+        const response = await jwtFetch(`/api/expenses/${expenseId}`, {
+            method: 'PUT',
+            body: JSON.stringify(updatedData)
+        });
+
+        const data = await response.json();
+        dispatch(updateExpenseAction(data));
+    } catch (error) {
+        console.error('Error updating expense:', error);
+    }
+};
+
     
   export const deleteExpense = (expenseId) => async (dispatch) => {
     try {
@@ -72,6 +95,10 @@ export const addExpenseAction = (expense) => ({
         return action.payload;
       case DELETE_EXPENSE:
         return state.filter((expenses) => expenses._id !== action.deletedExpensesId);
+      case UPDATE_EXPENSE:
+          return state.map(expense => 
+              expense._id === action.payload._id ? action.payload : expense
+          );
       default:
         return state;
     }
