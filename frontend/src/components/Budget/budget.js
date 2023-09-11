@@ -12,7 +12,7 @@ function Budget() {
   return (
     <div>
     <Modal showModal={showModal} closeModal={closeModal}>
-      <CreateBudget chartTimeFrame={chartTimeFrame} setChartTimeFrame={setChartTimeFrame} />
+      <CreateBudget chartTimeFrame={chartTimeFrame} setChartTimeFrame={setChartTimeFrame} closeModal={closeModal} />
     </Modal>
 
     <div className="budgets-page-container">

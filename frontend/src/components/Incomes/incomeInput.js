@@ -6,14 +6,16 @@ import './Income.css';
 import { getCurrentMonthYear } from '../../Util/dateUtil';
 
 
-function IncomeInput() {
+function IncomeInput({closeModal}) {
   const incomeCategories = useSelector(state => state.incomeCategories);
   const [selectedInterval, setSelectedInterval] = useState('monthly');
   const dispatch = useDispatch();
+  const [validationError, setValidationError] = useState({});
   const [incomeData, setIncomeData] = useState({
     incomesource: '', 
     incomeamount: '',  
-    category: incomeCategories.length > 0 ? incomeCategories[0]._id : '',
+    // category: incomeCategories.length > 0 ? incomeCategories[0]._id : '',
+    category: '',
     notes:'',
     date:'',
     endDate: selectedInterval,
@@ -33,10 +35,18 @@ function IncomeInput() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const {startDate, endDate} = getCurrentMonthYear(selectedInterval, incomeData.date)
-    dispatch(addIncome({...incomeData, endDate,startDate}));
-  };
 
+    if (parseFloat(incomeData.incomeamount) <= 0) {
+      setValidationError({incomeamount: "Income amount must be greater than 0"});
+    }
+    else{
+      const {startDate, endDate} = getCurrentMonthYear(selectedInterval, incomeData.date)
+      // dispatch(addIncome({...incomeData, endDate,startDate}));
+      if (dispatch(addIncome({...incomeData, endDate,startDate}))) closeModal();
+
+    }
+  };
+  if (!incomeCategories) return null;
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -47,16 +57,19 @@ function IncomeInput() {
           name="incomesource" 
           value={incomeData.incomesource} 
           onChange={handleChange}
+          required
         />
       </div>
       <div>
         <label htmlFor="incomeamount">Income Amount($):</label>
+        <div className="errors">{validationError?.incomeamount}</div>
         <input 
           type="number" 
           id="incomeamount" 
           name="incomeamount" 
           value={incomeData.incomeamount} 
           onChange={handleChange}
+          required
         />
       </div>
       <div>
@@ -75,6 +88,7 @@ function IncomeInput() {
           name="category" 
           value={incomeData.category} 
           onChange={handleChange}
+          required
         >
           <option value="" disabled>Select a category</option>
           {incomeCategories.map((category, index) => (
@@ -90,6 +104,7 @@ function IncomeInput() {
           name="date" 
           value={incomeData.date} 
           onChange={handleChange}
+          required
         />
       </div>
       <label>
