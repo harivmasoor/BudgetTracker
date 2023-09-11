@@ -79,7 +79,7 @@ function SignupForm () {
         />
       </label>
       <div className="errors">{errors?.username}</div>
-      {username.length < 3 && username && 'Username must be at least 3 characters'}
+      {/* {username.length < 3 && username && 'Username must be at least 3 characters'} */}
       <label>
         <span>Username</span>
         <input type="text"
@@ -89,8 +89,8 @@ function SignupForm () {
         />
       </label>
       <div className="errors">{errors?.password}</div>
-      {!isValidEmail(email) && email && 'Invalid email format'}
-      {password.length < 6 && password && 'Password must be at least 6 characters'}
+      {/* {!isValidEmail(email) && email && 'Invalid email format'} */}
+      {/* {password.length < 6 && password && 'Password must be at least 6 characters'} */}
       <label>
         <span>Password</span>
         <input type="password"
@@ -114,9 +114,9 @@ function SignupForm () {
         type="submit"
         value="Sign Up"
         disabled={
-          !isValidEmail(email) ||
-          username.length < 3 ||
-          password.length < 6 ||
+          // !isValidEmail(email) ||
+          // username.length < 3 ||
+          // password.length < 6 ||
           password !== password2
         }
       />
