@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchExpenses ,deleteExpense} from '../../store/expenses';
+import { fetchExpenses ,deleteExpense, updateExpense} from '../../store/expenses';
 import './Expenses.css';
 import { formattedDate } from '../../Util/dateUtil';
 import { fetchCategories } from '../../store/categories';
@@ -12,6 +12,9 @@ function ExpenseList({setIsLoading}) {
   const dispatch = useDispatch();
   const expenses = useSelector(state => state.expenses);
   const [timeFrame, setTimeFrame] = useState("all"); // default to 'all'
+  const [isEditing, setIsEditing] = useState(false);
+  const [currentExpense, setCurrentExpense] = useState(null);
+
 
   useEffect(() => {
     let startDate, endDate;
@@ -54,6 +57,22 @@ function ExpenseList({setIsLoading}) {
     setTimeFrame(e.target.value);
   };
 
+  const handleEditExpense = (expense) => {
+    setIsEditing(true);
+    setCurrentExpense(expense);
+  };
+
+  const handleUpdateExpense = async (e) => {
+    e.preventDefault();
+    const updatedData = {
+      notes: e.target.notes.value,
+    };
+    await dispatch(updateExpense(currentExpense._id, updatedData));
+    setIsEditing(false);
+    setCurrentExpense(null);
+};
+
+
   if (!categories) return null;
   return (
     <div className="expenses-page-container">
@@ -82,6 +101,14 @@ function ExpenseList({setIsLoading}) {
             ))}
           </div>
           <button onClick={() => handleDeleteExpense(expense._id)}>Delete</button>
+          <button onClick={() => handleEditExpense(expense)}>Edit</button>
+          {isEditing && currentExpense._id === expense._id && (
+    <form onSubmit={handleUpdateExpense}>
+        <textarea name="notes" defaultValue={expense.notes}></textarea>
+        <button type="submit">Update</button>
+        <button onClick={() => setIsEditing(false)}>Cancel</button>
+    </form>
+)}
           <hr />
         </div>
       ))}
