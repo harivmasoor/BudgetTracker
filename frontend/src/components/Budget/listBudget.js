@@ -108,20 +108,29 @@ function ListBudget({chartTimeFrame, setChartTimeFrame}) {
               <strong>${budget.remainingAmount}/${budget.budgetAmount}</strong>
             </p>
             <div style={{ position: 'relative', width: '200px', height: '20px', backgroundColor: 'lightgray' }}>
-              <div style={{ 
-                width: `${(budget.remainingAmount / budget.budgetAmount) * 100}%`, 
-                height: '100%', 
-                backgroundColor: 'green' 
-              }}></div>
-              <div style={{
-                position: 'absolute',
-                top: 0,
-                left: `${getRemainingDaysPercent(budget.startDate, budget.endDate, 100)}%`, // 100% is the max width
-                width: '2px',
-                height: '100%',
-                backgroundColor: 'black'
-              }}></div>
-            </div>
+    { budget.remainingAmount >= 0 ? (
+        <div style={{ 
+            width: `${(budget.remainingAmount / budget.budgetAmount) * 100}%`, 
+            height: '100%', 
+            backgroundColor: 'green' 
+        }}></div>
+    ) : (
+        <div style={{ 
+            width: `${Math.min((Math.abs(budget.remainingAmount) / budget.budgetAmount) * 100, 100)}%`, 
+            height: '100%', 
+            backgroundColor: 'red' 
+        }}></div>
+    )}
+    <div style={{
+        position: 'absolute',
+        top: 0,
+        left: `${getRemainingDaysPercent(budget.startDate, budget.endDate, 100)}%`, // 100% is the max width
+        width: '2px',
+        height: '100%',
+        backgroundColor: 'black'
+    }}></div>
+</div>
+
 
             <button onClick={() => handleOpenUpdateModal(budget)}>Update</button>
             <button onClick={() => handleDeleteBudget(budget._id,'monthly')}>Delete</button>
@@ -147,20 +156,29 @@ function ListBudget({chartTimeFrame, setChartTimeFrame}) {
             <div>EndDate: {formattedDate(budget.endDate)}</div>
             <div>{budget.remainingAmount}/{budget.budgetAmount}</div>
             <div style={{ position: 'relative', width: '200px', height: '20px', backgroundColor: 'lightgray' }}>
-              <div style={{ 
-                width: `${(budget.remainingAmount / budget.budgetAmount) * 100}%`, 
-                height: '100%', 
-                backgroundColor: 'green' 
-              }}></div>
-              <div style={{
-                position: 'absolute',
-                top: 0,
-                left: `${getRemainingDaysPercent(budget.startDate, budget.endDate, 100)}%`, // 100% is the max width
-                width: '2px',
-                height: '100%',
-                backgroundColor: 'black'
-              }}></div>
-            </div>
+    { budget.remainingAmount >= 0 ? (
+        <div style={{ 
+            width: `${(budget.remainingAmount / budget.budgetAmount) * 100}%`, 
+            height: '100%', 
+            backgroundColor: 'green' 
+        }}></div>
+    ) : (
+        <div style={{ 
+            width: `${Math.min((Math.abs(budget.remainingAmount) / budget.budgetAmount) * 100, 100)}%`, 
+            height: '100%', 
+            backgroundColor: 'red' 
+        }}></div>
+    )}
+    <div style={{
+        position: 'absolute',
+        top: 0,
+        left: `${getRemainingDaysPercent(budget.startDate, budget.endDate, 100)}%`, // 100% is the max width
+        width: '2px',
+        height: '100%',
+        backgroundColor: 'black'
+    }}></div>
+</div>
+
 
             <button onClick={() => handleOpenUpdateModal(budget)}>Update</button>
             <button onClick={() => handleDeleteBudget(budget._id,'yearly')}>Delete</button>
