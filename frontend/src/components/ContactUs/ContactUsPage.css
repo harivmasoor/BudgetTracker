@@ -1,0 +1,106 @@
+.contact-us-page {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 10px;
+    margin-bottom: 60px;
+}
+
+.elilta, .dominic, .hari, .farivar {
+    display: flex;
+    flex-direction: column; /* items are stacked vertically */
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #868686;
+    border-radius: 10px;
+    text-align: center;
+    padding-bottom: 20px;
+    justify-content: space-between; /* push content apart */
+    position: relative;
+}
+
+.contact-us-page img {
+    width: 400px;
+    height: 400px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.contact-us-page a, i {
+    margin: 0 5px;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    font-size: 50px;
+}
+
+.elilta a, .dominic a, .hari a, .farivar a {
+    display: inline-block;
+    margin: 5px 0;
+}
+
+.icons-container {  
+    display: flex; 
+    justify-content: center;
+    gap: 10px; 
+}
+
+.about-me {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding: 10px;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    width: 80%;
+    text-align: center;
+    z-index: 1;
+}
+
+.elilta:hover .about-me, 
+.dominic:hover .about-me, 
+.hari:hover .about-me, 
+.farivar:hover .about-me {
+    display: block;
+    opacity: 1;
+  
+}
+
+.farivar:hover, .elilta:hover, .dominic:hover, .hari:hover{
+    transform: scale(1.1);
+}
+
+.elilta i:hover{
+    color: #e339c9;
+}
+
+.dominic i:hover{
+    color: #3e44f5;
+}
+
+.hari i:hover{
+    color: #c8c8c8;
+}
+
+.farivar i:hover{
+    color: #40971b;
+}
+
+.elilta:hover .about-me{
+    background-color: #e339c9;
+}
+
+.dominic:hover .about-me{
+    background-color: #3e44f5;
+}
+
+.hari:hover .about-me{
+    background-color: #c8c8c8;
+}
+
+.farivar:hover .about-me{
+    background-color: #40971b;
+}
