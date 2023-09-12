@@ -6,7 +6,7 @@ import Modal from '../Modal/Modal';
 import { useState } from 'react';
 
 function ExpensesPage() {
-  console.log('ExpensesPage');
+  // console.log('ExpensesPage');
   const [showModal, setShowModal] = useState(false);
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);

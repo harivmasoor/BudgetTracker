@@ -12,9 +12,9 @@ router.post('/', restoreUser, async (req, res, next) => {
   try {
     const { goalAmount, currentAmount, user, notes, date } = req.body;
 
-    if (!goalAmount || isNaN(goalAmount) || !currentAmount || isNaN(currentAmount)) {
-      return res.status(400).json({ error: 'Invalid goalAmount or currentAmount' });
-    }
+    // if (!goalAmount || isNaN(goalAmount) || !currentAmount || isNaN(currentAmount)) {
+    //   return res.status(400).json({ error: 'Invalid goalAmount or currentAmount' });
+    // }
 
     const newSavingsGoal = new SavingsGoal({
       goalAmount,
