@@ -48,7 +48,7 @@ function NavBar() {
         </ul>
         <ul>
           <li>
-            <Link to="/instructions">Instruction</Link>
+            <Link to="/contact">Contact Us</Link>
           </li>
           <li>
             <Link to="/" onClick={logoutUser}>Logout</Link>
