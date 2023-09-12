@@ -34,9 +34,7 @@ function ExpenseInput({closeModal,setIsLoading}) {
       setValidationError({variableExpenses: "Expenses amount must be greater than 0"});
     }
     else{
-    // dispatch(addExpense(expenseData));
-    // dispatch(fetchBudgets(FETCH_BUDGETS));
-    // if (dispatch(addExpense(expenseData)) && dispatch(fetchBudgets(FETCH_BUDGETS))) closeModal();
+
     const fn = async () => {
       await dispatch(addExpense(expenseData));
       await dispatch(fetchBudgets(FETCH_BUDGETS));

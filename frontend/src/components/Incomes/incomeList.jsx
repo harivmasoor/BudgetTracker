@@ -7,7 +7,7 @@ import { formattedDate } from '../../Util/dateUtil';
 import  IncomeCategoryIcons  from './IncomeCategoryIcons'
 
 
-function IncomeList() {
+function IncomeList({setIsLoading}) {
   const incomes = useSelector(state => state.incomes.income);
   const incomeCategories = useSelector(state => state.incomeCategories);
   const dispatch = useDispatch();
@@ -15,11 +15,12 @@ function IncomeList() {
   const [isEditing, setIsEditing] = useState(false);
   const [currentIncome, setCurrentIncome] = useState(null);
 
-  useEffect(() => {
-    dispatch(fetchIncomeCategories());
-  }, [dispatch]);
+  // useEffect(() => {
+    
+  // }, [dispatch]);
 
   useEffect(() => {
+    console.log('useEffect in IncomeList.js');
     let startDate, endDate;
     const today = new Date();
     endDate = today.toISOString().split('T')[0]; // current date
@@ -42,9 +43,14 @@ function IncomeList() {
         startDate = undefined;
         endDate = undefined;
     }
-
-    dispatch(fetchIncomes(startDate, endDate));
-
+    
+    
+    const fn = async () => {
+      await dispatch(fetchIncomes(startDate, endDate));
+      await dispatch(fetchIncomeCategories());
+      setIsLoading(false);
+    }
+    fn();
   }, [dispatch, timeFrame]);
 
   const handleDeleteIncome = (incomeId) => {

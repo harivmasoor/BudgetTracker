@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Chart from 'chart.js/auto';
 import './Expenses.css';
 
