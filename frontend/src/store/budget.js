@@ -134,14 +134,10 @@ export const DELETE_BUDGET_CHAT = 'budgets/DELETE_BUDGET_CHAT';
         const updatedState = { ...state };
         switch (action.type) {
             case ADD_BUDGET:
-                // Create a new budget object with timeFrames property
-                // const budgetWithTimeFrames = { ...budget, timeFrames };
-          
-                // Update the corresponding lists based on timeFrames
-                timeFrames.forEach((timeFrame) => {
-                //   updatedState[timeFrame].push(budgetWithTimeFrames);
-                updatedState[timeFrame].push(budget);
 
+                timeFrames.forEach((timeFrame) => {
+                //   updatedState[timeFrame] = updatedState[timeFrame].push(budget);
+                updatedState[timeFrame] = [...updatedState[timeFrame], budget];
                 });
           
                 return updatedState;
