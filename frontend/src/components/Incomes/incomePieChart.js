@@ -26,6 +26,7 @@ function IncomePieChart() {
   const categoryValues = Object.values(categoryTotals);
 
   useEffect(() => {
+    console.log('IncomePieChart component');
     if (categoryNames.length === 0 || categoryValues.length === 0) {
       return;
     }
