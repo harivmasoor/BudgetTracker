@@ -14,17 +14,17 @@ const UserMainForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     // Here you can handle the form submission, e.g., sending the data to a server or processing it further.
-    console.log({
-      fullName,
-      income,
-      fixedExpenses,
-      variableExpenses,
-      upcomingExpenses,
-      debts,
-      debtPayments,
-      notificationFrequency,
-      expenseTracking,
-    });
+    // console.log({
+    //   fullName,
+    //   income,
+    //   fixedExpenses,
+    //   variableExpenses,
+    //   upcomingExpenses,
+    //   debts,
+    //   debtPayments,
+    //   notificationFrequency,
+    //   expenseTracking,
+    // });
   };
 
   return (

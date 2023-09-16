@@ -20,7 +20,6 @@ function IncomeList({setIsLoading}) {
   // }, [dispatch]);
 
   useEffect(() => {
-    console.log('useEffect in IncomeList.js');
     let startDate, endDate;
     const today = new Date();
     endDate = today.toISOString().split('T')[0]; // current date
