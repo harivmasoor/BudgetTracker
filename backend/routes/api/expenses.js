@@ -42,7 +42,6 @@ router.post('/', restoreUser, async (req, res, next) => {
           $lte: newExpense.date      // Start of the month for newExpense.date
         },
       });
-      // console.log(relatedBudget);
       
       if (Array.isArray(relatedBudget)) {
         for (const budget of relatedBudget) {
@@ -136,7 +135,6 @@ router.delete('/:id', restoreUser, async (req, res, next) => {
           $lte: expense.date      // Start of the month for expense.date
         },
       });
-      // console.log(relatedBudget);
       
       if (Array.isArray(relatedBudget)) {
         for (const budget of relatedBudget) {

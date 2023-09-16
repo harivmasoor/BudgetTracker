@@ -70,7 +70,7 @@ export const addIncomeAction = (income) => ({
   
       const response = await jwtFetch(url);
       const data = await response.json();
-      dispatch(fetchIncomesAction(data));
+      dispatch(fetchIncomesAction(Array.isArray(data) ? data : []));
     };
   };
   
@@ -103,7 +103,7 @@ export const addIncomeAction = (income) => ({
     return async (dispatch) => {
       const response = await jwtFetch('/api/incomes');
       const data = await response.json();
-      dispatch(fetchIncomesAction(data));
+      dispatch(fetchIncomesAction(Array.isArray(data) ? data : []));
     };
   };
   const initialState = {income:[],saving:[]};
@@ -112,8 +112,8 @@ export const addIncomeAction = (income) => ({
     switch (action.type) {
       case ADD_INCOME:
         return { ...state, income: [...state.income, action.payload] };
-      case FETCH_INCOMES:
-        return { ...state, income: action.payload };
+        case FETCH_INCOMES:
+          return { ...state, income: Array.isArray(action.payload) ? action.payload : [] };      
       case DELETE_INCOME:
         return {
           ...state,

@@ -10,7 +10,6 @@ mongoose.connect('mongodb+srv://admin:tfPoFeVmBbKLLWff@budgetbuddy.zqn6bvq.mongo
   useUnifiedTopology: true,
 })
 .then(() => {
-  console.log('MongoDB Connected...');
 })
 .catch(err => console.log(err));
 
