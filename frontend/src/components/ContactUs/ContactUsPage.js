@@ -17,7 +17,7 @@ function ContactUsPage() {
           <a  href="eliltatabrham@gmail.com" ><i class="fa fa-user-circle"></i></a>
           <a  href="https://www.linkedin.com/in/elilta-abrham-87b79228b/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin"></i></a>
           <div className="about-me">
-          I'm a dedicated software engineer with a passion for coding that goes back to my high school days. I've journeyed from a background in customer service to mastering languages like JavaScript and Ruby and creating Full-Stack Projects. I enjoy tackling challenges head-on and thrive in collaborative environments. Let's build something amazing together.
+          Hi. I'm a dedicated software engineer with a passion for coding that goes back to my high school days. I've journeyed from a background in customer service to mastering languages like JavaScript and Ruby and creating Full-Stack Projects. I enjoy tackling challenges head-on and thrive in collaborative environments. Let's build something amazing together.
           </div>
         </div>
       </div>
