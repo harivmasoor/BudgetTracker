@@ -29,7 +29,6 @@ function ExpensePieChart() {
   const categoryValues = Object.values(categoryTotals);
 
   useEffect(() => {
-    console.log('ExpensePieChart component');
     if (categoryNames.length === 0 || categoryValues.length === 0) {
       return;
     }
