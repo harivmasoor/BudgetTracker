@@ -28,7 +28,6 @@ function BudgetPieChart() {
     const categoryValues = Object.values(categoryTotals);
 
     useEffect(() => {
-        console.log('categoryNames', categoryNames);
         if (categoryNames.length === 0 || categoryValues.length === 0) {
             return;
           }
