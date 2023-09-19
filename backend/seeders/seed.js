@@ -11,9 +11,9 @@ mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => {
-})
-.catch(err => console.log(err));
+// .then(() => {
+// })
+// .catch(err => console.log(err));
 
 // Popular expense categories
 const categories = [
