@@ -20,7 +20,7 @@
 
 - **Frontend**: React, Redux
 - **Backend**: Node.js, Express
-- **Database**: [Specify the database technology if mentioned in the repository]
+- **Database**: MongoDB
 
 ## Features
 
