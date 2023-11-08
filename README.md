@@ -70,9 +70,6 @@
 
 ![Expenses Tab](assets/expenses.gif)
 
-## Code Modularization and Use of Modals
-
-In the `ExpensesPage` component, we've taken a modular approach to structure the code. This not only makes the code more readable but also easier to maintain and scale.
 
 ## Code Modularization and Use of Modals
 
